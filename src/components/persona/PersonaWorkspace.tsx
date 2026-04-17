@@ -432,6 +432,8 @@ export function PersonaWorkspace() {
           toast.success("Pro activated");
         }}
       />
+
+      {hydrated && !isPremium && <AdsterraSocialBar />}
     </TooltipProvider>
   );
 }
