@@ -344,6 +344,11 @@ export function PersonaWorkspace() {
                       isPremium={isPremium}
                       onUpgradeClick={() => setShowUpgradeModal(true)}
                     />
+
+                    <AdSlot hide={!hydrated || isPremium}>
+                      <AdsterraBanner />
+                    </AdSlot>
+
                     <StrategyCards strategies={result.strategies} />
                   </motion.div>
                 )}
