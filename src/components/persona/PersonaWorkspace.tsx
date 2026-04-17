@@ -24,6 +24,10 @@ import { analyzeInteraction, type AnalysisResult } from "@/server/analyze.functi
 import { PulseAnalysis } from "@/components/persona/PulseAnalysis";
 import { StrategyCards } from "@/components/persona/StrategyCards";
 import { UpgradeModal } from "@/components/persona/UpgradeModal";
+import { AdSlot } from "@/components/ads/AdSlot";
+import { AdsterraBanner } from "@/components/ads/AdsterraBanner";
+import { AdsterraNative } from "@/components/ads/AdsterraNative";
+import { AdsterraSocialBar } from "@/components/ads/AdsterraSocialBar";
 import "@/lib/i18n";
 
 const FREE_LIMIT = 10;
@@ -304,6 +308,12 @@ export function PersonaWorkspace() {
                     <p className="text-muted-foreground max-w-xl text-base md:text-lg mt-6 leading-relaxed">
                       {t("hero_description")}
                     </p>
+
+                    {hydrated && !isPremium && (
+                      <AdSlot hide={false} className="mt-12 w-full max-w-2xl">
+                        <AdsterraNative />
+                      </AdSlot>
+                    )}
                   </motion.div>
                 ) : (
                   <motion.div
@@ -334,6 +344,11 @@ export function PersonaWorkspace() {
                       isPremium={isPremium}
                       onUpgradeClick={() => setShowUpgradeModal(true)}
                     />
+
+                    <AdSlot hide={!hydrated || isPremium}>
+                      <AdsterraBanner />
+                    </AdSlot>
+
                     <StrategyCards strategies={result.strategies} />
                   </motion.div>
                 )}
@@ -417,6 +432,8 @@ export function PersonaWorkspace() {
           toast.success("Pro activated");
         }}
       />
+
+      {hydrated && !isPremium && <AdsterraSocialBar />}
     </TooltipProvider>
   );
 }
