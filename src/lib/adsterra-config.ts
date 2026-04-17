@@ -1,14 +1,14 @@
 /**
  * Adsterra Ads Configuration
  *
- * استبدل القيم التالية بمفاتيح حسابك الفعلية من لوحة Adsterra.
- * كل قسم يحتوي على placeholder واضح. عندما تتركها فارغة لن يظهر الإعلان.
+ * Live keys configured for production.
+ * Leave a value empty / placeholder to disable that ad slot.
  */
 
 export const ADSTERRA = {
   /** Banner 728x90 — Desktop */
   bannerDesktop: {
-    key: "REPLACE_WITH_DESKTOP_BANNER_KEY",
+    key: "b3ba4630af50310bba016093f8887bec",
     format: "iframe",
     height: 90,
     width: 728,
@@ -16,7 +16,7 @@ export const ADSTERRA = {
   },
   /** Banner 320x50 — Mobile */
   bannerMobile: {
-    key: "REPLACE_WITH_MOBILE_BANNER_KEY",
+    key: "45f9be218813444f075caf31afba592b",
     format: "iframe",
     height: 50,
     width: 320,
@@ -24,12 +24,14 @@ export const ADSTERRA = {
   },
   /** Native Banner — script src + container id */
   native: {
-    scriptSrc: "//REPLACE_WITH_NATIVE_INVOKE_URL.js",
-    containerId: "container-REPLACE_WITH_NATIVE_KEY",
+    scriptSrc:
+      "//pl29178332.profitablecpmratenetwork.com/4bc64ac09cdc6870631eabbe6537e9d5/invoke.js",
+    containerId: "container-4bc64ac09cdc6870631eabbe6537e9d5",
   },
-  /** Social Bar — full script src e.g. //pl12345.profitableratecpm.com/xx/xx/xx/xxxxx.js */
+  /** Social Bar — full script src */
   socialBar: {
-    scriptSrc: "//REPLACE_WITH_SOCIAL_BAR_SCRIPT_URL.js",
+    scriptSrc:
+      "//pl29178333.profitablecpmratenetwork.com/a0/ac/0d/a0ac0d6d81c2b19de60facb30eac7aa3.js",
   },
 } as const;
 
