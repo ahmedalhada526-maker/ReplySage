@@ -308,6 +308,12 @@ export function PersonaWorkspace() {
                     <p className="text-muted-foreground max-w-xl text-base md:text-lg mt-6 leading-relaxed">
                       {t("hero_description")}
                     </p>
+
+                    {hydrated && !isPremium && (
+                      <AdSlot hide={false} className="mt-12 w-full max-w-2xl">
+                        <AdsterraNative />
+                      </AdSlot>
+                    )}
                   </motion.div>
                 ) : (
                   <motion.div
