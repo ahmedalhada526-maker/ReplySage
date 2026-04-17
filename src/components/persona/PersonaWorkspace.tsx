@@ -24,6 +24,10 @@ import { analyzeInteraction, type AnalysisResult } from "@/server/analyze.functi
 import { PulseAnalysis } from "@/components/persona/PulseAnalysis";
 import { StrategyCards } from "@/components/persona/StrategyCards";
 import { UpgradeModal } from "@/components/persona/UpgradeModal";
+import { AdSlot } from "@/components/ads/AdSlot";
+import { AdsterraBanner } from "@/components/ads/AdsterraBanner";
+import { AdsterraNative } from "@/components/ads/AdsterraNative";
+import { AdsterraSocialBar } from "@/components/ads/AdsterraSocialBar";
 import "@/lib/i18n";
 
 const FREE_LIMIT = 10;
