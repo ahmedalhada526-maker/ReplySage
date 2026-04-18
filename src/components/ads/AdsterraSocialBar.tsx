@@ -24,9 +24,7 @@ export function AdsterraSocialBar() {
       const existing = document.getElementById(SCRIPT_ID);
       if (existing) existing.remove();
       // Adsterra Social Bar injects floating elements — best-effort cleanup
-      document
-        .querySelectorAll('[id^="rnd-"], [id^="ofrm-"]')
-        .forEach((el) => el.remove());
+      document.querySelectorAll('[id^="rnd-"], [id^="ofrm-"]').forEach((el) => el.remove());
     };
   }, []);
 

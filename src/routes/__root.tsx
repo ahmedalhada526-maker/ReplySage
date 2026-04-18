@@ -1,5 +1,6 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import appCss from "../styles.css?url";
 
@@ -43,7 +44,10 @@ export const Route = createRootRoute({
       },
       { name: "author", content: "Persona Pulse AI" },
       { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "Persona Pulse AI - Professional Personality Analysis & AI Insights" },
+      {
+        property: "og:title",
+        content: "Persona Pulse AI - Professional Personality Analysis & AI Insights",
+      },
       {
         property: "og:description",
         content:
@@ -58,7 +62,10 @@ export const Route = createRootRoute({
           "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/0433b85d-d944-4d9d-98d4-f0027d9d5726/id-preview-36f7b5b2--dd7ac2bd-428c-4c8a-a6f8-1677242d6a58.lovable.app-1776465515962.png",
       },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Persona Pulse AI - Professional Personality Analysis & AI Insights" },
+      {
+        name: "twitter:title",
+        content: "Persona Pulse AI - Professional Personality Analysis & AI Insights",
+      },
       {
         name: "twitter:description",
         content:
@@ -101,6 +108,7 @@ function RootComponent() {
     <>
       <Outlet />
       <Toaster richColors position="top-center" theme="dark" />
+      <SpeedInsights />
     </>
   );
 }

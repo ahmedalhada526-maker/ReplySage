@@ -110,7 +110,8 @@
 
   /* Premium effects */
   --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-glow) 100%);
-  --gradient-aurora: radial-gradient(
+  --gradient-aurora:
+    radial-gradient(
       ellipse 80% 60% at 30% 0%,
       color-mix(in oklab, var(--primary) 18%, transparent) 0%,
       transparent 60%
@@ -122,8 +123,7 @@
     );
   --shadow-glow-primary: 0 0 40px -10px color-mix(in oklab, var(--primary) 60%, transparent);
   --shadow-glow-accent: 0 0 40px -10px color-mix(in oklab, var(--accent) 60%, transparent);
-  --shadow-premium: 0 30px 80px -30px oklch(0 0 0 / 0.6),
-    0 0 0 1px oklch(1 0 0 / 0.04) inset;
+  --shadow-premium: 0 30px 80px -30px oklch(0 0 0 / 0.6), 0 0 0 1px oklch(1 0 0 / 0.04) inset;
   --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -240,22 +240,26 @@
     animation: pulse-slow 3s ease-in-out infinite;
   }
   @keyframes pulse-slow {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
   }
 
   .animate-shimmer {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      oklch(1 0 0 / 0.06) 50%,
-      transparent 100%
-    );
+    background: linear-gradient(90deg, transparent 0%, oklch(1 0 0 / 0.06) 50%, transparent 100%);
     background-size: 200% 100%;
     animation: shimmer 2s linear infinite;
   }
   @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
   }
 }

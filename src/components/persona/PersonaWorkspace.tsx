@@ -78,9 +78,7 @@ export function PersonaWorkspace() {
       const id = Math.random().toString(36).substring(2, 8).toUpperCase();
       setResult(data);
       setCaseId(id);
-      setHistory((prev) =>
-        [{ id, text: input, result: data, caseId: id }, ...prev].slice(0, 12),
-      );
+      setHistory((prev) => [{ id, text: input, result: data, caseId: id }, ...prev].slice(0, 12));
       setInput("");
     } catch (e) {
       console.error(e);

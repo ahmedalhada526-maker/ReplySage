@@ -36,11 +36,5 @@ export function AdsterraNative({ className }: AdsterraNativeProps) {
 
   if (isPlaceholder(ADSTERRA.native.scriptSrc)) return null;
 
-  return (
-    <div
-      ref={wrapperRef}
-      className={className}
-      aria-label="Sponsored content"
-    />
-  );
+  return <div ref={wrapperRef} className={className} aria-label="Sponsored content" />;
 }

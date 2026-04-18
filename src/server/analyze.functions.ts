@@ -52,16 +52,34 @@ export const analyzeInteraction = createServerFn({ method: "POST" })
               pulse: {
                 type: "object",
                 properties: {
-                  recipientPersona: { type: "string", description: "2-sentence psychological profile" },
-                  currentDynamic: { type: "string", description: "Description of the power dynamic, plea, conflict, etc." },
-                  hiddenNeeds: { type: "string", description: "What they actually want but aren't saying" },
-                  advancedInsights: { type: "string", description: "Deep manipulation tactics or vulnerabilities (Pro tier)" },
+                  recipientPersona: {
+                    type: "string",
+                    description: "2-sentence psychological profile",
+                  },
+                  currentDynamic: {
+                    type: "string",
+                    description: "Description of the power dynamic, plea, conflict, etc.",
+                  },
+                  hiddenNeeds: {
+                    type: "string",
+                    description: "What they actually want but aren't saying",
+                  },
+                  advancedInsights: {
+                    type: "string",
+                    description: "Deep manipulation tactics or vulnerabilities (Pro tier)",
+                  },
                   personalityTraits: {
                     type: "object",
                     properties: {
                       mbti: { type: "string", description: "Likely MBTI type, e.g. ENTJ" },
-                      bigFive: { type: "string", description: "Key Big Five traits, e.g. High N, Low A" },
-                      enneagram: { type: "string", description: "Likely Enneagram type, e.g. Type 8" },
+                      bigFive: {
+                        type: "string",
+                        description: "Key Big Five traits, e.g. High N, Low A",
+                      },
+                      enneagram: {
+                        type: "string",
+                        description: "Likely Enneagram type, e.g. Type 8",
+                      },
                     },
                     required: ["mbti", "bigFive", "enneagram"],
                     additionalProperties: false,

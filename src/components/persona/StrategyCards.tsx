@@ -12,10 +12,7 @@ interface StrategyCardsProps {
 
 type StrategyKey = "tactician" | "empath" | "alpha";
 
-const META: Record<
-  StrategyKey,
-  { icon: typeof Shield; tone: "primary" | "accent" | "neutral" }
-> = {
+const META: Record<StrategyKey, { icon: typeof Shield; tone: "primary" | "accent" | "neutral" }> = {
   tactician: { icon: Shield, tone: "primary" },
   empath: { icon: Heart, tone: "accent" },
   alpha: { icon: Zap, tone: "neutral" },
@@ -26,12 +23,14 @@ function ToneClasses(tone: "primary" | "accent" | "neutral") {
     case "primary":
       return {
         chip: "bg-primary/10 text-primary border-primary/25",
-        active: "data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-[var(--shadow-glow-primary)]",
+        active:
+          "data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-[var(--shadow-glow-primary)]",
       };
     case "accent":
       return {
         chip: "bg-accent/10 text-accent border-accent/25",
-        active: "data-[state=active]:bg-accent data-[state=active]:text-accent-foreground data-[state=active]:shadow-[var(--shadow-glow-accent)]",
+        active:
+          "data-[state=active]:bg-accent data-[state=active]:text-accent-foreground data-[state=active]:shadow-[var(--shadow-glow-accent)]",
       };
     default:
       return {
@@ -62,7 +61,9 @@ export function StrategyCards({ strategies }: StrategyCardsProps) {
         <div className="glass-panel p-8 rounded-3xl relative overflow-hidden group premium-shadow">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${cls.chip}`}>
+              <div
+                className={`w-10 h-10 rounded-xl flex items-center justify-center border ${cls.chip}`}
+              >
                 <Icon className="w-5 h-5" />
               </div>
               <h4 className="text-xl font-bold tracking-tight">{title}</h4>
