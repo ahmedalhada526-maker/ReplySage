@@ -307,6 +307,10 @@ export function PersonaWorkspace() {
                       <AdsterraBanner />
                     </AdSlot>
 
+                    <AdSlot hide={!hydrated} className="w-full max-w-2xl mx-auto">
+                      <AdsterraNative />
+                    </AdSlot>
+
                     <StrategyCards strategies={result.strategies} />
                   </motion.div>
                 )}
