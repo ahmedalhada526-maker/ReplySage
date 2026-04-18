@@ -164,21 +164,27 @@ export function PersonaWorkspace() {
                 setInput("");
               }}
               className="w-full justify-start bg-foreground/5 hover:bg-foreground/10 border border-foreground/5 text-xs font-medium rounded-xl h-10 text-foreground"
+              suppressHydrationWarning
             >
               <Plus className="w-4 h-4 me-2" />
-              {t("new_analysis")}
+              <span suppressHydrationWarning>{hydrated ? t("new_analysis") : "New analysis"}</span>
             </Button>
           </div>
 
           <ScrollArea className="flex-1 px-4">
             <div className="space-y-1 pb-6">
-              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground mb-3 px-2">
-                {t("history")}
+              <p
+                className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground mb-3 px-2"
+                suppressHydrationWarning
+              >
+                {hydrated ? t("history") : "History"}
               </p>
               {history.length === 0 ? (
                 <div className="py-12 text-center text-muted-foreground/60">
                   <MessageSquare className="w-7 h-7 mx-auto mb-2 opacity-50" />
-                  <p className="text-[11px]">{t("no_history")}</p>
+                  <p className="text-[11px]" suppressHydrationWarning>
+                    {hydrated ? t("no_history") : "No analyses yet"}
+                  </p>
                 </div>
               ) : (
                 history.map((item) => (
@@ -209,9 +215,12 @@ export function PersonaWorkspace() {
               size="sm"
               className="w-full justify-start text-xs text-muted-foreground hover:text-foreground rounded-xl bg-foreground/5 hover:bg-foreground/10"
               onClick={toggleLanguage}
+              suppressHydrationWarning
             >
               <Languages className="w-4 h-4 me-2" />
-              {isRtl ? "English" : "العربية"}
+              <span suppressHydrationWarning>
+                {hydrated ? (isRtl ? "English" : "العربية") : "العربية"}
+              </span>
             </Button>
           </div>
         </motion.aside>
