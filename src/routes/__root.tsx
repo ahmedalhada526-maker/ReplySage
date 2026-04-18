@@ -30,24 +30,51 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Person plus ai" },
-      { name: "description", content: "Pixel Perfect Display replicates screenshots precisely, offering a faithful visual representation." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Person plus ai" },
-      { property: "og:description", content: "Pixel Perfect Display replicates screenshots precisely, offering a faithful visual representation." },
+      { title: "Persona Pulse AI - Professional Personality Analysis & AI Insights" },
+      {
+        name: "description",
+        content:
+          "Discover your true self with Persona Pulse AI. Our advanced AI tool provides deep personality analysis and psychological insights for personal growth.",
+      },
+      {
+        name: "keywords",
+        content:
+          "AI personality analysis, Persona Pulse, psychological insights, self-discovery tool, AI character analysis",
+      },
+      { name: "author", content: "Persona Pulse AI" },
+      { name: "robots", content: "index, follow" },
+      { property: "og:title", content: "Persona Pulse AI - Professional Personality Analysis & AI Insights" },
+      {
+        property: "og:description",
+        content:
+          "Discover your true self with Persona Pulse AI. Our advanced AI tool provides deep personality analysis and psychological insights for personal growth.",
+      },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Person plus ai" },
-      { name: "twitter:description", content: "Pixel Perfect Display replicates screenshots precisely, offering a faithful visual representation." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/0433b85d-d944-4d9d-98d4-f0027d9d5726/id-preview-36f7b5b2--dd7ac2bd-428c-4c8a-a6f8-1677242d6a58.lovable.app-1776465515962.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/0433b85d-d944-4d9d-98d4-f0027d9d5726/id-preview-36f7b5b2--dd7ac2bd-428c-4c8a-a6f8-1677242d6a58.lovable.app-1776465515962.png" },
+      { property: "og:url", content: "https://person-plus-ai.lovable.app" },
+      { property: "og:site_name", content: "Persona Pulse AI" },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/0433b85d-d944-4d9d-98d4-f0027d9d5726/id-preview-36f7b5b2--dd7ac2bd-428c-4c8a-a6f8-1677242d6a58.lovable.app-1776465515962.png",
+      },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Persona Pulse AI - Professional Personality Analysis & AI Insights" },
+      {
+        name: "twitter:description",
+        content:
+          "Discover your true self with Persona Pulse AI. Our advanced AI tool provides deep personality analysis and psychological insights for personal growth.",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/0433b85d-d944-4d9d-98d4-f0027d9d5726/id-preview-36f7b5b2--dd7ac2bd-428c-4c8a-a6f8-1677242d6a58.lovable.app-1776465515962.png",
+      },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      { rel: "canonical", href: "https://person-plus-ai.lovable.app" },
     ],
   }),
   shellComponent: RootShell,
