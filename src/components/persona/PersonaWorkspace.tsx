@@ -6,7 +6,6 @@ import {
   Loader2,
   MessageSquare,
   Languages,
-  Crown,
   PanelLeftClose,
   PanelLeftOpen,
   Plus,
@@ -18,19 +17,15 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { analyzeInteraction, type AnalysisResult } from "@/server/analyze.functions";
 import { PulseAnalysis } from "@/components/persona/PulseAnalysis";
 import { StrategyCards } from "@/components/persona/StrategyCards";
-import { UpgradeModal } from "@/components/persona/UpgradeModal";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { AdsterraBanner } from "@/components/ads/AdsterraBanner";
 import { AdsterraNative } from "@/components/ads/AdsterraNative";
 import { AdsterraSocialBar } from "@/components/ads/AdsterraSocialBar";
 import "@/lib/i18n";
-
-const FREE_LIMIT = 10;
 
 interface HistoryItem {
   id: string;
@@ -50,48 +45,21 @@ export function PersonaWorkspace() {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
-
-  const [isPremium, setIsPremium] = useState(false);
-  const [usageCount, setUsageCount] = useState(0);
-  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
-  // Hydrate from localStorage
   useEffect(() => {
-    const today = new Date().toDateString();
-    const lastDate = localStorage.getItem("pp:lastUsageDate");
-    setIsPremium(localStorage.getItem("pp:isPremium") === "true");
-    if (lastDate !== today) {
-      setUsageCount(0);
-      localStorage.setItem("pp:lastUsageDate", today);
-      localStorage.setItem("pp:usageCount", "0");
-    } else {
-      setUsageCount(parseInt(localStorage.getItem("pp:usageCount") || "0", 10));
-    }
     setHydrated(true);
   }, []);
 
+  // Sync HTML dir/lang with i18n (after hydration to avoid mismatch)
   useEffect(() => {
-    if (!hydrated) return;
-    localStorage.setItem("pp:isPremium", String(isPremium));
-    localStorage.setItem("pp:usageCount", String(usageCount));
-    localStorage.setItem("pp:lastUsageDate", new Date().toDateString());
-  }, [isPremium, usageCount, hydrated]);
-
-  // Sync HTML dir/lang with i18n
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const dir = i18n.dir();
-    document.documentElement.dir = dir;
+    if (!hydrated || typeof document === "undefined") return;
+    document.documentElement.dir = i18n.dir();
     document.documentElement.lang = i18n.language;
-  }, [i18n.language, i18n]);
+  }, [i18n.language, i18n, hydrated]);
 
   const handleAnalyze = async () => {
     if (!input.trim() || isAnalyzing) return;
-    if (!isPremium && usageCount >= FREE_LIMIT) {
-      setShowUpgradeModal(true);
-      return;
-    }
 
     setIsAnalyzing(true);
     try {
@@ -113,7 +81,6 @@ export function PersonaWorkspace() {
       setHistory((prev) =>
         [{ id, text: input, result: data, caseId: id }, ...prev].slice(0, 12),
       );
-      setUsageCount((c) => c + 1);
       setInput("");
     } catch (e) {
       console.error(e);
@@ -145,14 +112,13 @@ export function PersonaWorkspace() {
     e.target.value = "";
   };
 
-  const isRtl = i18n.dir() === "rtl";
-  const remaining = Math.max(0, FREE_LIMIT - usageCount);
+  const isRtl = hydrated && i18n.dir() === "rtl";
 
   return (
     <TooltipProvider>
       <div
         className="min-h-screen flex bg-background text-foreground overflow-hidden relative"
-        dir={i18n.dir()}
+        suppressHydrationWarning
       >
         {/* Sidebar */}
         <motion.aside
@@ -170,7 +136,12 @@ export function PersonaWorkspace() {
                 <Brain className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <h1 className="font-bold tracking-tight text-sm leading-none">{t("app_name")}</h1>
+                <h1
+                  className="font-bold tracking-tight text-sm leading-none"
+                  suppressHydrationWarning
+                >
+                  {hydrated ? t("app_name") : "PersonaPulse"}
+                </h1>
                 <p className="text-[9px] font-mono uppercase tracking-[0.2em] text-muted-foreground mt-1">
                   v1.0 Forensics
                 </p>
@@ -233,16 +204,6 @@ export function PersonaWorkspace() {
           </ScrollArea>
 
           <div className="p-4 mt-auto space-y-2 border-t border-foreground/5">
-            {!isPremium && (
-              <Button
-                variant="outline"
-                className="w-full justify-start text-xs border-primary/30 text-primary hover:bg-primary/10 rounded-xl glow-primary bg-transparent"
-                onClick={() => setShowUpgradeModal(true)}
-              >
-                <Crown className="w-3.5 h-3.5 me-2" />
-                {t("upgrade_pro")}
-              </Button>
-            )}
             <Button
               variant="ghost"
               size="sm"
@@ -266,12 +227,6 @@ export function PersonaWorkspace() {
             >
               <PanelLeftOpen className="w-5 h-5" />
             </Button>
-          )}
-
-          {isPremium && (
-            <Badge className="absolute top-6 end-6 z-40 bg-primary/15 text-primary border border-primary/30 px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider">
-              <Crown className="w-3 h-3 me-1" /> Pro
-            </Badge>
           )}
 
           <ScrollArea className="flex-1">
@@ -309,7 +264,7 @@ export function PersonaWorkspace() {
                       {t("hero_description")}
                     </p>
 
-                    {hydrated && !isPremium && (
+                    {hydrated && (
                       <AdSlot hide={false} className="mt-12 w-full max-w-2xl">
                         <AdsterraNative />
                       </AdSlot>
@@ -323,29 +278,18 @@ export function PersonaWorkspace() {
                     transition={{ duration: 0.4 }}
                     className="space-y-10"
                   >
-                    <div className="flex items-center justify-between mb-2">
-                      <div>
-                        <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
-                          {t("analysis_report")}
-                        </h3>
-                        <p className="text-xs text-muted-foreground font-mono uppercase tracking-[0.25em] mt-1">
-                          {t("case_id")}: {caseId}
-                        </p>
-                      </div>
-                      {isPremium && (
-                        <Badge className="bg-primary/15 text-primary border border-primary/30 px-3 py-1 rounded-full text-[10px] font-mono uppercase">
-                          {t("pro_analysis")}
-                        </Badge>
-                      )}
+                    <div className="mb-2">
+                      <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+                        {t("analysis_report")}
+                      </h3>
+                      <p className="text-xs text-muted-foreground font-mono uppercase tracking-[0.25em] mt-1">
+                        {t("case_id")}: {caseId}
+                      </p>
                     </div>
 
-                    <PulseAnalysis
-                      data={result.pulse}
-                      isPremium={isPremium}
-                      onUpgradeClick={() => setShowUpgradeModal(true)}
-                    />
+                    <PulseAnalysis data={result.pulse} />
 
-                    <AdSlot hide={!hydrated || isPremium}>
+                    <AdSlot hide={!hydrated}>
                       <AdsterraBanner />
                     </AdSlot>
 
@@ -411,29 +355,11 @@ export function PersonaWorkspace() {
                 )}
               </Button>
             </motion.div>
-            {!isPremium && hydrated && (
-              <p className="text-center mt-3 text-[10px] font-mono text-muted-foreground/70 uppercase tracking-[0.25em]">
-                {remaining === 0
-                  ? t("limit_reached")
-                  : t("daily_scans_left", { count: remaining })}{" "}
-                · {t("free_tier")}
-              </p>
-            )}
           </div>
         </main>
       </div>
 
-      <UpgradeModal
-        isOpen={showUpgradeModal}
-        onClose={() => setShowUpgradeModal(false)}
-        onSuccess={() => {
-          setIsPremium(true);
-          setShowUpgradeModal(false);
-          toast.success("Pro activated");
-        }}
-      />
-
-      {hydrated && !isPremium && <AdsterraSocialBar />}
+      {hydrated && <AdsterraSocialBar />}
     </TooltipProvider>
   );
 }

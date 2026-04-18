@@ -1,17 +1,14 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Eye, Fingerprint, Lock, Sparkles, Target } from "lucide-react";
+import { Eye, Fingerprint, Sparkles, Target } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import type { AnalysisResult } from "@/server/analyze.functions";
 
 interface PulseAnalysisProps {
   data: AnalysisResult["pulse"];
-  isPremium: boolean;
-  onUpgradeClick: () => void;
 }
 
-export function PulseAnalysis({ data, isPremium, onUpgradeClick }: PulseAnalysisProps) {
+export function PulseAnalysis({ data }: PulseAnalysisProps) {
   const { t } = useTranslation();
 
   return (
@@ -100,7 +97,7 @@ export function PulseAnalysis({ data, isPremium, onUpgradeClick }: PulseAnalysis
         </div>
       </motion.div>
 
-      {/* Advanced Insights — full width */}
+      {/* Advanced Insights — full width, free for everyone */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -108,44 +105,15 @@ export function PulseAnalysis({ data, isPremium, onUpgradeClick }: PulseAnalysis
         className="md:col-span-2"
       >
         <div className="glass-panel p-8 rounded-3xl border-primary/20 relative overflow-hidden premium-shadow">
-          <div className="flex items-start justify-between mb-5 gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
-                <Sparkles className="w-5 h-5 text-primary" />
-              </div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
-                {t("advanced_insights")}
-              </span>
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+              <Sparkles className="w-5 h-5 text-primary" />
             </div>
-            {!isPremium && (
-              <Badge className="bg-primary/10 text-primary border border-primary/30 px-3 py-1 rounded-full text-[10px] font-mono uppercase">
-                {t("pro_only")}
-              </Badge>
-            )}
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
+              {t("advanced_insights")}
+            </span>
           </div>
-
-          {isPremium ? (
-            <p className="text-base leading-relaxed text-foreground/90">{data.advancedInsights}</p>
-          ) : (
-            <div className="relative">
-              <p className="text-base leading-relaxed text-foreground/90 blur-md select-none pointer-events-none">
-                {data.advancedInsights}
-              </p>
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-background/60 rounded-2xl">
-                <Lock className="w-6 h-6 text-primary" />
-                <p className="text-sm font-medium text-foreground/80">
-                  {t("unlock_pro_insights")}
-                </p>
-                <Button
-                  onClick={onUpgradeClick}
-                  size="sm"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full glow-primary"
-                >
-                  {t("upgrade_pro")}
-                </Button>
-              </div>
-            </div>
-          )}
+          <p className="text-base leading-relaxed text-foreground/90">{data.advancedInsights}</p>
         </div>
       </motion.div>
     </div>
