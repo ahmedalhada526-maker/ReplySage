@@ -274,9 +274,14 @@ export function PersonaWorkspace() {
                     </p>
 
                     {hydrated && (
-                      <AdSlot hide={false} className="mt-12 w-full max-w-2xl">
-                        <AdsterraNative />
-                      </AdSlot>
+                      <>
+                        <AdSlot hide={false} className="mt-12 w-full max-w-2xl">
+                          <AdsterraNative />
+                        </AdSlot>
+                        <AdSlot hide={false} className="mt-6 w-full">
+                          <AdsterraBanner />
+                        </AdSlot>
+                      </>
                     )}
                   </motion.div>
                 ) : (
