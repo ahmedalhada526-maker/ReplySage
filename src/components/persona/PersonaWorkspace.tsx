@@ -41,6 +41,7 @@ export function PersonaWorkspace() {
   const [input, setInput] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<AnalysisResult | null>(null);
+  const [analyzedText, setAnalyzedText] = useState("");
   const [caseId, setCaseId] = useState("");
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -77,6 +78,7 @@ export function PersonaWorkspace() {
 
       const id = Math.random().toString(36).substring(2, 8).toUpperCase();
       setResult(data);
+      setAnalyzedText(input);
       setCaseId(id);
       setHistory((prev) =>
         [{ id, text: input, result: data, caseId: id }, ...prev].slice(0, 12),
@@ -193,6 +195,7 @@ export function PersonaWorkspace() {
                     onClick={() => {
                       setInput(item.text);
                       setResult(item.result);
+                      setAnalyzedText(item.text);
                       setCaseId(item.caseId);
                     }}
                     className="w-full text-start p-3 rounded-xl hover:bg-foreground/5 transition-all border border-transparent hover:border-foreground/5 group"
@@ -311,7 +314,11 @@ export function PersonaWorkspace() {
                       <AdsterraNative />
                     </AdSlot>
 
-                    <StrategyCards strategies={result.strategies} />
+                    <StrategyCards
+                      strategies={result.strategies}
+                      sourceText={analyzedText}
+                      recipientPersona={result.pulse.recipientPersona}
+                    />
                   </motion.div>
                 )}
               </AnimatePresence>
