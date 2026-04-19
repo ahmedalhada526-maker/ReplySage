@@ -78,6 +78,7 @@ export function PersonaWorkspace() {
 
       const id = Math.random().toString(36).substring(2, 8).toUpperCase();
       setResult(data);
+      setAnalyzedText(input);
       setCaseId(id);
       setHistory((prev) =>
         [{ id, text: input, result: data, caseId: id }, ...prev].slice(0, 12),
