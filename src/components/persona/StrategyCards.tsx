@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Check, Copy, Heart, Shield, Zap } from "lucide-react";
+import { Check, Copy, Flame, Heart, Shield, Zap } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import type { AnalysisResult } from "@/server/analyze.functions";
@@ -10,18 +10,19 @@ interface StrategyCardsProps {
   strategies: AnalysisResult["strategies"];
 }
 
-type StrategyKey = "tactician" | "empath" | "alpha";
+type StrategyKey = "tactician" | "empath" | "alpha" | "savage";
 
 const META: Record<
   StrategyKey,
-  { icon: typeof Shield; tone: "primary" | "accent" | "neutral" }
+  { icon: typeof Shield; tone: "primary" | "accent" | "neutral" | "danger" }
 > = {
   tactician: { icon: Shield, tone: "primary" },
   empath: { icon: Heart, tone: "accent" },
   alpha: { icon: Zap, tone: "neutral" },
+  savage: { icon: Flame, tone: "danger" },
 };
 
-function ToneClasses(tone: "primary" | "accent" | "neutral") {
+function ToneClasses(tone: "primary" | "accent" | "neutral" | "danger") {
   switch (tone) {
     case "primary":
       return {
@@ -32,6 +33,11 @@ function ToneClasses(tone: "primary" | "accent" | "neutral") {
       return {
         chip: "bg-accent/10 text-accent border-accent/25",
         active: "data-[state=active]:bg-accent data-[state=active]:text-accent-foreground data-[state=active]:shadow-[var(--shadow-glow-accent)]",
+      };
+    case "danger":
+      return {
+        chip: "bg-destructive/10 text-destructive border-destructive/30",
+        active: "data-[state=active]:bg-destructive data-[state=active]:text-destructive-foreground",
       };
     default:
       return {
