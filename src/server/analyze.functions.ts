@@ -6,6 +6,13 @@ const InputSchema = z.object({
   language: z.enum(["en", "ar"]).default("en"),
 });
 
+const SavageInputSchema = z.object({
+  text: z.string().min(1).max(8000),
+  language: z.enum(["en", "ar"]).default("en"),
+  recipientPersona: z.string().max(2000).optional(),
+  previousResponses: z.array(z.string().max(2000)).max(5).default([]),
+});
+
 export interface AnalysisResult {
   pulse: {
     recipientPersona: string;
