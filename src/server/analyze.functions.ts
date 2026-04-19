@@ -22,6 +22,7 @@ export interface AnalysisResult {
     tactician: { response: string; whyItWorks: string };
     empath: { response: string; whyItWorks: string };
     alpha: { response: string; whyItWorks: string };
+    savage: { response: string; whyItWorks: string };
   };
 }
 
