@@ -35,6 +35,7 @@ const resources = {
       tactician: "The Tactician",
       empath: "The Empath",
       alpha: "The Alpha",
+      savage: "The Silencer",
       why_it_works: "Why it works",
       copy: "Copy response",
       copied: "Copied",
