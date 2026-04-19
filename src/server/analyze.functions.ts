@@ -133,10 +133,10 @@ All output values must be in ${langName}.\n\nINPUT:\n"""\n${data.text}\n"""`;
                   },
                   savage: {
                     type: "object",
-                    description: "Surgical silencing reply for mockery/insult/bullying. Cold, witty, ego-piercing, NO profanity.",
+                    description: "Viral-grade knockout reply. Short, surgical, dead-calm. Inspired by the most devastating clapbacks on Twitter/X and Reddit. Mirror-and-magnify, expose-the-tell, status-inversion. NO profanity, NO clichés, NO emotional leakage. Every word must cut.",
                     properties: {
-                      response: { type: "string" },
-                      whyItWorks: { type: "string" },
+                      response: { type: "string", description: "The knockout reply itself. Ideally 1-2 sentences, max 3. Should be screenshot-worthy." },
+                      whyItWorks: { type: "string", description: "Name the exact technique used + which psychological weakness in the recipient it exploits + why they cannot recover." },
                     },
                     required: ["response", "whyItWorks"],
                     additionalProperties: false,
