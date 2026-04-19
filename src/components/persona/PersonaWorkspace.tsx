@@ -41,6 +41,7 @@ export function PersonaWorkspace() {
   const [input, setInput] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<AnalysisResult | null>(null);
+  const [analyzedText, setAnalyzedText] = useState("");
   const [caseId, setCaseId] = useState("");
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
