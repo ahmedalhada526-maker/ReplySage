@@ -195,6 +195,7 @@ export function PersonaWorkspace() {
                     onClick={() => {
                       setInput(item.text);
                       setResult(item.result);
+                      setAnalyzedText(item.text);
                       setCaseId(item.caseId);
                     }}
                     className="w-full text-start p-3 rounded-xl hover:bg-foreground/5 transition-all border border-transparent hover:border-foreground/5 group"
