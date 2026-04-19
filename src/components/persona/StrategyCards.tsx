@@ -124,17 +124,17 @@ export function StrategyCards({ strategies }: StrategyCardsProps) {
       </div>
 
       <Tabs defaultValue="tactician" className="w-full">
-        <TabsList className="flex w-full max-w-md mx-auto glass-panel p-1 rounded-2xl mb-6 h-auto">
-          {(["tactician", "empath", "alpha"] as StrategyKey[]).map((key) => {
+        <TabsList className="grid grid-cols-4 w-full max-w-md mx-auto glass-panel p-1 rounded-2xl mb-6 h-auto">
+          {(["tactician", "empath", "alpha", "savage"] as StrategyKey[]).map((key) => {
             const Icon = META[key].icon;
             const cls = ToneClasses(META[key].tone);
             return (
               <TabsTrigger
                 key={key}
                 value={key}
-                className={`flex-1 rounded-xl py-2.5 text-xs font-medium transition-all ${cls.active}`}
+                className={`rounded-xl py-2.5 text-xs font-medium transition-all ${cls.active}`}
               >
-                <Icon className="w-4 h-4 me-2" />
+                <Icon className="w-4 h-4 sm:me-2" />
                 <span className="hidden sm:inline">{t(key)}</span>
               </TabsTrigger>
             );
@@ -144,6 +144,7 @@ export function StrategyCards({ strategies }: StrategyCardsProps) {
         <TabsContent value="tactician">{renderCard("tactician")}</TabsContent>
         <TabsContent value="empath">{renderCard("empath")}</TabsContent>
         <TabsContent value="alpha">{renderCard("alpha")}</TabsContent>
+        <TabsContent value="savage">{renderCard("savage")}</TabsContent>
       </Tabs>
     </motion.div>
   );
