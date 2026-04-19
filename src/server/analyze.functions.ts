@@ -22,6 +22,7 @@ export interface AnalysisResult {
     tactician: { response: string; whyItWorks: string };
     empath: { response: string; whyItWorks: string };
     alpha: { response: string; whyItWorks: string };
+    savage: { response: string; whyItWorks: string };
   };
 }
 
@@ -38,7 +39,13 @@ export const analyzeInteraction = createServerFn({ method: "POST" })
 
     const systemPrompt = `You are PersonaPulse AI — a master of behavioral psychology, linguistic forensics, and strategic communication. Analyze text-based human interactions surgically and return ONLY structured data through the provided tool. Be concise, sharp, and never repeat the input text. All textual values MUST be written in ${langName}.`;
 
-    const userPrompt = `Analyze this interaction and provide a forensic psychological breakdown plus three strategic response options (Tactician = logic-focused, Empath = emotion-focused, Alpha = boundary-focused). All output values must be in ${langName}.\n\nINPUT:\n"""\n${data.text}\n"""`;
+    const userPrompt = `Analyze this interaction and provide a forensic psychological breakdown plus FOUR strategic response options:
+- Tactician = logic-focused
+- Empath = emotion-focused
+- Alpha = boundary-focused
+- Savage (الرد المفحم) = a surgical, ice-cold silencing reply for cases of mockery, insult, or bullying. Smart, biting, NEVER uses profanity or direct slurs. Uses logical checkmate or reverse-irony based on the recipient's psychological weaknesses (turn their attack against them so THEY look weak, pathetic, or low-effort). Words must hit ego and expose their lack of substance like a scalpel.
+
+All output values must be in ${langName}.\n\nINPUT:\n"""\n${data.text}\n"""`;
 
     const tools = [
       {
@@ -106,8 +113,18 @@ export const analyzeInteraction = createServerFn({ method: "POST" })
                     required: ["response", "whyItWorks"],
                     additionalProperties: false,
                   },
+                  savage: {
+                    type: "object",
+                    description: "Surgical silencing reply for mockery/insult/bullying. Cold, witty, ego-piercing, NO profanity.",
+                    properties: {
+                      response: { type: "string" },
+                      whyItWorks: { type: "string" },
+                    },
+                    required: ["response", "whyItWorks"],
+                    additionalProperties: false,
+                  },
                 },
-                required: ["tactician", "empath", "alpha"],
+                required: ["tactician", "empath", "alpha", "savage"],
                 additionalProperties: false,
               },
             },
