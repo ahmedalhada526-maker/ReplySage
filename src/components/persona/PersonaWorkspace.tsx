@@ -314,7 +314,11 @@ export function PersonaWorkspace() {
                       <AdsterraNative />
                     </AdSlot>
 
-                    <StrategyCards strategies={result.strategies} />
+                    <StrategyCards
+                      strategies={result.strategies}
+                      sourceText={analyzedText}
+                      recipientPersona={result.pulse.recipientPersona}
+                    />
                   </motion.div>
                 )}
               </AnimatePresence>
