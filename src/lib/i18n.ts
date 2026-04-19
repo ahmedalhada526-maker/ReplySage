@@ -95,6 +95,7 @@ const resources = {
       tactician: "المخطط",
       empath: "المتعاطف",
       alpha: "المسيطر",
+      savage: "الرد المفحم",
       why_it_works: "لماذا ينجح هذا",
       copy: "نسخ الرد",
       copied: "تم النسخ",
