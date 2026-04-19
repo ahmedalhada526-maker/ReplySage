@@ -200,3 +200,82 @@ All output values must be in ${langName}.\n\nINPUT:\n"""\n${data.text}\n"""`;
       return { result: null, error: "generic" };
     }
   });
+
+export const regenerateSavage = createServerFn({ method: "POST" })
+  .inputValidator((input: unknown) => SavageInputSchema.parse(input))
+  .handler(async ({ data }): Promise<{ response: string | null; whyItWorks: string | null; error: string | null }> => {
+    const apiKey = process.env.LOVABLE_API_KEY;
+    if (!apiKey) return { response: null, whyItWorks: null, error: "AI is not configured." };
+
+    const langName = data.language === "ar" ? "Arabic (العربية)" : "English";
+
+    const avoidBlock = data.previousResponses.length
+      ? `\n\nAVOID these previously generated responses (do NOT repeat their angle, structure, or wording — produce something fundamentally different):\n${data.previousResponses.map((r, i) => `${i + 1}. "${r}"`).join("\n")}`
+      : "";
+
+    const personaBlock = data.recipientPersona
+      ? `\n\nRECIPIENT PROFILE (use this to target their specific weaknesses):\n${data.recipientPersona}`
+      : "";
+
+    const systemPrompt = `You are PersonaPulse AI's Silencer module — a specialist in viral, psychologically devastating clapbacks. You have studied legendary verbal takedowns from Twitter/X, Reddit r/MurderedByWords, viral TikTok comebacks, and celebrity feuds. Your replies are screenshot-worthy: surgical, dead-calm, ego-piercing. NO profanity, NO slurs, NO body/family insults, NO clichés like "ratio/cope/seethe". Output ONLY through the provided tool. All textual values MUST be written in ${langName}.`;
+
+    const userPrompt = `Generate ONE alternative knockout reply to the following message. It must use a DIFFERENT angle than typical replies. Pick ONE technique and execute it perfectly: Mirror & Magnify, Surgical One-Liner, Expose The Tell, Pity Frame, Dead Calm Energy, Receipt Move, or Status Inversion.
+
+Length: 1-2 sentences max 3. Every word must cut. Should feel like it was written by someone who already won.${personaBlock}${avoidBlock}
+
+INPUT MESSAGE:\n"""\n${data.text}\n"""`;
+
+    const tools = [
+      {
+        type: "function" as const,
+        function: {
+          name: "submit_savage_alternative",
+          description: "Submit a single alternative savage reply.",
+          parameters: {
+            type: "object",
+            properties: {
+              response: { type: "string", description: "The knockout reply itself. 1-3 sentences max." },
+              whyItWorks: { type: "string", description: "The exact technique used + the psychological weakness it exploits." },
+            },
+            required: ["response", "whyItWorks"],
+            additionalProperties: false,
+          },
+        },
+      },
+    ];
+
+    try {
+      const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "google/gemini-2.5-pro",
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+          ],
+          tools,
+          tool_choice: { type: "function", function: { name: "submit_savage_alternative" } },
+          temperature: 1.1,
+        }),
+      });
+
+      if (!res.ok) {
+        if (res.status === 429) return { response: null, whyItWorks: null, error: "rate_limit" };
+        if (res.status === 402) return { response: null, whyItWorks: null, error: "credits" };
+        console.error("AI gateway error", res.status, await res.text());
+        return { response: null, whyItWorks: null, error: "generic" };
+      }
+
+      const json = await res.json();
+      const toolCall = json.choices?.[0]?.message?.tool_calls?.[0];
+      if (!toolCall?.function?.arguments) {
+        return { response: null, whyItWorks: null, error: "generic" };
+      }
+      const parsed = JSON.parse(toolCall.function.arguments) as { response: string; whyItWorks: string };
+      return { response: parsed.response, whyItWorks: parsed.whyItWorks, error: null };
+    } catch (e) {
+      console.error("regenerateSavage failed", e);
+      return { response: null, whyItWorks: null, error: "generic" };
+    }
+  });
