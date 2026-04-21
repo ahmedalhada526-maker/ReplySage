@@ -386,6 +386,7 @@ export function PersonaWorkspace() {
       </div>
 
       {hydrated && <AdsterraSocialBar />}
+      {hydrated && <AdsterraPopunder />}
     </TooltipProvider>
   );
 }
