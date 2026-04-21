@@ -30,7 +30,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "​PersonaPulse AI: كاشف النوايا، تحليل الشخصية والرد المسكت" },
+      { title: "PersonaPulse AI: كاشف النوايا، تحليل الشخصية والرد المسكت" },
       {
         name: "description",
         content:
@@ -43,7 +43,7 @@ export const Route = createRootRoute({
       },
       { name: "author", content: "Persona Pulse AI" },
       { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "​PersonaPulse AI: كاشف النوايا، تحليل الشخصية والرد المسكت" },
+      { property: "og:title", content: "PersonaPulse AI: كاشف النوايا، تحليل الشخصية والرد المسكت" },
       {
         property: "og:description",
         content:
@@ -58,7 +58,7 @@ export const Route = createRootRoute({
           "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/0433b85d-d944-4d9d-98d4-f0027d9d5726/id-preview-36f7b5b2--dd7ac2bd-428c-4c8a-a6f8-1677242d6a58.lovable.app-1776465515962.png",
       },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "​PersonaPulse AI: كاشف النوايا، تحليل الشخصية والرد المسكت" },
+      { name: "twitter:title", content: "PersonaPulse AI: كاشف النوايا، تحليل الشخصية والرد المسكت" },
       {
         name: "twitter:description",
         content:
