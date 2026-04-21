@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { checkRateLimit } from "./rate-limit";
 
 const InputSchema = z.object({
   text: z.string().min(1).max(8000),
@@ -36,6 +37,12 @@ export interface AnalysisResult {
 export const analyzeInteraction = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => InputSchema.parse(input))
   .handler(async ({ data }): Promise<{ result: AnalysisResult | null; error: string | null }> => {
+    // Rate limit: 10 analyses per minute per IP to prevent credit drain abuse.
+    const rl = checkRateLimit("analyze", 10, 60_000);
+    if (!rl.ok) {
+      return { result: null, error: "rate_limit" };
+    }
+
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) {
       console.error("LOVABLE_API_KEY missing");
@@ -204,6 +211,12 @@ All output values must be in ${langName}.\n\nINPUT:\n"""\n${data.text}\n"""`;
 export const regenerateSavage = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => SavageInputSchema.parse(input))
   .handler(async ({ data }): Promise<{ response: string | null; whyItWorks: string | null; error: string | null }> => {
+    // Rate limit: 15 regenerations per minute per IP to prevent credit drain abuse.
+    const rl = checkRateLimit("savage", 15, 60_000);
+    if (!rl.ok) {
+      return { response: null, whyItWorks: null, error: "rate_limit" };
+    }
+
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) return { response: null, whyItWorks: null, error: "AI is not configured." };
 
