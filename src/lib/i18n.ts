@@ -65,6 +65,8 @@ const resources = {
       error_rate_limit: "Too many requests. Please wait a moment.",
       error_credits: "AI credits exhausted. Please add credits to continue.",
       limit_reached: "Daily free limit reached",
+      privacy_policy: "Privacy Policy",
+      back_home: "Back home",
     },
   },
   ar: {
