@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { checkRateLimit } from "./rate-limit";
 
 const InputSchema = z.object({
   text: z.string().min(1).max(8000),
