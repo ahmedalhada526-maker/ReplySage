@@ -25,6 +25,7 @@ import { AdSlot } from "@/components/ads/AdSlot";
 import { AdsterraBanner } from "@/components/ads/AdsterraBanner";
 import { AdsterraNative } from "@/components/ads/AdsterraNative";
 import { AdsterraSocialBar } from "@/components/ads/AdsterraSocialBar";
+import { AdsterraPopunder } from "@/components/ads/AdsterraPopunder";
 import "@/lib/i18n";
 
 interface HistoryItem {
