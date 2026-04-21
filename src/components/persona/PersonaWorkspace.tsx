@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useServerFn } from "@tanstack/react-start";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -383,6 +384,15 @@ export function PersonaWorkspace() {
             </motion.div>
           </div>
         </main>
+
+        <footer className="border-t border-foreground/5 mt-12 py-6 px-6 text-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+          <Link
+            to="/privacy"
+            className="hover:text-foreground transition-colors"
+          >
+            {hydrated ? t("privacy_policy") : "Privacy Policy"}
+          </Link>
+        </footer>
       </div>
 
       {hydrated && <AdsterraSocialBar />}
