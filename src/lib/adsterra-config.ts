@@ -35,7 +35,8 @@ export const ADSTERRA = {
   },
   /** Popunder — full script src. Triggered on first user click. */
   popunder: {
-    scriptSrc: "REPLACE_WITH_POPUNDER_SCRIPT_SRC",
+    scriptSrc:
+      "//pl29206428.profitablecpmratenetwork.com/55/2e/0f/552e0f4fa4b04e6c23ba0175ad1bea65.js",
   },
 } as const;
 
