@@ -69,12 +69,9 @@ export const Route = createRootRoute({
         content:
           "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/0433b85d-d944-4d9d-98d4-f0027d9d5726/id-preview-36f7b5b2--dd7ac2bd-428c-4c8a-a6f8-1677242d6a58.lovable.app-1776465515962.png",
       },
-      { name: "description", content: "هل تساءلت يوماً ما الذي يعنيه \"خلف\" النص؟ 🔍
-​في عصر المحادثات الرقمية، الكلمات هي مجرد قناع. PersonaPulse AI هو سلاحك السري لفك شفرات التواصل البشري." },
-      { property: "og:description", content: "هل تساءلت يوماً ما الذي يعنيه \"خلف\" النص؟ 🔍
-​في عصر المحادثات الرقمية، الكلمات هي مجرد قناع. PersonaPulse AI هو سلاحك السري لفك شفرات التواصل البشري." },
-      { name: "twitter:description", content: "هل تساءلت يوماً ما الذي يعنيه \"خلف\" النص؟ 🔍
-​في عصر المحادثات الرقمية، الكلمات هي مجرد قناع. PersonaPulse AI هو سلاحك السري لفك شفرات التواصل البشري." },
+      { name: "description", content: "هل تساءلت يوماً ما الذي يعنيه \"خلف\" النص؟ 🔍 في عصر المحادثات الرقمية، الكلمات هي مجرد قناع. PersonaPulse AI هو سلاحك السري لفك شفرات التواصل البشري." },
+      { property: "og:description", content: "هل تساءلت يوماً ما الذي يعنيه \"خلف\" النص؟ 🔍 في عصر المحادثات الرقمية، الكلمات هي مجرد قناع. PersonaPulse AI هو سلاحك السري لفك شفرات التواصل البشري." },
+      { name: "twitter:description", content: "هل تساءلت يوماً ما الذي يعنيه \"خلف\" النص؟ 🔍 في عصر المحادثات الرقمية، الكلمات هي مجرد قناع. PersonaPulse AI هو سلاحك السري لفك شفرات التواصل البشري." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/D3W5uhOKNHhfFahBPWNs0j6H0LF3/social-images/social-1776737963114-1776716364167.webp" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/D3W5uhOKNHhfFahBPWNs0j6H0LF3/social-images/social-1776737963114-1776716364167.webp" },
     ],
