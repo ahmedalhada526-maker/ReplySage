@@ -33,6 +33,10 @@ export const ADSTERRA = {
     scriptSrc:
       "//pl29178333.profitablecpmratenetwork.com/a0/ac/0d/a0ac0d6d81c2b19de60facb30eac7aa3.js",
   },
+  /** Popunder — full script src. Triggered on first user click. */
+  popunder: {
+    scriptSrc: "REPLACE_WITH_POPUNDER_SCRIPT_SRC",
+  },
 } as const;
 
 export const isPlaceholder = (val: string) => val.includes("REPLACE_WITH_");
