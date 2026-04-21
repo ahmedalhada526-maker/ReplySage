@@ -37,6 +37,12 @@ export interface AnalysisResult {
 export const analyzeInteraction = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => InputSchema.parse(input))
   .handler(async ({ data }): Promise<{ result: AnalysisResult | null; error: string | null }> => {
+    // Rate limit: 10 analyses per minute per IP to prevent credit drain abuse.
+    const rl = checkRateLimit("analyze", 10, 60_000);
+    if (!rl.ok) {
+      return { result: null, error: "rate_limit" };
+    }
+
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) {
       console.error("LOVABLE_API_KEY missing");
