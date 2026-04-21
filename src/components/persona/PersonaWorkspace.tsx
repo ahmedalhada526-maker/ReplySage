@@ -4,16 +4,14 @@ import {
   Brain,
   Send,
   Loader2,
-  MessageSquare,
   Languages,
-  PanelLeftClose,
-  PanelLeftOpen,
   Plus,
   Paperclip,
+  History as HistoryIcon,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useServerFn } from "@tanstack/react-start";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -27,26 +25,24 @@ import { AdsterraBanner } from "@/components/ads/AdsterraBanner";
 import { AdsterraNative } from "@/components/ads/AdsterraNative";
 import { AdsterraSocialBar } from "@/components/ads/AdsterraSocialBar";
 import { AdsterraPopunder } from "@/components/ads/AdsterraPopunder";
+import {
+  addHistoryItem,
+  loadHistory,
+  PENDING_LOAD_KEY,
+  type HistoryItem,
+} from "@/lib/history-store";
 import "@/lib/i18n";
-
-interface HistoryItem {
-  id: string;
-  text: string;
-  result: AnalysisResult;
-  caseId: string;
-}
 
 export function PersonaWorkspace() {
   const { t, i18n } = useTranslation();
   const analyzeFn = useServerFn(analyzeInteraction);
+  const navigate = useNavigate();
 
   const [input, setInput] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [analyzedText, setAnalyzedText] = useState("");
   const [caseId, setCaseId] = useState("");
-  const [history, setHistory] = useState<HistoryItem[]>([]);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
@@ -54,7 +50,24 @@ export function PersonaWorkspace() {
     setHydrated(true);
   }, []);
 
-  // Sync HTML dir/lang with i18n (after hydration to avoid mismatch)
+  // Load pending history item if user opened one from /history
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      const pending = sessionStorage.getItem(PENDING_LOAD_KEY);
+      if (pending) {
+        const item = JSON.parse(pending) as HistoryItem;
+        setResult(item.result);
+        setAnalyzedText(item.text);
+        setCaseId(item.caseId);
+        sessionStorage.removeItem(PENDING_LOAD_KEY);
+      }
+    } catch {
+      // ignore
+    }
+  }, [hydrated]);
+
+  // Sync HTML dir/lang with i18n
   useEffect(() => {
     if (!hydrated || typeof document === "undefined") return;
     document.documentElement.dir = i18n.dir();
@@ -82,9 +95,13 @@ export function PersonaWorkspace() {
       setResult(data);
       setAnalyzedText(input);
       setCaseId(id);
-      setHistory((prev) =>
-        [{ id, text: input, result: data, caseId: id }, ...prev].slice(0, 12),
-      );
+      addHistoryItem({
+        id,
+        text: input,
+        result: data,
+        caseId: id,
+        createdAt: Date.now(),
+      });
       setInput("");
     } catch (e) {
       console.error(e);
@@ -117,132 +134,85 @@ export function PersonaWorkspace() {
   };
 
   const isRtl = hydrated && i18n.dir() === "rtl";
+  const historyCount = hydrated ? loadHistory().length : 0;
 
   return (
     <TooltipProvider>
       <div
-        className="min-h-screen flex bg-background text-foreground overflow-hidden relative"
+        className="min-h-screen flex flex-col bg-background text-foreground overflow-hidden relative"
         suppressHydrationWarning
       >
-        {/* Sidebar */}
-        <motion.aside
-          initial={false}
-          animate={{
-            width: sidebarOpen ? 288 : 0,
-            opacity: sidebarOpen ? 1 : 0,
-          }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="h-screen border-e border-foreground/5 bg-sidebar/60 backdrop-blur-2xl flex flex-col overflow-hidden relative z-50"
-        >
-          <div className="p-6 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 glow-primary">
-                <Brain className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <h1
-                  className="font-bold tracking-tight text-sm leading-none"
-                  suppressHydrationWarning
-                >
-                  {hydrated ? t("app_name") : "PersonaPulse"}
-                </h1>
-                <p className="text-[9px] font-mono uppercase tracking-[0.2em] text-muted-foreground mt-1">
-                  v1.0 Forensics
-                </p>
-              </div>
+        {/* Top bar */}
+        <header className="relative z-50 flex items-center justify-between px-4 md:px-8 py-4 border-b border-foreground/5 bg-background/60 backdrop-blur-2xl">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 glow-primary">
+              <Brain className="w-5 h-5 text-primary" />
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setSidebarOpen(false)}
-              className="h-8 w-8 text-muted-foreground hover:text-foreground"
-            >
-              <PanelLeftClose className="w-4 h-4" />
-            </Button>
-          </div>
-
-          <div className="px-4 mb-4">
-            <Button
-              onClick={() => {
-                setResult(null);
-                setInput("");
-              }}
-              className="w-full justify-start bg-foreground/5 hover:bg-foreground/10 border border-foreground/5 text-xs font-medium rounded-xl h-10 text-foreground"
-              suppressHydrationWarning
-            >
-              <Plus className="w-4 h-4 me-2" />
-              <span suppressHydrationWarning>{hydrated ? t("new_analysis") : "New analysis"}</span>
-            </Button>
-          </div>
-
-          <ScrollArea className="flex-1 px-4">
-            <div className="space-y-1 pb-6">
-              <p
-                className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground mb-3 px-2"
+            <div>
+              <h1
+                className="font-bold tracking-tight text-sm leading-none"
                 suppressHydrationWarning
               >
-                {hydrated ? t("history") : "History"}
+                {hydrated ? t("app_name") : "PersonaPulse"}
+              </h1>
+              <p className="text-[9px] font-mono uppercase tracking-[0.2em] text-muted-foreground mt-1">
+                v1.0 Forensics
               </p>
-              {history.length === 0 ? (
-                <div className="py-12 text-center text-muted-foreground/60">
-                  <MessageSquare className="w-7 h-7 mx-auto mb-2 opacity-50" />
-                  <p className="text-[11px]" suppressHydrationWarning>
-                    {hydrated ? t("no_history") : "No analyses yet"}
-                  </p>
-                </div>
-              ) : (
-                history.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      setInput(item.text);
-                      setResult(item.result);
-                      setAnalyzedText(item.text);
-                      setCaseId(item.caseId);
-                    }}
-                    className="w-full text-start p-3 rounded-xl hover:bg-foreground/5 transition-all border border-transparent hover:border-foreground/5 group"
-                  >
-                    <p className="text-[10px] font-mono text-muted-foreground mb-1">
-                      #{item.caseId}
-                    </p>
-                    <p className="text-xs line-clamp-2 text-foreground/70 group-hover:text-foreground transition-colors">
-                      {item.text}
-                    </p>
-                  </button>
-                ))
-              )}
             </div>
-          </ScrollArea>
+          </div>
 
-          <div className="p-4 mt-auto space-y-2 border-t border-foreground/5">
+          <div className="flex items-center gap-2">
             <Button
               variant="ghost"
               size="sm"
-              className="w-full justify-start text-xs text-muted-foreground hover:text-foreground rounded-xl bg-foreground/5 hover:bg-foreground/10"
-              onClick={toggleLanguage}
+              onClick={() => {
+                setResult(null);
+                setInput("");
+                setCaseId("");
+              }}
+              className="hidden sm:inline-flex h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
               suppressHydrationWarning
             >
-              <Languages className="w-4 h-4 me-2" />
+              <Plus className="w-4 h-4 me-1.5" />
               <span suppressHydrationWarning>
-                {hydrated ? (isRtl ? "English" : "العربية") : "العربية"}
+                {hydrated ? t("new_analysis") : "New analysis"}
               </span>
             </Button>
-          </div>
-        </motion.aside>
 
-        {/* Main */}
-        <main className="flex-1 flex flex-col relative overflow-hidden">
-          {!sidebarOpen && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate({ to: "/history" })}
+              className="h-9 rounded-xl text-xs text-foreground bg-foreground/5 hover:bg-foreground/10"
+              suppressHydrationWarning
+              aria-label={t("view_history")}
+            >
+              <HistoryIcon className="w-4 h-4 me-1.5" />
+              <span suppressHydrationWarning>
+                {hydrated ? t("view_history") : "History"}
+              </span>
+              {hydrated && historyCount > 0 && (
+                <span className="ms-2 inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-primary/20 text-primary text-[10px] font-mono">
+                  {historyCount}
+                </span>
+              )}
+            </Button>
+
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setSidebarOpen(true)}
-              className="absolute top-6 start-6 z-50 h-10 w-10 glass-panel rounded-xl"
+              className="h-9 w-9 rounded-xl text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
+              onClick={toggleLanguage}
+              suppressHydrationWarning
+              aria-label="Language"
             >
-              <PanelLeftOpen className="w-5 h-5" />
+              <Languages className="w-4 h-4" />
             </Button>
-          )}
+          </div>
+        </header>
 
+        {/* Main */}
+        <main className="flex-1 flex flex-col relative overflow-hidden">
           <ScrollArea className="flex-1">
             <div className="max-w-5xl mx-auto p-6 md:p-12 pb-44">
               <AnimatePresence mode="wait">
@@ -257,8 +227,11 @@ export function PersonaWorkspace() {
                   >
                     <div className="mb-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse-slow" />
-                      <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-muted-foreground">
-                        {t("hero_eyebrow")}
+                      <span
+                        className="text-[10px] font-mono uppercase tracking-[0.25em] text-muted-foreground"
+                        suppressHydrationWarning
+                      >
+                        {hydrated ? t("hero_eyebrow") : "Behavioral psychology, weaponized"}
                       </span>
                     </div>
 
@@ -266,16 +239,24 @@ export function PersonaWorkspace() {
                       <Brain className="w-10 h-10 text-primary" />
                     </div>
 
-                    <h2 className="text-5xl md:text-7xl font-bold tracking-tight max-w-3xl leading-[1.05]">
-                      {t("hero_title_1")}{" "}
+                    <h2
+                      className="text-5xl md:text-7xl font-bold tracking-tight max-w-3xl leading-[1.05]"
+                      suppressHydrationWarning
+                    >
+                      {hydrated ? t("hero_title_1") : "Master the"}{" "}
                       <span className="text-gradient-primary italic font-serif">
-                        {t("hero_title_span")}
+                        {hydrated ? t("hero_title_span") : "Subtext"}
                       </span>{" "}
-                      {t("hero_title_2")}
+                      {hydrated ? t("hero_title_2") : "of human interaction"}
                     </h2>
 
-                    <p className="text-muted-foreground max-w-xl text-base md:text-lg mt-6 leading-relaxed">
-                      {t("hero_description")}
+                    <p
+                      className="text-muted-foreground max-w-xl text-base md:text-lg mt-6 leading-relaxed"
+                      suppressHydrationWarning
+                    >
+                      {hydrated
+                        ? t("hero_description")
+                        : "Paste any conversation to decode hidden intentions, personality traits, and architect strategic responses that bypass resistance."}
                     </p>
 
                     {hydrated && (
@@ -357,7 +338,7 @@ export function PersonaWorkspace() {
                 )}
               </Button>
               <Textarea
-                placeholder={t("input_placeholder")}
+                placeholder={hydrated ? t("input_placeholder") : ""}
                 className="min-h-[48px] max-h-48 bg-transparent border-none focus-visible:ring-0 text-sm resize-none py-3 px-2 placeholder:text-muted-foreground/60 shadow-none"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -367,6 +348,7 @@ export function PersonaWorkspace() {
                     handleAnalyze();
                   }
                 }}
+                dir={isRtl ? "rtl" : "ltr"}
               />
               <Button
                 onClick={handleAnalyze}
@@ -385,11 +367,8 @@ export function PersonaWorkspace() {
           </div>
         </main>
 
-        <footer className="border-t border-foreground/5 mt-12 py-6 px-6 text-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-          <Link
-            to="/privacy"
-            className="hover:text-foreground transition-colors"
-          >
+        <footer className="border-t border-foreground/5 py-4 px-6 text-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+          <Link to="/history" className="hover:text-foreground transition-colors">
             {hydrated ? t("privacy_policy") : "Privacy Policy"}
           </Link>
         </footer>
