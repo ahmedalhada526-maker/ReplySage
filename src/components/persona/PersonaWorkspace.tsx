@@ -223,7 +223,7 @@ export function PersonaWorkspace() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.5 }}
-                    className="min-h-[70vh] flex flex-col items-center justify-center text-center"
+                    className="flex flex-col items-center text-center pt-8"
                   >
                     <div className="mb-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse-slow" />
