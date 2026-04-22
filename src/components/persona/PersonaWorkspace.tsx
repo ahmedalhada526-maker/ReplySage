@@ -344,10 +344,10 @@ export function PersonaWorkspace() {
 
                     {hydrated && (
                       <>
-                        <AdSlot hide={false} className="mt-12 w-full max-w-2xl">
+                        <AdSlot hide={false} minHeight={250} className="mt-12 w-full max-w-2xl">
                           <AdsterraNative />
                         </AdSlot>
-                        <AdSlot hide={false} className="mt-6 w-full">
+                        <AdSlot hide={false} minHeight={100} className="mt-6 w-full">
                           <AdsterraBanner />
                         </AdSlot>
                       </>
@@ -372,11 +372,11 @@ export function PersonaWorkspace() {
 
                     <PulseAnalysis data={result.pulse} />
 
-                    <AdSlot hide={!hydrated}>
+                    <AdSlot hide={!hydrated} minHeight={100}>
                       <AdsterraBanner />
                     </AdSlot>
 
-                    <AdSlot hide={!hydrated} className="w-full max-w-2xl mx-auto">
+                    <AdSlot hide={!hydrated} minHeight={250} className="w-full max-w-2xl mx-auto">
                       <AdsterraNative />
                     </AdSlot>
 
