@@ -214,7 +214,7 @@ export function PersonaWorkspace() {
         {/* Main */}
         <main className="flex-1 flex flex-col relative overflow-hidden">
           <ScrollArea className="flex-1">
-            <div className="max-w-5xl mx-auto p-6 md:p-12 pb-44">
+            <div className={`max-w-5xl mx-auto p-6 md:p-12 ${result ? "pb-44" : "pb-12"}`}>
               <AnimatePresence mode="wait">
                 {!result ? (
                   <motion.div
