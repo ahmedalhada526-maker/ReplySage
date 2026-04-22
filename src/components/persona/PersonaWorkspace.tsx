@@ -372,11 +372,11 @@ export function PersonaWorkspace() {
 
                     <PulseAnalysis data={result.pulse} />
 
-                    <AdSlot hide={!hydrated}>
+                    <AdSlot hide={!hydrated} minHeight={100}>
                       <AdsterraBanner />
                     </AdSlot>
 
-                    <AdSlot hide={!hydrated} className="w-full max-w-2xl mx-auto">
+                    <AdSlot hide={!hydrated} minHeight={250} className="w-full max-w-2xl mx-auto">
                       <AdsterraNative />
                     </AdSlot>
 
