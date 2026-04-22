@@ -259,6 +259,89 @@ export function PersonaWorkspace() {
                         : "Paste any conversation to decode hidden intentions, personality traits, and architect strategic responses that bypass resistance."}
                     </p>
 
+                    {/* Professional inline composer — placed BEFORE ads */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3, duration: 0.5 }}
+                      className="mt-12 w-full max-w-3xl"
+                    >
+                      <div className="glass-strong rounded-3xl premium-shadow border border-foreground/10 overflow-hidden">
+                        <div className="flex items-center justify-between px-5 py-3 border-b border-foreground/5 bg-foreground/[0.02]">
+                          <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse-slow" />
+                            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-muted-foreground">
+                              {hydrated ? t("input_placeholder").slice(0, 0) || "Composer" : "Composer"}
+                            </span>
+                          </div>
+                          <span className="text-[10px] font-mono text-muted-foreground/60">
+                            {input.length} / 8000
+                          </span>
+                        </div>
+                        <Textarea
+                          placeholder={hydrated ? t("input_placeholder") : ""}
+                          className="min-h-[180px] max-h-[400px] bg-transparent border-none focus-visible:ring-0 text-base resize-none p-5 placeholder:text-muted-foreground/50 shadow-none rounded-none"
+                          value={input}
+                          onChange={(e) => setInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+                              e.preventDefault();
+                              handleAnalyze();
+                            }
+                          }}
+                          dir={isRtl ? "rtl" : "ltr"}
+                          maxLength={8000}
+                        />
+                        <div className="flex items-center justify-between gap-3 px-4 py-3 border-t border-foreground/5 bg-foreground/[0.02]">
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="file"
+                              id="file-upload"
+                              className="hidden"
+                              accept=".txt,.md,.csv,.json,.log"
+                              onChange={handleFileUpload}
+                            />
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
+                              onClick={() => document.getElementById("file-upload")?.click()}
+                              disabled={isUploading}
+                              aria-label={t("attach_file")}
+                            >
+                              {isUploading ? (
+                                <Loader2 className="w-4 h-4 me-1.5 animate-spin" />
+                              ) : (
+                                <Paperclip className="w-4 h-4 me-1.5" />
+                              )}
+                              <span className="hidden sm:inline">{hydrated ? t("attach_file") : "Attach"}</span>
+                            </Button>
+                            <span className="hidden md:inline text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/50">
+                              ⌘ + ↵
+                            </span>
+                          </div>
+                          <Button
+                            onClick={handleAnalyze}
+                            disabled={!input.trim() || isAnalyzing}
+                            className="h-11 px-6 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-all active:scale-95 disabled:opacity-40 disabled:glow-primary font-semibold"
+                            aria-label={t("send")}
+                          >
+                            {isAnalyzing ? (
+                              <>
+                                <Loader2 className="w-4 h-4 me-2 animate-spin" />
+                                {hydrated ? t("analyzing") : "Analyzing…"}
+                              </>
+                            ) : (
+                              <>
+                                <Send className="w-4 h-4 me-2 rtl:rotate-180" />
+                                {hydrated ? t("send") : "Run scan"}
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      </div>
+                    </motion.div>
+
                     {hydrated && (
                       <>
                         <AdSlot hide={false} className="mt-12 w-full max-w-2xl">
