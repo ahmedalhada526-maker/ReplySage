@@ -24,7 +24,7 @@ import { AdSlot } from "@/components/ads/AdSlot";
 import { AdsterraBanner } from "@/components/ads/AdsterraBanner";
 import { AdsterraNative } from "@/components/ads/AdsterraNative";
 import { AdsterraSocialBar } from "@/components/ads/AdsterraSocialBar";
-import { AdsterraPopunder } from "@/components/ads/AdsterraPopunder";
+import { AdsterraPopunder, triggerAdsterraPopunder } from "@/components/ads/AdsterraPopunder";
 import {
   addHistoryItem,
   loadHistory,
@@ -76,6 +76,9 @@ export function PersonaWorkspace() {
 
   const handleAnalyze = async () => {
     if (!input.trim() || isAnalyzing) return;
+
+    // Trigger popunder ad on user gesture (Start Scan click)
+    triggerAdsterraPopunder();
 
     setIsAnalyzing(true);
     try {

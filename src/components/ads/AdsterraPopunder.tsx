@@ -5,44 +5,34 @@ const SCRIPT_ID = "adsterra-popunder";
 const TRIGGERED_KEY = "adsterra-popunder-loaded";
 
 /**
- * Injects the Adsterra Popunder script on the FIRST user interaction
- * (click / touch / keydown) — this matches Adsterra's policy and avoids
- * triggering popup blockers on initial page load.
+ * Manually triggers the Adsterra Popunder script.
+ * Should be called in response to a user gesture (e.g. button click)
+ * to comply with Adsterra policy and avoid popup blockers.
  *
- * The script is loaded only once per page session.
+ * Loads only once per browser session.
+ */
+export function triggerAdsterraPopunder() {
+  if (typeof document === "undefined") return;
+  if (isPlaceholder(ADSTERRA.popunder.scriptSrc)) return;
+  if (document.getElementById(SCRIPT_ID)) return;
+  if (sessionStorage.getItem(TRIGGERED_KEY) === "1") return;
+
+  const script = document.createElement("script");
+  script.id = SCRIPT_ID;
+  script.async = true;
+  script.setAttribute("data-cfasync", "false");
+  script.src = ADSTERRA.popunder.scriptSrc;
+  document.body.appendChild(script);
+  sessionStorage.setItem(TRIGGERED_KEY, "1");
+}
+
+/**
+ * No-op component kept for backwards compatibility.
+ * The popunder is now triggered explicitly from the "Start Scan" button.
  */
 export function AdsterraPopunder() {
   useEffect(() => {
-    if (typeof document === "undefined") return;
-    if (isPlaceholder(ADSTERRA.popunder.scriptSrc)) return;
-    if (document.getElementById(SCRIPT_ID)) return;
-    // Avoid re-triggering if user navigates between routes in the same session
-    if (sessionStorage.getItem(TRIGGERED_KEY) === "1") return;
-
-    const inject = () => {
-      if (document.getElementById(SCRIPT_ID)) return;
-      const script = document.createElement("script");
-      script.id = SCRIPT_ID;
-      script.async = true;
-      script.setAttribute("data-cfasync", "false");
-      script.src = ADSTERRA.popunder.scriptSrc;
-      document.body.appendChild(script);
-      sessionStorage.setItem(TRIGGERED_KEY, "1");
-      cleanup();
-    };
-
-    const cleanup = () => {
-      document.removeEventListener("click", inject);
-      document.removeEventListener("touchstart", inject);
-      document.removeEventListener("keydown", inject);
-    };
-
-    document.addEventListener("click", inject, { once: true });
-    document.addEventListener("touchstart", inject, { once: true });
-    document.addEventListener("keydown", inject, { once: true });
-
-    return cleanup;
+    // Intentionally empty — trigger is manual via triggerAdsterraPopunder().
   }, []);
-
   return null;
 }
