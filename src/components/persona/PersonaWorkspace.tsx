@@ -214,7 +214,7 @@ export function PersonaWorkspace() {
         {/* Main */}
         <main className="flex-1 flex flex-col relative overflow-hidden">
           <ScrollArea className="flex-1">
-            <div className="max-w-5xl mx-auto p-6 md:p-12 pb-44">
+            <div className={`max-w-5xl mx-auto p-6 md:p-12 ${result ? "pb-44" : "pb-12"}`}>
               <AnimatePresence mode="wait">
                 {!result ? (
                   <motion.div
@@ -223,7 +223,7 @@ export function PersonaWorkspace() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.5 }}
-                    className="min-h-[70vh] flex flex-col items-center justify-center text-center"
+                    className="flex flex-col items-center text-center pt-8"
                   >
                     <div className="mb-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse-slow" />
@@ -258,6 +258,89 @@ export function PersonaWorkspace() {
                         ? t("hero_description")
                         : "Paste any conversation to decode hidden intentions, personality traits, and architect strategic responses that bypass resistance."}
                     </p>
+
+                    {/* Professional inline composer — placed BEFORE ads */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3, duration: 0.5 }}
+                      className="mt-12 w-full max-w-3xl"
+                    >
+                      <div className="glass-strong rounded-3xl premium-shadow border border-foreground/10 overflow-hidden">
+                        <div className="flex items-center justify-between px-5 py-3 border-b border-foreground/5 bg-foreground/[0.02]">
+                          <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse-slow" />
+                            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-muted-foreground">
+                              {hydrated ? t("input_placeholder").slice(0, 0) || "Composer" : "Composer"}
+                            </span>
+                          </div>
+                          <span className="text-[10px] font-mono text-muted-foreground/60">
+                            {input.length} / 8000
+                          </span>
+                        </div>
+                        <Textarea
+                          placeholder={hydrated ? t("input_placeholder") : ""}
+                          className="min-h-[180px] max-h-[400px] bg-transparent border-none focus-visible:ring-0 text-base resize-none p-5 placeholder:text-muted-foreground/50 shadow-none rounded-none"
+                          value={input}
+                          onChange={(e) => setInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+                              e.preventDefault();
+                              handleAnalyze();
+                            }
+                          }}
+                          dir={isRtl ? "rtl" : "ltr"}
+                          maxLength={8000}
+                        />
+                        <div className="flex items-center justify-between gap-3 px-4 py-3 border-t border-foreground/5 bg-foreground/[0.02]">
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="file"
+                              id="file-upload"
+                              className="hidden"
+                              accept=".txt,.md,.csv,.json,.log"
+                              onChange={handleFileUpload}
+                            />
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
+                              onClick={() => document.getElementById("file-upload")?.click()}
+                              disabled={isUploading}
+                              aria-label={t("attach_file")}
+                            >
+                              {isUploading ? (
+                                <Loader2 className="w-4 h-4 me-1.5 animate-spin" />
+                              ) : (
+                                <Paperclip className="w-4 h-4 me-1.5" />
+                              )}
+                              <span className="hidden sm:inline">{hydrated ? t("attach_file") : "Attach"}</span>
+                            </Button>
+                            <span className="hidden md:inline text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/50">
+                              ⌘ + ↵
+                            </span>
+                          </div>
+                          <Button
+                            onClick={handleAnalyze}
+                            disabled={!input.trim() || isAnalyzing}
+                            className="h-11 px-6 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-all active:scale-95 disabled:opacity-40 disabled:glow-primary font-semibold"
+                            aria-label={t("send")}
+                          >
+                            {isAnalyzing ? (
+                              <>
+                                <Loader2 className="w-4 h-4 me-2 animate-spin" />
+                                {hydrated ? t("analyzing") : "Analyzing…"}
+                              </>
+                            ) : (
+                              <>
+                                <Send className="w-4 h-4 me-2 rtl:rotate-180" />
+                                {hydrated ? t("send") : "Run scan"}
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      </div>
+                    </motion.div>
 
                     {hydrated && (
                       <>
@@ -308,63 +391,65 @@ export function PersonaWorkspace() {
             </div>
           </ScrollArea>
 
-          {/* Floating command bar */}
-          <div className="absolute bottom-8 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 w-full max-w-2xl px-6 z-40">
-            <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="glass-strong p-2 rounded-[2rem] premium-shadow flex items-end gap-2"
-            >
-              <input
-                type="file"
-                id="file-upload"
-                className="hidden"
-                accept=".txt,.md,.csv,.json,.log"
-                onChange={handleFileUpload}
-              />
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-12 w-12 rounded-full text-muted-foreground hover:text-foreground hover:bg-foreground/5 shrink-0"
-                onClick={() => document.getElementById("file-upload")?.click()}
-                disabled={isUploading}
-                aria-label={t("attach_file")}
+          {/* Floating command bar — only when viewing results */}
+          {result && (
+            <div className="absolute bottom-8 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 w-full max-w-2xl px-6 z-40">
+              <motion.div
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="glass-strong p-2 rounded-[2rem] premium-shadow flex items-end gap-2"
               >
-                {isUploading ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  <Paperclip className="w-5 h-5" />
-                )}
-              </Button>
-              <Textarea
-                placeholder={hydrated ? t("input_placeholder") : ""}
-                className="min-h-[48px] max-h-48 bg-transparent border-none focus-visible:ring-0 text-sm resize-none py-3 px-2 placeholder:text-muted-foreground/60 shadow-none"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    handleAnalyze();
-                  }
-                }}
-                dir={isRtl ? "rtl" : "ltr"}
-              />
-              <Button
-                onClick={handleAnalyze}
-                disabled={!input.trim() || isAnalyzing}
-                size="icon"
-                className="h-12 w-12 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shrink-0 glow-primary transition-all active:scale-95 disabled:opacity-40 disabled:glow-primary"
-                aria-label={t("send")}
-              >
-                {isAnalyzing ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  <Send className="w-5 h-5 rtl:rotate-180" />
-                )}
-              </Button>
-            </motion.div>
-          </div>
+                <input
+                  type="file"
+                  id="file-upload-floating"
+                  className="hidden"
+                  accept=".txt,.md,.csv,.json,.log"
+                  onChange={handleFileUpload}
+                />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-12 w-12 rounded-full text-muted-foreground hover:text-foreground hover:bg-foreground/5 shrink-0"
+                  onClick={() => document.getElementById("file-upload-floating")?.click()}
+                  disabled={isUploading}
+                  aria-label={t("attach_file")}
+                >
+                  {isUploading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <Paperclip className="w-5 h-5" />
+                  )}
+                </Button>
+                <Textarea
+                  placeholder={hydrated ? t("input_placeholder") : ""}
+                  className="min-h-[48px] max-h-48 bg-transparent border-none focus-visible:ring-0 text-sm resize-none py-3 px-2 placeholder:text-muted-foreground/60 shadow-none"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      handleAnalyze();
+                    }
+                  }}
+                  dir={isRtl ? "rtl" : "ltr"}
+                />
+                <Button
+                  onClick={handleAnalyze}
+                  disabled={!input.trim() || isAnalyzing}
+                  size="icon"
+                  className="h-12 w-12 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shrink-0 glow-primary transition-all active:scale-95 disabled:opacity-40 disabled:glow-primary"
+                  aria-label={t("send")}
+                >
+                  {isAnalyzing ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <Send className="w-5 h-5 rtl:rotate-180" />
+                  )}
+                </Button>
+              </motion.div>
+            </div>
+          )}
         </main>
 
         <footer className="border-t border-foreground/5 py-4 px-6 text-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
