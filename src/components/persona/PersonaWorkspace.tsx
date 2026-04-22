@@ -344,10 +344,10 @@ export function PersonaWorkspace() {
 
                     {hydrated && (
                       <>
-                        <AdSlot hide={false} className="mt-12 w-full max-w-2xl">
+                        <AdSlot hide={false} minHeight={250} className="mt-12 w-full max-w-2xl">
                           <AdsterraNative />
                         </AdSlot>
-                        <AdSlot hide={false} className="mt-6 w-full">
+                        <AdSlot hide={false} minHeight={100} className="mt-6 w-full">
                           <AdsterraBanner />
                         </AdSlot>
                       </>
