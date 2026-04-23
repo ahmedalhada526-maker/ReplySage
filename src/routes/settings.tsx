@@ -51,6 +51,30 @@ function SettingsPage() {
 
   const usingGemini = status?.provider === "gemini-direct";
 
+  const [testing, setTesting] = useState(false);
+  const [testResult, setTestResult] = useState<
+    | { ok: true; reply: string; latencyMs?: number; status?: number }
+    | { ok: false; error: string; latencyMs?: number; status?: number }
+    | null
+  >(null);
+
+  const runTest = async () => {
+    setTesting(true);
+    setTestResult(null);
+    try {
+      const r = await testGeminiKey();
+      if (r.ok) {
+        setTestResult({ ok: true, reply: r.reply ?? "", latencyMs: r.latencyMs, status: r.status });
+      } else {
+        setTestResult({ ok: false, error: r.error ?? "Unknown error", latencyMs: r.latencyMs, status: r.status });
+      }
+    } catch (e) {
+      setTestResult({ ok: false, error: e instanceof Error ? e.message : "Request failed" });
+    } finally {
+      setTesting(false);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto w-full max-w-2xl px-4 py-10 sm:py-16">
@@ -111,6 +135,64 @@ function SettingsPage() {
                     “update my Gemini API key”. Keys are stored as encrypted server-side secrets and never sent to the browser bundle.
                   </span>
                 </p>
+              </div>
+
+              <div className="rounded-lg border border-border bg-background p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="font-medium">Test Gemini API key</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Sends one tiny ping to Google using your server-side key.
+                    </p>
+                  </div>
+                  <Button
+                    onClick={runTest}
+                    disabled={testing || !status.geminiConfigured}
+                    size="sm"
+                  >
+                    {testing ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Testing…
+                      </>
+                    ) : (
+                      <>
+                        <PlayCircle className="mr-2 h-4 w-4" />
+                        Run test
+                      </>
+                    )}
+                  </Button>
+                </div>
+
+                {!status.geminiConfigured && (
+                  <p className="mt-3 text-xs text-muted-foreground">
+                    Add <code className="rounded bg-muted px-1.5 py-0.5">GEMINI_API_KEY</code> first to enable this test.
+                  </p>
+                )}
+
+                {testResult?.ok && (
+                  <div className="mt-4 rounded-md border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm text-emerald-500">
+                    <div className="flex items-center gap-2 font-medium">
+                      <CheckCircle2 className="h-4 w-4" />
+                      Success {testResult.latencyMs ? `(${testResult.latencyMs}ms)` : ""}
+                    </div>
+                    <p className="mt-1 break-words text-emerald-500/90">
+                      Reply: <span className="font-mono">{testResult.reply || "(empty)"}</span>
+                    </p>
+                  </div>
+                )}
+
+                {testResult && !testResult.ok && (
+                  <div className="mt-4 rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
+                    <div className="flex items-center gap-2 font-medium">
+                      <XCircle className="h-4 w-4" />
+                      Failed {testResult.status ? `(HTTP ${testResult.status})` : ""}
+                    </div>
+                    <p className="mt-1 break-words font-mono text-xs leading-relaxed text-destructive/90">
+                      {testResult.error}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           )}
