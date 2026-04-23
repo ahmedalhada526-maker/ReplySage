@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { checkRateLimit } from "./rate-limit";
+import { callAIChat } from "./ai-provider";
 
 const InputSchema = z.object({
   text: z.string().min(1).max(8000),
@@ -43,9 +44,8 @@ export const analyzeInteraction = createServerFn({ method: "POST" })
       return { result: null, error: "rate_limit" };
     }
 
-    const apiKey = process.env.LOVABLE_API_KEY;
-    if (!apiKey) {
-      console.error("LOVABLE_API_KEY missing");
+    if (!process.env.LOVABLE_API_KEY && !process.env.GEMINI_API_KEY) {
+      console.error("No AI key configured (LOVABLE_API_KEY or GEMINI_API_KEY)");
       return { result: null, error: "AI is not configured." };
     }
 
@@ -168,21 +168,13 @@ All output values must be in ${langName}.\n\nINPUT:\n"""\n${data.text}\n"""`;
     ];
 
     try {
-      const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "google/gemini-2.5-pro",
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: userPrompt },
-          ],
-          tools,
-          tool_choice: { type: "function", function: { name: "submit_pulse_analysis" } },
-        }),
+      const res = await callAIChat({
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt },
+        ],
+        tools,
+        tool_choice: { type: "function", function: { name: "submit_pulse_analysis" } },
       });
 
       if (!res.ok) {
@@ -217,8 +209,9 @@ export const regenerateSavage = createServerFn({ method: "POST" })
       return { response: null, whyItWorks: null, error: "rate_limit" };
     }
 
-    const apiKey = process.env.LOVABLE_API_KEY;
-    if (!apiKey) return { response: null, whyItWorks: null, error: "AI is not configured." };
+    if (!process.env.LOVABLE_API_KEY && !process.env.GEMINI_API_KEY) {
+      return { response: null, whyItWorks: null, error: "AI is not configured." };
+    }
 
     const langName = data.language === "ar" ? "Arabic (العربية)" : "English";
 
@@ -258,19 +251,14 @@ INPUT MESSAGE:\n"""\n${data.text}\n"""`;
     ];
 
     try {
-      const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "google/gemini-2.5-pro",
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: userPrompt },
-          ],
-          tools,
-          tool_choice: { type: "function", function: { name: "submit_savage_alternative" } },
-          temperature: 1.1,
-        }),
+      const res = await callAIChat({
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt },
+        ],
+        tools,
+        tool_choice: { type: "function", function: { name: "submit_savage_alternative" } },
+        temperature: 1.1,
       });
 
       if (!res.ok) {
