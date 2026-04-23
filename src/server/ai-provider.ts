@@ -1,9 +1,10 @@
 /**
  * AI provider selector.
  * - If GEMINI_API_KEY is set, calls Google Gemini directly.
- * - Otherwise, falls back to the Lovable AI Gateway with LOVABLE_API_KEY.
+ * - Falls back to Lovable AI Gateway on auth/quota/server failures, or when no
+ *   Gemini key is configured.
  *
- * Both paths use OpenAI-compatible chat/completions shape so callers don't change.
+ * Both paths use the OpenAI-compatible chat/completions shape so callers don't change.
  */
 
 const LOVABLE_GATEWAY = "https://ai.gateway.lovable.dev/v1/chat/completions";
@@ -12,8 +13,14 @@ const GEMINI_OPENAI_BASE =
 
 /** Default model when calling Lovable AI Gateway. */
 const LOVABLE_DEFAULT_MODEL = "google/gemini-2.5-pro";
-/** Equivalent Gemini model name on Google's direct API. */
-const GEMINI_DIRECT_MODEL = "gemini-2.5-pro";
+/**
+ * Equivalent Gemini model name on Google's direct API.
+ * NOTE: gemini-2.5-pro requires a paid plan on Google AI Studio (free tier
+ * quota is 0). gemini-2.5-flash is available on the free tier and gives
+ * very similar quality for chat/tool-calling, so we use it as the default
+ * for direct Gemini calls.
+ */
+const GEMINI_DIRECT_MODEL = "gemini-2.5-flash";
 
 export interface AIProviderInfo {
   provider: "gemini-direct" | "lovable";
@@ -37,28 +44,15 @@ interface ChatPayload {
   temperature?: number;
 }
 
-/**
- * Sends a chat-completion request to whichever provider is active.
- * Caller passes the Lovable model name; we map it to Gemini if needed.
- */
-export async function callAIChat(
-  payload: ChatPayload,
-): Promise<Response> {
-  const geminiKey = process.env.GEMINI_API_KEY;
-  if (geminiKey) {
-    return fetch(GEMINI_OPENAI_BASE, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${geminiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: GEMINI_DIRECT_MODEL,
-        ...payload,
-      }),
-    });
-  }
+/** Status codes from Gemini that should trigger fallback to Lovable AI. */
+function shouldFallback(status: number): boolean {
+  // 401/403 = bad/unauthorized key, 404 = model unavailable for this key,
+  // 429 = quota exceeded (e.g. free-tier daily cap on gemini-2.5-pro),
+  // 5xx = upstream Google issue.
+  return status === 401 || status === 403 || status === 404 || status === 429 || status >= 500;
+}
 
+async function callLovable(payload: ChatPayload): Promise<Response> {
   const lovableKey = process.env.LOVABLE_API_KEY;
   if (!lovableKey) {
     return new Response(JSON.stringify({ error: "no AI key configured" }), {
@@ -77,4 +71,50 @@ export async function callAIChat(
       ...payload,
     }),
   });
+}
+
+/**
+ * Sends a chat-completion request to whichever provider is active.
+ * If the user's Gemini key fails with a recoverable error (quota, auth,
+ * upstream), automatically retries through the Lovable AI Gateway.
+ */
+export async function callAIChat(
+  payload: ChatPayload,
+): Promise<Response> {
+  const geminiKey = process.env.GEMINI_API_KEY;
+
+  if (geminiKey) {
+    try {
+      const res = await fetch(GEMINI_OPENAI_BASE, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${geminiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: GEMINI_DIRECT_MODEL,
+          ...payload,
+        }),
+      });
+
+      if (res.ok) return res;
+
+      if (shouldFallback(res.status) && process.env.LOVABLE_API_KEY) {
+        // Read body for logging, then fall through to Lovable.
+        const errText = await res.text().catch(() => "");
+        console.warn(
+          `Gemini direct failed (${res.status}); falling back to Lovable AI. Body: ${errText.slice(0, 300)}`,
+        );
+        return callLovable(payload);
+      }
+
+      return res;
+    } catch (err) {
+      console.warn("Gemini direct threw; falling back to Lovable AI:", err);
+      if (process.env.LOVABLE_API_KEY) return callLovable(payload);
+      throw err;
+    }
+  }
+
+  return callLovable(payload);
 }
