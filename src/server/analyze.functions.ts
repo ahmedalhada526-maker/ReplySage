@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { checkRateLimit } from "./rate-limit";
+import { callAIChat } from "./ai-provider";
 
 const InputSchema = z.object({
   text: z.string().min(1).max(8000),
