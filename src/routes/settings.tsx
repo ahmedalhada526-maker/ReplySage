@@ -1,7 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowLeft, CheckCircle2, KeyRound, ShieldCheck, AlertCircle, Loader2 } from "lucide-react";
-import { getAIStatus } from "@/server/settings.functions";
+import {
+  ArrowLeft,
+  CheckCircle2,
+  KeyRound,
+  ShieldCheck,
+  AlertCircle,
+  Loader2,
+  PlayCircle,
+  XCircle,
+} from "lucide-react";
+import { getAIStatus, testGeminiKey } from "@/server/settings.functions";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/settings")({
