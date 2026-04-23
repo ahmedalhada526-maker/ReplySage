@@ -44,9 +44,8 @@ export const analyzeInteraction = createServerFn({ method: "POST" })
       return { result: null, error: "rate_limit" };
     }
 
-    const apiKey = process.env.LOVABLE_API_KEY;
-    if (!apiKey) {
-      console.error("LOVABLE_API_KEY missing");
+    if (!process.env.LOVABLE_API_KEY && !process.env.GEMINI_API_KEY) {
+      console.error("No AI key configured (LOVABLE_API_KEY or GEMINI_API_KEY)");
       return { result: null, error: "AI is not configured." };
     }
 
@@ -169,21 +168,13 @@ All output values must be in ${langName}.\n\nINPUT:\n"""\n${data.text}\n"""`;
     ];
 
     try {
-      const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "google/gemini-2.5-pro",
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: userPrompt },
-          ],
-          tools,
-          tool_choice: { type: "function", function: { name: "submit_pulse_analysis" } },
-        }),
+      const res = await callAIChat({
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt },
+        ],
+        tools,
+        tool_choice: { type: "function", function: { name: "submit_pulse_analysis" } },
       });
 
       if (!res.ok) {
