@@ -84,35 +84,62 @@ export async function callAIChat(
   const geminiKey = process.env.GEMINI_API_KEY;
 
   if (geminiKey) {
-    try {
-      const res = await fetch(GEMINI_OPENAI_BASE, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${geminiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: GEMINI_DIRECT_MODEL,
-          ...payload,
-        }),
-      });
+    // Try Gemini up to 3 times for transient errors (503/500) before falling back.
+    const transientStatuses = new Set([500, 502, 503, 504]);
+    const maxAttempts = 3;
+    let lastRes: Response | null = null;
 
-      if (res.ok) return res;
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        const res = await fetch(GEMINI_OPENAI_BASE, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${geminiKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: GEMINI_DIRECT_MODEL,
+            ...payload,
+          }),
+        });
 
-      if (shouldFallback(res.status) && process.env.LOVABLE_API_KEY) {
-        // Read body for logging, then fall through to Lovable.
-        const errText = await res.text().catch(() => "");
+        if (res.ok) return res;
+
+        // Transient — retry with backoff before giving up.
+        if (transientStatuses.has(res.status) && attempt < maxAttempts) {
+          const errText = await res.text().catch(() => "");
+          console.warn(
+            `Gemini transient ${res.status} (attempt ${attempt}/${maxAttempts}); retrying. Body: ${errText.slice(0, 200)}`,
+          );
+          await new Promise((r) => setTimeout(r, 400 * attempt));
+          continue;
+        }
+
+        lastRes = res;
+        break;
+      } catch (err) {
         console.warn(
-          `Gemini direct failed (${res.status}); falling back to Lovable AI. Body: ${errText.slice(0, 300)}`,
+          `Gemini direct threw (attempt ${attempt}/${maxAttempts}):`,
+          err,
+        );
+        if (attempt < maxAttempts) {
+          await new Promise((r) => setTimeout(r, 400 * attempt));
+          continue;
+        }
+        if (process.env.LOVABLE_API_KEY) return callLovable(payload);
+        throw err;
+      }
+    }
+
+    if (lastRes) {
+      if (shouldFallback(lastRes.status) && process.env.LOVABLE_API_KEY) {
+        const errText = await lastRes.text().catch(() => "");
+        console.warn(
+          `Gemini direct failed (${lastRes.status}) after ${maxAttempts} attempts; falling back to Lovable AI. Body: ${errText.slice(0, 300)}`,
         );
         return callLovable(payload);
       }
-
-      return res;
-    } catch (err) {
-      console.warn("Gemini direct threw; falling back to Lovable AI:", err);
-      if (process.env.LOVABLE_API_KEY) return callLovable(payload);
-      throw err;
+      return lastRes;
     }
   }
 
