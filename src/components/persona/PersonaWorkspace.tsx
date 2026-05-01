@@ -101,6 +101,10 @@ export function PersonaWorkspace() {
         createdAt: Date.now(),
       });
       setInput("");
+
+      // Show Unity interstitial after scan completes (native only; no-op on web).
+      // Fire-and-forget — never block the UI.
+      void showInterstitial();
     } catch (e) {
       console.error(e);
       toast.error(t("error_generic"));
