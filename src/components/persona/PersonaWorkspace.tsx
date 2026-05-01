@@ -346,12 +346,18 @@ export function PersonaWorkspace() {
 
                     {hydrated && (
                       <>
-                        <AdSlot hide={false} minHeight={250} className="mt-12 w-full max-w-2xl">
-                          <AdsterraNative />
-                        </AdSlot>
-                        <AdSlot hide={false} minHeight={100} className="mt-6 w-full">
-                          <AdsterraBanner />
-                        </AdSlot>
+                        <RewardedAdCard
+                          title={isRtl ? "افتح مسحاً عميقاً مجاناً" : "Unlock a free Deep Scan"}
+                          description={
+                            isRtl
+                              ? "شاهد فيديو قصير لتحصل على تحليل شخصية موسّع لهذه المحادثة."
+                              : "Watch a short video to unlock an extended personality breakdown for this chat."
+                          }
+                          rewardLabel={isRtl ? "+1 مسح عميق" : "+1 Deep Scan"}
+                          onReward={() => toast.success(isRtl ? "تم منح المكافأة" : "Reward unlocked")}
+                          className="mt-12 w-full max-w-2xl"
+                        />
+                        <BannerAdSlot className="mt-6 w-full" />
                       </>
                     )}
                   </motion.div>
