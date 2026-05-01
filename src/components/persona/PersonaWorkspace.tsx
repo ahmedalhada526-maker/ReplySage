@@ -20,11 +20,9 @@ import { toast } from "sonner";
 import { analyzeInteraction, type AnalysisResult } from "@/server/analyze.functions";
 import { PulseAnalysis } from "@/components/persona/PulseAnalysis";
 import { StrategyCards } from "@/components/persona/StrategyCards";
-import { AdSlot } from "@/components/ads/AdSlot";
-import { AdsterraBanner } from "@/components/ads/AdsterraBanner";
-import { AdsterraNative } from "@/components/ads/AdsterraNative";
-import { AdsterraSocialBar } from "@/components/ads/AdsterraSocialBar";
-import { AdsterraPopunder, triggerAdsterraPopunder } from "@/components/ads/AdsterraPopunder";
+import { BannerAdSlot } from "@/components/ads/BannerAdSlot";
+import { RewardedAdCard } from "@/components/ads/RewardedAdCard";
+import { showInterstitial } from "@/lib/ads/AdService";
 import {
   addHistoryItem,
   loadHistory,
