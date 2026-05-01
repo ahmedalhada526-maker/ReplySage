@@ -20,11 +20,9 @@ import { toast } from "sonner";
 import { analyzeInteraction, type AnalysisResult } from "@/server/analyze.functions";
 import { PulseAnalysis } from "@/components/persona/PulseAnalysis";
 import { StrategyCards } from "@/components/persona/StrategyCards";
-import { AdSlot } from "@/components/ads/AdSlot";
-import { AdsterraBanner } from "@/components/ads/AdsterraBanner";
-import { AdsterraNative } from "@/components/ads/AdsterraNative";
-import { AdsterraSocialBar } from "@/components/ads/AdsterraSocialBar";
-import { AdsterraPopunder, triggerAdsterraPopunder } from "@/components/ads/AdsterraPopunder";
+import { BannerAdSlot } from "@/components/ads/BannerAdSlot";
+import { RewardedAdCard } from "@/components/ads/RewardedAdCard";
+import { showInterstitial } from "@/lib/ads/AdService";
 import {
   addHistoryItem,
   loadHistory,
@@ -77,9 +75,6 @@ export function PersonaWorkspace() {
   const handleAnalyze = async () => {
     if (!input.trim() || isAnalyzing) return;
 
-    // Trigger popunder ad on user gesture (Start Scan click)
-    triggerAdsterraPopunder();
-
     setIsAnalyzing(true);
     try {
       const lang = (i18n.language?.startsWith("ar") ? "ar" : "en") as "en" | "ar";
@@ -106,6 +101,10 @@ export function PersonaWorkspace() {
         createdAt: Date.now(),
       });
       setInput("");
+
+      // Show Unity interstitial after scan completes (native only; no-op on web).
+      // Fire-and-forget — never block the UI.
+      void showInterstitial();
     } catch (e) {
       console.error(e);
       toast.error(t("error_generic"));
@@ -347,12 +346,18 @@ export function PersonaWorkspace() {
 
                     {hydrated && (
                       <>
-                        <AdSlot hide={false} minHeight={250} className="mt-12 w-full max-w-2xl">
-                          <AdsterraNative />
-                        </AdSlot>
-                        <AdSlot hide={false} minHeight={100} className="mt-6 w-full">
-                          <AdsterraBanner />
-                        </AdSlot>
+                        <RewardedAdCard
+                          title={isRtl ? "افتح مسحاً عميقاً مجاناً" : "Unlock a free Deep Scan"}
+                          description={
+                            isRtl
+                              ? "شاهد فيديو قصير لتحصل على تحليل شخصية موسّع لهذه المحادثة."
+                              : "Watch a short video to unlock an extended personality breakdown for this chat."
+                          }
+                          rewardLabel={isRtl ? "+1 مسح عميق" : "+1 Deep Scan"}
+                          onReward={() => toast.success(isRtl ? "تم منح المكافأة" : "Reward unlocked")}
+                          className="mt-12 w-full max-w-2xl"
+                        />
+                        <BannerAdSlot className="mt-6 w-full" />
                       </>
                     )}
                   </motion.div>
@@ -375,13 +380,19 @@ export function PersonaWorkspace() {
 
                     <PulseAnalysis data={result.pulse} />
 
-                    <AdSlot hide={!hydrated} minHeight={100}>
-                      <AdsterraBanner />
-                    </AdSlot>
+                    <BannerAdSlot />
 
-                    <AdSlot hide={!hydrated} minHeight={250} className="w-full max-w-2xl mx-auto">
-                      <AdsterraNative />
-                    </AdSlot>
+                    <RewardedAdCard
+                      title={isRtl ? "احصل على استراتيجية متقدّمة" : "Get an advanced strategy"}
+                      description={
+                        isRtl
+                          ? "شاهد إعلاناً قصيراً لفتح خطة ردّ احترافية إضافية مبنيّة على هذا التحليل."
+                          : "Watch a short ad to unlock one extra pro-grade response strategy for this case."
+                      }
+                      rewardLabel={isRtl ? "+1 استراتيجية" : "+1 Strategy"}
+                      onReward={() => toast.success(isRtl ? "تم فتح الاستراتيجية" : "Strategy unlocked")}
+                      className="w-full max-w-2xl mx-auto"
+                    />
 
                     <StrategyCards
                       strategies={result.strategies}
@@ -462,8 +473,6 @@ export function PersonaWorkspace() {
         </footer>
       </div>
 
-      {hydrated && <AdsterraSocialBar />}
-      {hydrated && <AdsterraPopunder />}
     </TooltipProvider>
   );
 }
