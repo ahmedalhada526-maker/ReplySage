@@ -380,13 +380,19 @@ export function PersonaWorkspace() {
 
                     <PulseAnalysis data={result.pulse} />
 
-                    <AdSlot hide={!hydrated} minHeight={100}>
-                      <AdsterraBanner />
-                    </AdSlot>
+                    <BannerAdSlot />
 
-                    <AdSlot hide={!hydrated} minHeight={250} className="w-full max-w-2xl mx-auto">
-                      <AdsterraNative />
-                    </AdSlot>
+                    <RewardedAdCard
+                      title={isRtl ? "احصل على استراتيجية متقدّمة" : "Get an advanced strategy"}
+                      description={
+                        isRtl
+                          ? "شاهد إعلاناً قصيراً لفتح خطة ردّ احترافية إضافية مبنيّة على هذا التحليل."
+                          : "Watch a short ad to unlock one extra pro-grade response strategy for this case."
+                      }
+                      rewardLabel={isRtl ? "+1 استراتيجية" : "+1 Strategy"}
+                      onReward={() => toast.success(isRtl ? "تم فتح الاستراتيجية" : "Strategy unlocked")}
+                      className="w-full max-w-2xl mx-auto"
+                    />
 
                     <StrategyCards
                       strategies={result.strategies}
