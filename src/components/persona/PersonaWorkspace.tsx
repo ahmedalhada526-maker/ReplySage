@@ -75,9 +75,6 @@ export function PersonaWorkspace() {
   const handleAnalyze = async () => {
     if (!input.trim() || isAnalyzing) return;
 
-    // Trigger popunder ad on user gesture (Start Scan click)
-    triggerAdsterraPopunder();
-
     setIsAnalyzing(true);
     try {
       const lang = (i18n.language?.startsWith("ar") ? "ar" : "en") as "en" | "ar";
