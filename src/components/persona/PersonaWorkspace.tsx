@@ -322,12 +322,12 @@ export function PersonaWorkspace() {
                       transition={{ delay: 0.3, duration: 0.5 }}
                       className="mt-12 w-full max-w-3xl"
                     >
-                      <div className="glass-strong rounded-3xl premium-shadow border border-foreground/10 overflow-hidden">
+                      <div className="glass-obsidian rounded-3xl premium-shadow border border-foreground/10 overflow-hidden">
                         <div className="flex items-center justify-between px-5 py-3 border-b border-foreground/5 bg-foreground/[0.02]">
                           <div className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-primary animate-pulse-slow" />
                             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-muted-foreground">
-                              {hydrated ? t("input_placeholder").slice(0, 0) || "Composer" : "Composer"}
+                              {hydrated ? t("composer_title") : "Composer"}
                             </span>
                           </div>
                           <span className="text-[10px] font-mono text-muted-foreground/60">
@@ -336,7 +336,7 @@ export function PersonaWorkspace() {
                         </div>
                         <Textarea
                           placeholder={hydrated ? t("input_placeholder") : ""}
-                          className="min-h-[180px] max-h-[400px] bg-transparent border-none focus-visible:ring-0 text-base resize-none p-5 placeholder:text-muted-foreground/50 shadow-none rounded-none"
+                          className="min-h-[160px] max-h-[360px] bg-transparent border-none focus-visible:ring-0 text-base resize-none p-5 placeholder:text-muted-foreground/50 shadow-none rounded-none"
                           value={input}
                           onChange={(e) => setInput(e.target.value)}
                           onKeyDown={(e) => {
@@ -348,14 +348,45 @@ export function PersonaWorkspace() {
                           dir={isRtl ? "rtl" : "ltr"}
                           maxLength={8000}
                         />
+
+                        {/* Recipient intel */}
+                        <div className="px-5 pb-2 pt-1 border-t border-foreground/5 bg-foreground/[0.02]">
+                          <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground block py-2">
+                            {hydrated ? t("recipient_intel_label") : "Recipient intel"}
+                          </label>
+                          <Textarea
+                            placeholder={hydrated ? t("recipient_intel_placeholder") : ""}
+                            className="min-h-[60px] max-h-[160px] bg-transparent border border-foreground/10 focus-visible:ring-1 focus-visible:ring-primary/40 text-sm resize-none p-3 rounded-xl placeholder:text-muted-foreground/50"
+                            value={recipientContext}
+                            onChange={(e) => setRecipientContext(e.target.value)}
+                            dir={isRtl ? "rtl" : "ltr"}
+                            maxLength={2000}
+                          />
+                        </div>
+
+                        {/* Style picker */}
+                        <div className="px-5 pt-3 pb-4 border-t border-foreground/5 bg-foreground/[0.02]">
+                          <ResponseStylePicker
+                            value={responseStyle}
+                            onChange={setResponseStyle}
+                          />
+                        </div>
+
                         <div className="flex items-center justify-between gap-3 px-4 py-3 border-t border-foreground/5 bg-foreground/[0.02]">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <input
                               type="file"
                               id="file-upload"
                               className="hidden"
                               accept=".txt,.md,.csv,.json,.log"
                               onChange={handleFileUpload}
+                            />
+                            <input
+                              type="file"
+                              id="screenshot-upload"
+                              className="hidden"
+                              accept="image/*"
+                              onChange={handleScreenshotUpload}
                             />
                             <Button
                               variant="ghost"
@@ -372,9 +403,16 @@ export function PersonaWorkspace() {
                               )}
                               <span className="hidden sm:inline">{hydrated ? t("attach_file") : "Attach"}</span>
                             </Button>
-                            <span className="hidden md:inline text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/50">
-                              ⌘ + ↵
-                            </span>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
+                              onClick={() => document.getElementById("screenshot-upload")?.click()}
+                              aria-label={t("attach_screenshot")}
+                            >
+                              <ImageIcon className="w-4 h-4 me-1.5" />
+                              <span className="hidden sm:inline">{hydrated ? t("attach_screenshot") : "Screenshot"}</span>
+                            </Button>
                           </div>
                           <Button
                             onClick={handleAnalyze}
@@ -398,21 +436,10 @@ export function PersonaWorkspace() {
                       </div>
                     </motion.div>
 
-                    {hydrated && (
-                      <>
-                        <RewardedAdCard
-                          title={isRtl ? "افتح مسحاً عميقاً مجاناً" : "Unlock a free Deep Scan"}
-                          description={
-                            isRtl
-                              ? "شاهد فيديو قصير لتحصل على تحليل شخصية موسّع لهذه المحادثة."
-                              : "Watch a short video to unlock an extended personality breakdown for this chat."
-                          }
-                          rewardLabel={isRtl ? "+1 مسح عميق" : "+1 Deep Scan"}
-                          onReward={() => toast.success(isRtl ? "تم منح المكافأة" : "Reward unlocked")}
-                          className="mt-12 w-full max-w-2xl"
-                        />
-                        
-                      </>
+                    {hydrated && isAnalyzing && (
+                      <div className="mt-10 w-full">
+                        <AnalyzingLoader />
+                      </div>
                     )}
                   </motion.div>
                 ) : (
