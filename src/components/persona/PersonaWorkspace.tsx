@@ -450,36 +450,62 @@ export function PersonaWorkspace() {
                     transition={{ duration: 0.4 }}
                     className="space-y-10"
                   >
-                    <div className="mb-2">
-                      <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
-                        {t("analysis_report")}
-                      </h3>
-                      <p className="text-xs text-muted-foreground font-mono uppercase tracking-[0.25em] mt-1">
-                        {t("case_id")}: {caseId}
-                      </p>
+                    <div className="mb-2 flex items-start justify-between gap-3 flex-wrap">
+                      <div>
+                        <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+                          {t("analysis_report")}
+                        </h3>
+                        <p className="text-xs text-muted-foreground font-mono uppercase tracking-[0.25em] mt-1">
+                          {t("case_id")}: {caseId}
+                        </p>
+                      </div>
+                      <Button
+                        onClick={handleExportStory}
+                        disabled={isExporting}
+                        size="sm"
+                        className="h-10 rounded-xl bg-foreground/5 hover:bg-foreground/10 text-foreground border border-foreground/10 text-xs font-semibold"
+                      >
+                        {isExporting ? (
+                          <Loader2 className="w-4 h-4 me-2 animate-spin" />
+                        ) : (
+                          <Share2 className="w-4 h-4 me-2" />
+                        )}
+                        {t("export_story")}
+                      </Button>
                     </div>
 
                     <PulseAnalysis data={result.pulse} />
 
-                    
+                    <LockedStrategy
+                      unlocked={strategyUnlocked}
+                      onUnlock={() => setStrategyUnlocked(true)}
+                    >
+                      <StrategyCards
+                        strategies={result.strategies}
+                        sourceText={analyzedText}
+                        recipientPersona={result.pulse.recipientPersona}
+                      />
+                    </LockedStrategy>
 
-                    <RewardedAdCard
-                      title={isRtl ? "احصل على استراتيجية متقدّمة" : "Get an advanced strategy"}
-                      description={
-                        isRtl
-                          ? "شاهد إعلاناً قصيراً لفتح خطة ردّ احترافية إضافية مبنيّة على هذا التحليل."
-                          : "Watch a short ad to unlock one extra pro-grade response strategy for this case."
-                      }
-                      rewardLabel={isRtl ? "+1 استراتيجية" : "+1 Strategy"}
-                      onReward={() => toast.success(isRtl ? "تم فتح الاستراتيجية" : "Strategy unlocked")}
-                      className="w-full max-w-2xl mx-auto"
-                    />
-
-                    <StrategyCards
-                      strategies={result.strategies}
-                      sourceText={analyzedText}
-                      recipientPersona={result.pulse.recipientPersona}
-                    />
+                    {/* Off-screen Story render target */}
+                    <div
+                      style={{
+                        position: "fixed",
+                        left: "-99999px",
+                        top: 0,
+                        pointerEvents: "none",
+                      }}
+                      aria-hidden
+                    >
+                      <StoryCard
+                        ref={storyRef}
+                        caseId={caseId}
+                        recipientPersona={result.pulse.recipientPersona}
+                        manipulationScore={result.pulse.manipulationScore ?? 0}
+                        topMotive={result.pulse.motives?.[0] ?? ""}
+                        language={isRtl ? "ar" : "en"}
+                      />
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
