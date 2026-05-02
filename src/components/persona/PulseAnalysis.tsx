@@ -125,6 +125,9 @@ export function PulseAnalysis({ data }: PulseAnalysisProps) {
           <p className="text-base leading-relaxed text-foreground/90">{data.advancedInsights}</p>
         </div>
       </motion.div>
+      </div>
+
+      <MotivesList motives={data.motives ?? []} />
     </div>
   );
 }
