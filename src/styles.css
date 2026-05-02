@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -18,7 +19,7 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 
-  --font-sans: "Geist", "Inter", system-ui, -apple-system, sans-serif;
+  --font-sans: "Cairo", "Geist", "Inter", system-ui, -apple-system, sans-serif;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
   --font-mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
 
@@ -59,28 +60,33 @@
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.85rem;
 
-  /* Cinematic deep-space dark palette */
-  --background: oklch(0.13 0.015 270);
-  --foreground: oklch(0.97 0.005 270);
+  /* High-end obsidian / charcoal dark palette */
+  --background: oklch(0.09 0.008 265);
+  --foreground: oklch(0.98 0.003 265);
 
-  --card: oklch(0.17 0.02 270);
-  --card-foreground: oklch(0.97 0.005 270);
+  --card: oklch(0.13 0.012 265);
+  --card-foreground: oklch(0.98 0.003 265);
 
-  --popover: oklch(0.17 0.02 270);
-  --popover-foreground: oklch(0.97 0.005 270);
+  --popover: oklch(0.12 0.012 265);
+  --popover-foreground: oklch(0.98 0.003 265);
 
   /* Electric cyan/blue — forensic primary */
   --primary: oklch(0.72 0.18 220);
   --primary-foreground: oklch(0.13 0.015 270);
   --primary-glow: oklch(0.78 0.2 220);
 
-  --secondary: oklch(0.22 0.025 270);
-  --secondary-foreground: oklch(0.85 0.01 270);
+  --secondary: oklch(0.18 0.018 265);
+  --secondary-foreground: oklch(0.88 0.008 265);
 
-  --muted: oklch(0.2 0.02 270);
-  --muted-foreground: oklch(0.65 0.015 270);
+  --muted: oklch(0.16 0.015 265);
+  --muted-foreground: oklch(0.66 0.012 265);
+
+  /* Premium gold for the rewarded unlock CTA */
+  --gold: oklch(0.82 0.16 85);
+  --gold-foreground: oklch(0.15 0.02 80);
+  --gold-glow: oklch(0.88 0.18 88);
 
   /* Violet accent — empath strategy */
   --accent: oklch(0.7 0.2 300);
@@ -128,9 +134,8 @@
 }
 
 .dark {
-  /* Same as :root — app is permanently dark */
-  --background: oklch(0.13 0.015 270);
-  --foreground: oklch(0.97 0.005 270);
+  --background: oklch(0.09 0.008 265);
+  --foreground: oklch(0.98 0.003 265);
 }
 
 @layer base {
