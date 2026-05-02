@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Brain,
@@ -8,6 +8,8 @@ import {
   Plus,
   Paperclip,
   History as HistoryIcon,
+  Image as ImageIcon,
+  Share2,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useServerFn } from "@tanstack/react-start";
@@ -17,11 +19,20 @@ import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { toast } from "sonner";
-import { analyzeInteraction, type AnalysisResult } from "@/server/analyze.functions";
+import {
+  analyzeInteraction,
+  type AnalysisResult,
+  type ResponseStyleKey,
+} from "@/server/analyze.functions";
 import { PulseAnalysis } from "@/components/persona/PulseAnalysis";
 import { StrategyCards } from "@/components/persona/StrategyCards";
+import { ResponseStylePicker } from "@/components/persona/ResponseStylePicker";
+import { AnalyzingLoader } from "@/components/persona/AnalyzingLoader";
+import { LockedStrategy } from "@/components/persona/LockedStrategy";
+import { StoryCard } from "@/components/persona/StoryCard";
+import { extractTextFromImage } from "@/lib/ocr";
+import { exportElementAsStory } from "@/lib/export-story";
 
-import { RewardedAdCard } from "@/components/ads/RewardedAdCard";
 import { maybeShowInterstitialAfterScan } from "@/lib/ads/AdService";
 import {
   addHistoryItem,
