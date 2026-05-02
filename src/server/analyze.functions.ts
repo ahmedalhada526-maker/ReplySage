@@ -117,7 +117,20 @@ All output values must be in ${langName}.${contextBlock}\n\nINPUT:\n"""\n${data.
                   recipientPersona: { type: "string", description: "2-sentence psychological profile" },
                   currentDynamic: { type: "string", description: "Description of the power dynamic, plea, conflict, etc." },
                   hiddenNeeds: { type: "string", description: "What they actually want but aren't saying" },
-                  advancedInsights: { type: "string", description: "Deep manipulation tactics or vulnerabilities (Pro tier)" },
+                  advancedInsights: { type: "string", description: "Deep manipulation tactics or vulnerabilities" },
+                  manipulationScore: {
+                    type: "integer",
+                    minimum: 0,
+                    maximum: 100,
+                    description: "0-100 score of how emotionally manipulative this message is.",
+                  },
+                  motives: {
+                    type: "array",
+                    minItems: 3,
+                    maxItems: 5,
+                    items: { type: "string", description: "Short phrase, max ~12 words." },
+                    description: "Bullet list of WHY the sender wrote this — underlying drivers/goals.",
+                  },
                   personalityTraits: {
                     type: "object",
                     properties: {
@@ -134,6 +147,8 @@ All output values must be in ${langName}.${contextBlock}\n\nINPUT:\n"""\n${data.
                   "currentDynamic",
                   "hiddenNeeds",
                   "advancedInsights",
+                  "manipulationScore",
+                  "motives",
                   "personalityTraits",
                 ],
                 additionalProperties: false,
