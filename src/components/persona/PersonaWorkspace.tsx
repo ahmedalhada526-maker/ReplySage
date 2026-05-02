@@ -20,9 +20,9 @@ import { toast } from "sonner";
 import { analyzeInteraction, type AnalysisResult } from "@/server/analyze.functions";
 import { PulseAnalysis } from "@/components/persona/PulseAnalysis";
 import { StrategyCards } from "@/components/persona/StrategyCards";
-import { BannerAdSlot } from "@/components/ads/BannerAdSlot";
+
 import { RewardedAdCard } from "@/components/ads/RewardedAdCard";
-import { showInterstitial } from "@/lib/ads/AdService";
+import { maybeShowInterstitialAfterScan } from "@/lib/ads/AdService";
 import {
   addHistoryItem,
   loadHistory,
@@ -102,9 +102,9 @@ export function PersonaWorkspace() {
       });
       setInput("");
 
-      // Show Unity interstitial after scan completes (native only; no-op on web).
-      // Fire-and-forget — never block the UI.
-      void showInterstitial();
+      // Unity interstitial — only every Nth scan (default: every 3rd).
+      // Fire-and-forget — never block the UI. No-op on web.
+      void maybeShowInterstitialAfterScan();
     } catch (e) {
       console.error(e);
       toast.error(t("error_generic"));
@@ -357,7 +357,7 @@ export function PersonaWorkspace() {
                           onReward={() => toast.success(isRtl ? "تم منح المكافأة" : "Reward unlocked")}
                           className="mt-12 w-full max-w-2xl"
                         />
-                        <BannerAdSlot className="mt-6 w-full" />
+                        
                       </>
                     )}
                   </motion.div>
@@ -380,7 +380,7 @@ export function PersonaWorkspace() {
 
                     <PulseAnalysis data={result.pulse} />
 
-                    <BannerAdSlot />
+                    
 
                     <RewardedAdCard
                       title={isRtl ? "احصل على استراتيجية متقدّمة" : "Get an advanced strategy"}

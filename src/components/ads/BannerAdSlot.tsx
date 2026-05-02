@@ -6,17 +6,25 @@ interface BannerAdSlotProps {
   className?: string;
   /** Hide entirely (e.g. Pro user). */
   hide?: boolean;
+  /**
+   * Display variant.
+   * - "fixed-bottom" (default): fixed at the bottom of the viewport — mirrors
+   *   how the real Unity banner will sit in the native build.
+   * - "inline": legacy inline placeholder, kept for special pages if needed.
+   */
+  variant?: "fixed-bottom" | "inline";
 }
 
 /**
- * Reserved banner slot for Unity Ads native banner.
- * On web: shows a subtle, polished placeholder so layout stays consistent.
- * On native: Unity SDK will render the banner over this region (top/bottom).
- *
- * Banner is actually shown by calling AdService.showBanner() from app boot
- * in the native build — this component reserves the visual space inline.
+ * Web-only visual placeholder for the Unity Ads banner.
+ * In native (Capacitor + Unity Ads), the real banner is rendered by the SDK
+ * via AdService.showBanner() — this component renders nothing in that case.
  */
-export function BannerAdSlot({ className, hide = false }: BannerAdSlotProps) {
+export function BannerAdSlot({
+  className,
+  hide = false,
+  variant = "fixed-bottom",
+}: BannerAdSlotProps) {
   const [native, setNative] = useState(false);
 
   useEffect(() => {
@@ -24,8 +32,28 @@ export function BannerAdSlot({ className, hide = false }: BannerAdSlotProps) {
   }, []);
 
   if (hide) return null;
-  // In native builds, the real banner is overlaid by Unity — don't draw the placeholder.
+  // Native: real Unity banner is overlaid by the SDK — render nothing.
   if (native) return null;
+
+  if (variant === "fixed-bottom") {
+    return (
+      <div
+        className={`fixed bottom-0 inset-x-0 z-30 pointer-events-none px-2 pb-2 ${className ?? ""}`}
+        role="complementary"
+        aria-label="Ad placement"
+      >
+        <div className="pointer-events-auto mx-auto max-w-[728px] h-[60px] rounded-xl overflow-hidden border border-foreground/10 bg-background/80 backdrop-blur-xl flex items-center justify-center relative shadow-lg">
+          <div className="absolute inset-0 animate-shimmer pointer-events-none" />
+          <div className="flex items-center gap-2 text-muted-foreground/50">
+            <Megaphone className="w-3.5 h-3.5" />
+            <span className="text-[9px] font-mono uppercase tracking-[0.25em]">
+              Ad space · Unity Banner
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -36,9 +64,7 @@ export function BannerAdSlot({ className, hide = false }: BannerAdSlotProps) {
       <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-muted-foreground/50">
         Sponsored
       </span>
-      <div
-        className="relative w-full max-w-[728px] h-[90px] rounded-xl overflow-hidden border border-foreground/5 bg-foreground/[0.02] flex items-center justify-center"
-      >
+      <div className="relative w-full max-w-[728px] h-[90px] rounded-xl overflow-hidden border border-foreground/5 bg-foreground/[0.02] flex items-center justify-center">
         <div className="absolute inset-0 animate-shimmer pointer-events-none" />
         <div className="flex items-center gap-2 text-muted-foreground/40">
           <Megaphone className="w-4 h-4" />
