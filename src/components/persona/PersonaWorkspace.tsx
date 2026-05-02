@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Brain,
@@ -8,6 +8,8 @@ import {
   Plus,
   Paperclip,
   History as HistoryIcon,
+  Image as ImageIcon,
+  Share2,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useServerFn } from "@tanstack/react-start";
@@ -17,11 +19,20 @@ import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { toast } from "sonner";
-import { analyzeInteraction, type AnalysisResult } from "@/server/analyze.functions";
+import {
+  analyzeInteraction,
+  type AnalysisResult,
+  type ResponseStyleKey,
+} from "@/server/analyze.functions";
 import { PulseAnalysis } from "@/components/persona/PulseAnalysis";
 import { StrategyCards } from "@/components/persona/StrategyCards";
+import { ResponseStylePicker } from "@/components/persona/ResponseStylePicker";
+import { AnalyzingLoader } from "@/components/persona/AnalyzingLoader";
+import { LockedStrategy } from "@/components/persona/LockedStrategy";
+import { StoryCard } from "@/components/persona/StoryCard";
+import { extractTextFromImage } from "@/lib/ocr";
+import { exportElementAsStory } from "@/lib/export-story";
 
-import { RewardedAdCard } from "@/components/ads/RewardedAdCard";
 import { maybeShowInterstitialAfterScan } from "@/lib/ads/AdService";
 import {
   addHistoryItem,
@@ -43,6 +54,11 @@ export function PersonaWorkspace() {
   const [caseId, setCaseId] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const [recipientContext, setRecipientContext] = useState("");
+  const [responseStyle, setResponseStyle] = useState<ResponseStyleKey | null>(null);
+  const [strategyUnlocked, setStrategyUnlocked] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+  const storyRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setHydrated(true);
@@ -76,10 +92,16 @@ export function PersonaWorkspace() {
     if (!input.trim() || isAnalyzing) return;
 
     setIsAnalyzing(true);
+    setStrategyUnlocked(false);
     try {
       const lang = (i18n.language?.startsWith("ar") ? "ar" : "en") as "en" | "ar";
       const { result: data, error } = await analyzeFn({
-        data: { text: input.slice(0, 8000), language: lang },
+        data: {
+          text: input.slice(0, 8000),
+          language: lang,
+          recipientContext: recipientContext.trim() || undefined,
+          responseStyle: responseStyle ?? undefined,
+        },
       });
 
       if (error || !data) {
@@ -103,13 +125,45 @@ export function PersonaWorkspace() {
       setInput("");
 
       // Unity interstitial — only every Nth scan (default: every 3rd).
-      // Fire-and-forget — never block the UI. No-op on web.
       void maybeShowInterstitialAfterScan();
     } catch (e) {
       console.error(e);
       toast.error(t("error_generic"));
     } finally {
       setIsAnalyzing(false);
+    }
+  };
+
+  const handleScreenshotUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    const tid = toast.loading(t("ocr_processing"));
+    try {
+      const { text } = await extractTextFromImage(file);
+      if (text && text.trim()) {
+        setInput((prev) => prev + (prev ? "\n\n" : "") + text);
+        toast.success("✓", { id: tid });
+      } else {
+        toast.error(t("ocr_failed"), { id: tid });
+      }
+    } catch {
+      toast.error(t("ocr_failed"), { id: tid });
+    }
+  };
+
+  const handleExportStory = async () => {
+    if (!storyRef.current || isExporting) return;
+    setIsExporting(true);
+    const tid = toast.loading(t("exporting_story"));
+    try {
+      await exportElementAsStory(storyRef.current, `personapulse-${caseId || "story"}.png`);
+      toast.success(t("story_exported"), { id: tid });
+    } catch (e) {
+      console.error(e);
+      toast.error(t("error_generic"), { id: tid });
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -268,12 +322,12 @@ export function PersonaWorkspace() {
                       transition={{ delay: 0.3, duration: 0.5 }}
                       className="mt-12 w-full max-w-3xl"
                     >
-                      <div className="glass-strong rounded-3xl premium-shadow border border-foreground/10 overflow-hidden">
+                      <div className="glass-obsidian rounded-3xl premium-shadow border border-foreground/10 overflow-hidden">
                         <div className="flex items-center justify-between px-5 py-3 border-b border-foreground/5 bg-foreground/[0.02]">
                           <div className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-primary animate-pulse-slow" />
                             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-muted-foreground">
-                              {hydrated ? t("input_placeholder").slice(0, 0) || "Composer" : "Composer"}
+                              {hydrated ? t("composer_title") : "Composer"}
                             </span>
                           </div>
                           <span className="text-[10px] font-mono text-muted-foreground/60">
@@ -282,7 +336,7 @@ export function PersonaWorkspace() {
                         </div>
                         <Textarea
                           placeholder={hydrated ? t("input_placeholder") : ""}
-                          className="min-h-[180px] max-h-[400px] bg-transparent border-none focus-visible:ring-0 text-base resize-none p-5 placeholder:text-muted-foreground/50 shadow-none rounded-none"
+                          className="min-h-[160px] max-h-[360px] bg-transparent border-none focus-visible:ring-0 text-base resize-none p-5 placeholder:text-muted-foreground/50 shadow-none rounded-none"
                           value={input}
                           onChange={(e) => setInput(e.target.value)}
                           onKeyDown={(e) => {
@@ -294,14 +348,45 @@ export function PersonaWorkspace() {
                           dir={isRtl ? "rtl" : "ltr"}
                           maxLength={8000}
                         />
+
+                        {/* Recipient intel */}
+                        <div className="px-5 pb-2 pt-1 border-t border-foreground/5 bg-foreground/[0.02]">
+                          <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground block py-2">
+                            {hydrated ? t("recipient_intel_label") : "Recipient intel"}
+                          </label>
+                          <Textarea
+                            placeholder={hydrated ? t("recipient_intel_placeholder") : ""}
+                            className="min-h-[60px] max-h-[160px] bg-transparent border border-foreground/10 focus-visible:ring-1 focus-visible:ring-primary/40 text-sm resize-none p-3 rounded-xl placeholder:text-muted-foreground/50"
+                            value={recipientContext}
+                            onChange={(e) => setRecipientContext(e.target.value)}
+                            dir={isRtl ? "rtl" : "ltr"}
+                            maxLength={2000}
+                          />
+                        </div>
+
+                        {/* Style picker */}
+                        <div className="px-5 pt-3 pb-4 border-t border-foreground/5 bg-foreground/[0.02]">
+                          <ResponseStylePicker
+                            value={responseStyle}
+                            onChange={setResponseStyle}
+                          />
+                        </div>
+
                         <div className="flex items-center justify-between gap-3 px-4 py-3 border-t border-foreground/5 bg-foreground/[0.02]">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <input
                               type="file"
                               id="file-upload"
                               className="hidden"
                               accept=".txt,.md,.csv,.json,.log"
                               onChange={handleFileUpload}
+                            />
+                            <input
+                              type="file"
+                              id="screenshot-upload"
+                              className="hidden"
+                              accept="image/*"
+                              onChange={handleScreenshotUpload}
                             />
                             <Button
                               variant="ghost"
@@ -318,9 +403,16 @@ export function PersonaWorkspace() {
                               )}
                               <span className="hidden sm:inline">{hydrated ? t("attach_file") : "Attach"}</span>
                             </Button>
-                            <span className="hidden md:inline text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/50">
-                              ⌘ + ↵
-                            </span>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
+                              onClick={() => document.getElementById("screenshot-upload")?.click()}
+                              aria-label={t("attach_screenshot")}
+                            >
+                              <ImageIcon className="w-4 h-4 me-1.5" />
+                              <span className="hidden sm:inline">{hydrated ? t("attach_screenshot") : "Screenshot"}</span>
+                            </Button>
                           </div>
                           <Button
                             onClick={handleAnalyze}
@@ -344,21 +436,10 @@ export function PersonaWorkspace() {
                       </div>
                     </motion.div>
 
-                    {hydrated && (
-                      <>
-                        <RewardedAdCard
-                          title={isRtl ? "افتح مسحاً عميقاً مجاناً" : "Unlock a free Deep Scan"}
-                          description={
-                            isRtl
-                              ? "شاهد فيديو قصير لتحصل على تحليل شخصية موسّع لهذه المحادثة."
-                              : "Watch a short video to unlock an extended personality breakdown for this chat."
-                          }
-                          rewardLabel={isRtl ? "+1 مسح عميق" : "+1 Deep Scan"}
-                          onReward={() => toast.success(isRtl ? "تم منح المكافأة" : "Reward unlocked")}
-                          className="mt-12 w-full max-w-2xl"
-                        />
-                        
-                      </>
+                    {hydrated && isAnalyzing && (
+                      <div className="mt-10 w-full">
+                        <AnalyzingLoader />
+                      </div>
                     )}
                   </motion.div>
                 ) : (
@@ -369,36 +450,62 @@ export function PersonaWorkspace() {
                     transition={{ duration: 0.4 }}
                     className="space-y-10"
                   >
-                    <div className="mb-2">
-                      <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
-                        {t("analysis_report")}
-                      </h3>
-                      <p className="text-xs text-muted-foreground font-mono uppercase tracking-[0.25em] mt-1">
-                        {t("case_id")}: {caseId}
-                      </p>
+                    <div className="mb-2 flex items-start justify-between gap-3 flex-wrap">
+                      <div>
+                        <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+                          {t("analysis_report")}
+                        </h3>
+                        <p className="text-xs text-muted-foreground font-mono uppercase tracking-[0.25em] mt-1">
+                          {t("case_id")}: {caseId}
+                        </p>
+                      </div>
+                      <Button
+                        onClick={handleExportStory}
+                        disabled={isExporting}
+                        size="sm"
+                        className="h-10 rounded-xl bg-foreground/5 hover:bg-foreground/10 text-foreground border border-foreground/10 text-xs font-semibold"
+                      >
+                        {isExporting ? (
+                          <Loader2 className="w-4 h-4 me-2 animate-spin" />
+                        ) : (
+                          <Share2 className="w-4 h-4 me-2" />
+                        )}
+                        {t("export_story")}
+                      </Button>
                     </div>
 
                     <PulseAnalysis data={result.pulse} />
 
-                    
+                    <LockedStrategy
+                      unlocked={strategyUnlocked}
+                      onUnlock={() => setStrategyUnlocked(true)}
+                    >
+                      <StrategyCards
+                        strategies={result.strategies}
+                        sourceText={analyzedText}
+                        recipientPersona={result.pulse.recipientPersona}
+                      />
+                    </LockedStrategy>
 
-                    <RewardedAdCard
-                      title={isRtl ? "احصل على استراتيجية متقدّمة" : "Get an advanced strategy"}
-                      description={
-                        isRtl
-                          ? "شاهد إعلاناً قصيراً لفتح خطة ردّ احترافية إضافية مبنيّة على هذا التحليل."
-                          : "Watch a short ad to unlock one extra pro-grade response strategy for this case."
-                      }
-                      rewardLabel={isRtl ? "+1 استراتيجية" : "+1 Strategy"}
-                      onReward={() => toast.success(isRtl ? "تم فتح الاستراتيجية" : "Strategy unlocked")}
-                      className="w-full max-w-2xl mx-auto"
-                    />
-
-                    <StrategyCards
-                      strategies={result.strategies}
-                      sourceText={analyzedText}
-                      recipientPersona={result.pulse.recipientPersona}
-                    />
+                    {/* Off-screen Story render target */}
+                    <div
+                      style={{
+                        position: "fixed",
+                        left: "-99999px",
+                        top: 0,
+                        pointerEvents: "none",
+                      }}
+                      aria-hidden
+                    >
+                      <StoryCard
+                        ref={storyRef}
+                        caseId={caseId}
+                        recipientPersona={result.pulse.recipientPersona}
+                        manipulationScore={result.pulse.manipulationScore ?? 0}
+                        topMotive={result.pulse.motives?.[0] ?? ""}
+                        language={isRtl ? "ar" : "en"}
+                      />
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
