@@ -92,10 +92,16 @@ export function PersonaWorkspace() {
     if (!input.trim() || isAnalyzing) return;
 
     setIsAnalyzing(true);
+    setStrategyUnlocked(false);
     try {
       const lang = (i18n.language?.startsWith("ar") ? "ar" : "en") as "en" | "ar";
       const { result: data, error } = await analyzeFn({
-        data: { text: input.slice(0, 8000), language: lang },
+        data: {
+          text: input.slice(0, 8000),
+          language: lang,
+          recipientContext: recipientContext.trim() || undefined,
+          responseStyle: responseStyle ?? undefined,
+        },
       });
 
       if (error || !data) {
@@ -119,13 +125,45 @@ export function PersonaWorkspace() {
       setInput("");
 
       // Unity interstitial — only every Nth scan (default: every 3rd).
-      // Fire-and-forget — never block the UI. No-op on web.
       void maybeShowInterstitialAfterScan();
     } catch (e) {
       console.error(e);
       toast.error(t("error_generic"));
     } finally {
       setIsAnalyzing(false);
+    }
+  };
+
+  const handleScreenshotUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    const tid = toast.loading(t("ocr_processing"));
+    try {
+      const { text } = await extractTextFromImage(file);
+      if (text && text.trim()) {
+        setInput((prev) => prev + (prev ? "\n\n" : "") + text);
+        toast.success("✓", { id: tid });
+      } else {
+        toast.error(t("ocr_failed"), { id: tid });
+      }
+    } catch {
+      toast.error(t("ocr_failed"), { id: tid });
+    }
+  };
+
+  const handleExportStory = async () => {
+    if (!storyRef.current || isExporting) return;
+    setIsExporting(true);
+    const tid = toast.loading(t("exporting_story"));
+    try {
+      await exportElementAsStory(storyRef.current, `personapulse-${caseId || "story"}.png`);
+      toast.success(t("story_exported"), { id: tid });
+    } catch (e) {
+      console.error(e);
+      toast.error(t("error_generic"), { id: tid });
+    } finally {
+      setIsExporting(false);
     }
   };
 
