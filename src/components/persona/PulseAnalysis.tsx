@@ -3,6 +3,8 @@ import { Eye, Fingerprint, Sparkles, Target } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import type { AnalysisResult } from "@/server/analyze.functions";
+import { ManipulationGauge } from "./ManipulationGauge";
+import { MotivesList } from "./MotivesList";
 
 interface PulseAnalysisProps {
   data: AnalysisResult["pulse"];
@@ -12,7 +14,14 @@ export function PulseAnalysis({ data }: PulseAnalysisProps) {
   const { t } = useTranslation();
 
   return (
-    <div className="bento-grid">
+    <div className="space-y-5">
+      <div className="bento-grid">
+        <div className="md:col-span-2">
+          <ManipulationGauge score={data.manipulationScore ?? 0} />
+        </div>
+      </div>
+
+      <div className="bento-grid">
       {/* Recipient Persona — large card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
