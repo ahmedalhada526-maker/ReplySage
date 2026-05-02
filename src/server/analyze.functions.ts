@@ -3,9 +3,19 @@ import { z } from "zod";
 import { checkRateLimit } from "./rate-limit";
 import { callAIChat } from "./ai-provider";
 
+const ResponseStyle = z.enum([
+  "romantic",
+  "bold",
+  "cold",
+  "smart",
+  "defensive",
+]);
+
 const InputSchema = z.object({
   text: z.string().min(1).max(8000),
   language: z.enum(["en", "ar"]).default("en"),
+  recipientContext: z.string().max(2000).optional(),
+  responseStyle: ResponseStyle.optional(),
 });
 
 const SavageInputSchema = z.object({
@@ -15,12 +25,16 @@ const SavageInputSchema = z.object({
   previousResponses: z.array(z.string().max(2000)).max(5).default([]),
 });
 
+export type ResponseStyleKey = z.infer<typeof ResponseStyle>;
+
 export interface AnalysisResult {
   pulse: {
     recipientPersona: string;
     currentDynamic: string;
     hiddenNeeds: string;
     advancedInsights: string;
+    manipulationScore: number; // 0-100
+    motives: string[]; // 3-5 short bullets explaining "why" they sent this
     personalityTraits: {
       mbti?: string;
       bigFive?: string;
