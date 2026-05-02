@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { bootAds } from "@/lib/ads/init-ads";
+import { BannerAdSlot } from "@/components/ads/BannerAdSlot";
 
 import appCss from "../styles.css?url";
 
@@ -111,6 +112,7 @@ function RootComponent() {
   return (
     <>
       <Outlet />
+      <BannerAdSlot />
       <Toaster richColors position="top-center" theme="dark" />
     </>
   );
