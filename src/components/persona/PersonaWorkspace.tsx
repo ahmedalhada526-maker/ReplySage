@@ -54,6 +54,11 @@ export function PersonaWorkspace() {
   const [caseId, setCaseId] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const [recipientContext, setRecipientContext] = useState("");
+  const [responseStyle, setResponseStyle] = useState<ResponseStyleKey | null>(null);
+  const [strategyUnlocked, setStrategyUnlocked] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+  const storyRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setHydrated(true);
