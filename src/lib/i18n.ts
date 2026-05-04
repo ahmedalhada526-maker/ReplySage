@@ -206,19 +206,16 @@ const resources = {
 };
 
 if (!i18n.isInitialized) {
-  i18n
-    .use(LanguageDetector)
-    .use(initReactI18next)
-    .init({
-      resources,
-      fallbackLng: "en",
-      supportedLngs: ["en", "ar"],
-      interpolation: { escapeValue: false },
-      detection: {
-        order: ["localStorage", "navigator"],
-        caches: ["localStorage"],
-      },
-    });
+  // Arabic-first app — pin the language so SSR and client render the same
+  // strings on first paint (avoids React #418 hydration mismatch). Users can
+  // still switch via i18n.changeLanguage("en") at runtime.
+  i18n.use(initReactI18next).init({
+    resources,
+    lng: "ar",
+    fallbackLng: "ar",
+    supportedLngs: ["en", "ar"],
+    interpolation: { escapeValue: false },
+  });
 }
 
 export default i18n;
