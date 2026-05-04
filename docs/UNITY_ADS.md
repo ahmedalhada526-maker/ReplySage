@@ -14,9 +14,16 @@ Apk Builder، إلخ)، فإن التطبيق هو **مجرد WebView يعرض �
 
 يجب بناء التطبيق عبر **Capacitor** مع إضافة `capacitor-unity-ads`. الكود في
 `AdService.ts` يكتشف الإضافة تلقائياً عبر `window.Capacitor.Plugins.UnityAds`
-ويُفعّل الإعلانات الحقيقية.
+ويُفعّل الإعلانات الحقيقية. ملف `capacitor.config.ts` جاهز في جذر المشروع.
 
-### الخطوات (على جهازك المحلي بعد سحب المشروع من GitHub):
+### الطريقة السريعة (سكريبت جاهز)
+
+```bash
+chmod +x scripts/setup-capacitor.sh
+./scripts/setup-capacitor.sh
+```
+
+### أو يدوياً:
 
 ```bash
 # 1. تثبيت Capacitor + الإضافة
@@ -24,17 +31,14 @@ npm install
 npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/ios
 npm install capacitor-unity-ads
 
-# 2. تهيئة Capacitor
-npx cap init "PersonaPulse" "app.persona.pulse" --web-dir=dist
-
-# 3. بناء الويب
+# 2. بناء الويب (capacitor.config.ts موجود مسبقاً)
 npm run build
 
-# 4. إضافة Android
+# 3. إضافة Android
 npx cap add android
 npx cap sync android
 
-# 5. فتح في Android Studio وبناء APK موقّع
+# 4. فتح في Android Studio وبناء APK موقّع
 npx cap open android
 ```
 
