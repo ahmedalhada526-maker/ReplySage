@@ -16,8 +16,12 @@ export const Route = createFileRoute("/")({
         content:
           "Linguistic forensics, subtext decoding, and strategic response architecture, powered by AI.",
       },
+      { property: "og:url", content: "https://person-plus-ai.lovable.app/" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://person-plus-ai.lovable.app/" },
     ],
   }),
   component: PersonaWorkspace,

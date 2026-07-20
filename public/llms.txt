@@ -1,0 +1,14 @@
+# PersonaPulse AI
+
+> Forensic AI for behavioral psychology — decode hidden intentions, personality traits, and manipulation tactics in conversations, then architect strategic responses.
+
+PersonaPulse AI analyzes chat excerpts and messages to surface subtext, detect manipulation, score psychological patterns, and generate response strategies tailored to a target recipient.
+
+## Pages
+
+- [Home](/): Paste a conversation to run a forensic analysis and get strategic response options.
+- [History & Privacy](/history): Your saved analyses and how we handle your data.
+
+## Optional
+
+- [Privacy](/privacy): Data handling summary (redirects to History & Privacy).

@@ -209,7 +209,7 @@ export function PersonaWorkspace() {
                 className="font-bold tracking-tight text-sm leading-none"
                 suppressHydrationWarning
               >
-                {hydrated ? t("app_name") : "PersonaPulse"}
+                {hydrated ? t("app_name") : "PersonaPulse"} — Decode subtext & manipulation
               </h1>
               <p className="text-[9px] font-mono uppercase tracking-[0.2em] text-muted-foreground mt-1">
                 v1.0 Forensics
