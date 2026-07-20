@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TacticsGuideRouteImport } from './routes/tactics-guide'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TacticsGuideRoute = TacticsGuideRouteImport.update({
+  id: '/tactics-guide',
+  path: '/tactics-guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/history': typeof HistoryRoute
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
+  '/tactics-guide': typeof TacticsGuideRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
+  '/tactics-guide': typeof TacticsGuideRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,20 @@ export interface FileRoutesById {
   '/history': typeof HistoryRoute
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
+  '/tactics-guide': typeof TacticsGuideRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/history' | '/privacy' | '/settings'
+  fullPaths: '/' | '/history' | '/privacy' | '/settings' | '/tactics-guide'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/history' | '/privacy' | '/settings'
-  id: '__root__' | '/' | '/history' | '/privacy' | '/settings'
+  to: '/' | '/history' | '/privacy' | '/settings' | '/tactics-guide'
+  id:
+    | '__root__'
+    | '/'
+    | '/history'
+    | '/privacy'
+    | '/settings'
+    | '/tactics-guide'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +82,18 @@ export interface RootRouteChildren {
   HistoryRoute: typeof HistoryRoute
   PrivacyRoute: typeof PrivacyRoute
   SettingsRoute: typeof SettingsRoute
+  TacticsGuideRoute: typeof TacticsGuideRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tactics-guide': {
+      id: '/tactics-guide'
+      path: '/tactics-guide'
+      fullPath: '/tactics-guide'
+      preLoaderRoute: typeof TacticsGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/settings': {
       id: '/settings'
       path: '/settings'
@@ -107,6 +130,7 @@ const rootRouteChildren: RootRouteChildren = {
   HistoryRoute: HistoryRoute,
   PrivacyRoute: PrivacyRoute,
   SettingsRoute: SettingsRoute,
+  TacticsGuideRoute: TacticsGuideRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
