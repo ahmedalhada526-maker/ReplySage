@@ -1,4 +1,4 @@
-import { getRequestIP, getRequestHeader } from "@tanstack/react-start/server";
+import { getRequestHeader } from "@tanstack/react-start/server";
 
 // In-memory token bucket per identifier (IP). Resets on worker restart, which
 // is acceptable for abuse mitigation — limits are short-window.
@@ -12,18 +12,19 @@ function sweep(now: number) {
   }
 }
 
+/**
+ * Resolve the caller IP from trusted sources only.
+ *
+ * We deliberately IGNORE `X-Forwarded-For` because it is fully client-controlled
+ * on Cloudflare Workers and can be rotated to bypass per-IP limits. Only
+ * `CF-Connecting-IP` (set by Cloudflare's edge and stripped from incoming
+ * requests) is trusted. When absent, callers share a single "unknown" bucket
+ * with an aggressive limit applied by the caller.
+ */
 function getClientId(): string {
   try {
-    const ip = getRequestIP({ xForwardedFor: true });
-    if (ip) return ip;
-  } catch {
-    // ignore
-  }
-  try {
     const cf = getRequestHeader("cf-connecting-ip");
-    if (cf) return cf;
-    const fwd = getRequestHeader("x-forwarded-for");
-    if (fwd) return fwd.split(",")[0]!.trim();
+    if (cf) return cf.trim();
   } catch {
     // ignore
   }
@@ -46,6 +47,10 @@ export function checkRateLimit(
   sweep(now);
 
   const id = getClientId();
+  // When we can't identify the caller, apply a very tight shared limit to the
+  // "unknown" bucket so spoofed / missing headers can't drain AI credits.
+  const effectiveLimit = id === "unknown" ? Math.min(limit, 1) : limit;
+
   const key = `${scope}:${id}`;
   const bucket = buckets.get(key);
 
@@ -54,7 +59,7 @@ export function checkRateLimit(
     return { ok: true };
   }
 
-  if (bucket.count >= limit) {
+  if (bucket.count >= effectiveLimit) {
     return { ok: false, retryAfter: Math.ceil((bucket.resetAt - now) / 1000) };
   }
 
