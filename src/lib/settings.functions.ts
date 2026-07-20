@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
-import { getAIProviderInfo } from "./ai-provider";
-import { checkRateLimit } from "./rate-limit";
+import { getAIProviderInfo } from "./ai-provider.server";
+import { checkRateLimit } from "./rate-limit.server";
 
 /**
  * Returns the active AI provider WITHOUT exposing any key value.

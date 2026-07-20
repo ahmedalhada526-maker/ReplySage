@@ -10,7 +10,7 @@ import {
   PlayCircle,
   XCircle,
 } from "lucide-react";
-import { getAIStatus, testGeminiKey } from "@/server/settings.functions";
+import { getAIStatus, testGeminiKey } from "@/lib/settings.functions";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/settings")({

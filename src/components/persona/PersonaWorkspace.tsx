@@ -23,7 +23,7 @@ import {
   analyzeInteraction,
   type AnalysisResult,
   type ResponseStyleKey,
-} from "@/server/analyze.functions";
+} from "@/lib/analyze.functions";
 import { PulseAnalysis } from "@/components/persona/PulseAnalysis";
 import { StrategyCards } from "@/components/persona/StrategyCards";
 import { ResponseStylePicker } from "@/components/persona/ResponseStylePicker";

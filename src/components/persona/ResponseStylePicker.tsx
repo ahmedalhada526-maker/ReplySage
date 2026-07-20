@@ -1,6 +1,6 @@
 import { Heart, Flame, Snowflake, Brain, Shield } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { ResponseStyleKey } from "@/server/analyze.functions";
+import type { ResponseStyleKey } from "@/lib/analyze.functions";
 
 const STYLES: Array<{
   key: ResponseStyleKey;
