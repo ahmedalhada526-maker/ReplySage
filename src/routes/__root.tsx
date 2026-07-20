@@ -33,50 +33,27 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PersonaPulse AI: كاشف النوايا، تحليل الشخصية والرد المسكت" },
+      { title: "PersonaPulse AI — Decode subtext, manipulation & intent" },
       {
         name: "description",
         content:
-          "Discover your true self with Persona Pulse AI. Our advanced AI tool provides deep personality analysis and psychological insights for personal growth.",
+          "Forensic AI for behavioral psychology. Decode hidden intentions, spot manipulation, and craft strategic responses grounded in linguistic analysis.",
       },
-      {
-        name: "keywords",
-        content:
-          "AI personality analysis, Persona Pulse, psychological insights, self-discovery tool, AI character analysis",
-      },
-      { name: "author", content: "Persona Pulse AI" },
+      { name: "author", content: "PersonaPulse AI" },
       { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "PersonaPulse AI: كاشف النوايا، تحليل الشخصية والرد المسكت" },
-      {
-        property: "og:description",
-        content:
-          "Discover your true self with Persona Pulse AI. Our advanced AI tool provides deep personality analysis and psychological insights for personal growth.",
-      },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://person-plus-ai.lovable.app" },
-      { property: "og:site_name", content: "Persona Pulse AI" },
+      { property: "og:site_name", content: "PersonaPulse AI" },
       {
         property: "og:image",
         content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/0433b85d-d944-4d9d-98d4-f0027d9d5726/id-preview-36f7b5b2--dd7ac2bd-428c-4c8a-a6f8-1677242d6a58.lovable.app-1776465515962.png",
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/D3W5uhOKNHhfFahBPWNs0j6H0LF3/social-images/social-1776737963114-1776716364167.webp",
       },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "PersonaPulse AI: كاشف النوايا، تحليل الشخصية والرد المسكت" },
-      {
-        name: "twitter:description",
-        content:
-          "Discover your true self with Persona Pulse AI. Our advanced AI tool provides deep personality analysis and psychological insights for personal growth.",
-      },
       {
         name: "twitter:image",
         content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/0433b85d-d944-4d9d-98d4-f0027d9d5726/id-preview-36f7b5b2--dd7ac2bd-428c-4c8a-a6f8-1677242d6a58.lovable.app-1776465515962.png",
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/D3W5uhOKNHhfFahBPWNs0j6H0LF3/social-images/social-1776737963114-1776716364167.webp",
       },
-      { name: "description", content: "ذكاء اصطناعي،تحليل محادثات،قصف جبهات،ردود مسكتة،فن الرد،علم نفس،لغة جسد،كشف تلاعب،نرجسية،علاقات سامة،رد ذكي،إحراج،كشف كذب،سيكولوجية،واتساب،تليجرام،بوت ردود،اختب" },
-      { property: "og:description", content: "ذكاء اصطناعي،تحليل محادثات،قصف جبهات،ردود مسكتة،فن الرد،علم نفس،لغة جسد،كشف تلاعب،نرجسية،علاقات سامة،رد ذكي،إحراج،كشف كذب،سيكولوجية،واتساب،تليجرام،بوت ردود،اختب" },
-      { name: "twitter:description", content: "ذكاء اصطناعي،تحليل محادثات،قصف جبهات،ردود مسكتة،فن الرد،علم نفس،لغة جسد،كشف تلاعب،نرجسية،علاقات سامة،رد ذكي،إحراج،كشف كذب،سيكولوجية،واتساب،تليجرام،بوت ردود،اختب" },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/D3W5uhOKNHhfFahBPWNs0j6H0LF3/social-images/social-1776737963114-1776716364167.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/D3W5uhOKNHhfFahBPWNs0j6H0LF3/social-images/social-1776737963114-1776716364167.webp" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -85,7 +62,28 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" },
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-      { rel: "canonical", href: "https://person-plus-ai.lovable.app" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "PersonaPulse AI",
+          url: "https://person-plus-ai.lovable.app",
+          description:
+            "Forensic AI for behavioral psychology. Decode hidden intentions, spot manipulation, and craft strategic responses.",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "PersonaPulse AI",
+          url: "https://person-plus-ai.lovable.app",
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,
