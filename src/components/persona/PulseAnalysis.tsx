@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Eye, Fingerprint, Sparkles, Target } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
-import type { AnalysisResult } from "@/server/analyze.functions";
+import type { AnalysisResult } from "@/lib/analyze.functions";
 import { ManipulationGauge } from "./ManipulationGauge";
 import { MotivesList } from "./MotivesList";
 

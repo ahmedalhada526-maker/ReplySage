@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { checkRateLimit } from "./rate-limit";
-import { callAIChat } from "./ai-provider";
+import { checkRateLimit } from "./rate-limit.server";
+import { callAIChat } from "./ai-provider.server";
 
 const ResponseStyle = z.enum([
   "romantic",

@@ -1,4 +1,4 @@
-import type { AnalysisResult } from "@/server/analyze.functions";
+import type { AnalysisResult } from "@/lib/analyze.functions";
 
 export interface HistoryItem {
   id: string;

@@ -6,8 +6,8 @@ import { motion, AnimatePresence } from "motion/react";
 import { useTranslation } from "react-i18next";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import type { AnalysisResult } from "@/server/analyze.functions";
-import { regenerateSavage } from "@/server/analyze.functions";
+import type { AnalysisResult } from "@/lib/analyze.functions";
+import { regenerateSavage } from "@/lib/analyze.functions";
 
 interface StrategyCardsProps {
   strategies: AnalysisResult["strategies"];
