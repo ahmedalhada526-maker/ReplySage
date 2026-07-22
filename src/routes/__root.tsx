@@ -33,22 +33,16 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PersonaPulse AI — Decode subtext, manipulation & intent" },
-      {
-        name: "description",
-        content:
-          "Forensic AI for behavioral psychology. Decode hidden intentions, spot manipulation, and craft strategic responses grounded in linguistic analysis.",
-      },
       { name: "author", content: "PersonaPulse AI" },
       { name: "robots", content: "index, follow" },
-      { property: "og:type", content: "website" },
       { property: "og:site_name", content: "PersonaPulse AI" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       {
         property: "og:image",
         content:
           "https://storage.googleapis.com/gpt-engineer-file-uploads/D3W5uhOKNHhfFahBPWNs0j6H0LF3/social-images/social-1776737963114-1776716364167.webp",
       },
-      { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:image",
         content:
