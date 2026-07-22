@@ -36,6 +36,8 @@ export const Route = createRootRoute({
       { name: "author", content: "PersonaPulse AI" },
       { name: "robots", content: "index, follow" },
       { property: "og:site_name", content: "PersonaPulse AI" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       {
         property: "og:image",
         content:
