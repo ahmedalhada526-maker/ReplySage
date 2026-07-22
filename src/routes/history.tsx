@@ -92,7 +92,7 @@ function HistoryPage() {
       <ScrollArea className="h-[calc(100vh-65px)]">
         <div className="mx-auto max-w-3xl px-6 py-12 md:py-16">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3">
-            {hydrated ? t("history_title") : "Conversation history"}
+            {isAr ? "سجل المحادثات" : "Conversation history"}
           </h1>
           <p className="text-sm text-muted-foreground mb-10">
             {hydrated
