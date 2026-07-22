@@ -6,17 +6,17 @@ const URL = "https://person-plus-ai.lovable.app/tactics-guide";
 export const Route = createFileRoute("/tactics-guide")({
   head: () => ({
     meta: [
-      { title: "Manipulation Tactics Guide — How to Identify & Decode Dark Psychology" },
+      { title: "Manipulation Tactics Guide — PersonaPulse AI" },
       {
         name: "description",
         content:
-          "A practical guide to identifying manipulation tactics — gaslighting, guilt-tripping, love bombing, DARVO — and how AI can decode hidden intent in real conversations.",
+          "A practical guide to identifying manipulation tactics in conversations — and how AI decodes hidden intent in real messages.",
       },
       { property: "og:title", content: "Manipulation Tactics Guide — PersonaPulse AI" },
       {
         property: "og:description",
         content:
-          "Learn the linguistic patterns behind gaslighting, guilt-tripping, and dark psychology — and how to spot them in real messages.",
+          "Learn the linguistic patterns behind dark psychology — and how to spot them in real messages.",
       },
       { property: "og:url", content: URL },
       { property: "og:type", content: "article" },
