@@ -17,9 +17,21 @@ export const Route = createFileRoute("/settings")({
   head: () => ({
     meta: [
       { title: "Settings — PersonaPulse AI" },
-      { name: "description", content: "AI provider configuration and API key status." },
+      {
+        name: "description",
+        content:
+          "Configure your PersonaPulse AI provider, manage the Gemini API key, and check server-side AI status and connection health.",
+      },
       { name: "robots", content: "noindex, nofollow" },
+      { property: "og:title", content: "Settings — PersonaPulse AI" },
+      {
+        property: "og:description",
+        content:
+          "Manage your Gemini API key and AI provider configuration for PersonaPulse AI.",
+      },
+      { property: "og:url", content: "https://person-plus-ai.lovable.app/settings" },
     ],
+    links: [{ rel: "canonical", href: "https://person-plus-ai.lovable.app/settings" }],
   }),
   component: SettingsPage,
 });
