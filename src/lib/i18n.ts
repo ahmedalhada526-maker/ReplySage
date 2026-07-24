@@ -10,8 +10,9 @@ const resources = {
       hero_title_1: "Master the",
       hero_title_span: "Subtext",
       hero_title_2: "of human interaction",
+      hero_subheading: "Forensic linguistic analysis for real conversations",
       hero_description:
-        "Paste any conversation to decode hidden intentions, personality traits, and architect strategic responses that bypass resistance.",
+        "Paste a message, chat thread, or screenshot and PersonaPulse reverse-engineers the sender's personality profile, emotional leverage tactics, and hidden motives — then drafts four strategic response variants calibrated to bypass resistance and protect your position.",
 
       input_placeholder: "Paste the message or conversation snippet here…",
       run_analysis: "Run Analysis",
