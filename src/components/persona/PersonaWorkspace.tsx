@@ -307,12 +307,18 @@ export function PersonaWorkspace() {
                     </h2>
 
                     <p
-                      className="text-muted-foreground max-w-xl text-base md:text-lg mt-6 leading-relaxed"
+                      className="text-foreground/80 max-w-xl text-lg md:text-xl mt-6 font-medium"
+                      suppressHydrationWarning
+                    >
+                      {hydrated ? t("hero_subheading") : "Forensic linguistic analysis for real conversations"}
+                    </p>
+                    <p
+                      className="text-muted-foreground max-w-2xl text-base md:text-lg mt-4 leading-relaxed"
                       suppressHydrationWarning
                     >
                       {hydrated
                         ? t("hero_description")
-                        : "Paste any conversation to decode hidden intentions, personality traits, and architect strategic responses that bypass resistance."}
+                        : "Paste a message, chat thread, or screenshot and PersonaPulse reverse-engineers the sender's personality profile, emotional leverage tactics, and hidden motives — then drafts four strategic response variants calibrated to bypass resistance and protect your position."}
                     </p>
 
                     {/* Professional inline composer — placed BEFORE ads */}
