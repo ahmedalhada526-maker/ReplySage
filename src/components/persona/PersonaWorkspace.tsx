@@ -241,9 +241,9 @@ export function PersonaWorkspace() {
               onClick={() => navigate({ to: "/history" })}
               className="h-9 rounded-xl text-xs text-foreground bg-foreground/5 hover:bg-foreground/10"
               suppressHydrationWarning
-              aria-label={t("view_history")}
+              aria-label={hydrated ? `${t("view_history")} — ${historyCount} ${isRtl ? "عملية مسح محفوظة" : "saved scans"}` : "Open saved forensic scan history"}
             >
-              <HistoryIcon className="w-4 h-4 me-1.5" />
+              <HistoryIcon className="w-4 h-4 me-1.5" aria-hidden="true" />
               <span suppressHydrationWarning>
                 {hydrated ? t("view_history") : "History"}
               </span>
@@ -260,9 +260,9 @@ export function PersonaWorkspace() {
               className="h-9 w-9 rounded-xl text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
               onClick={toggleLanguage}
               suppressHydrationWarning
-              aria-label="Language"
+              aria-label={isRtl ? "Switch interface language to English" : "تبديل لغة الواجهة إلى العربية"}
             >
-              <Languages className="w-4 h-4" />
+              <Languages className="w-4 h-4" aria-hidden="true" />
             </Button>
           </div>
         </header>
@@ -307,12 +307,18 @@ export function PersonaWorkspace() {
                     </h2>
 
                     <p
-                      className="text-muted-foreground max-w-xl text-base md:text-lg mt-6 leading-relaxed"
+                      className="text-foreground/80 max-w-xl text-lg md:text-xl mt-6 font-medium"
+                      suppressHydrationWarning
+                    >
+                      {hydrated ? t("hero_subheading") : "Forensic linguistic analysis for real conversations"}
+                    </p>
+                    <p
+                      className="text-muted-foreground max-w-2xl text-base md:text-lg mt-4 leading-relaxed"
                       suppressHydrationWarning
                     >
                       {hydrated
                         ? t("hero_description")
-                        : "Paste any conversation to decode hidden intentions, personality traits, and architect strategic responses that bypass resistance."}
+                        : "Paste a message, chat thread, or screenshot and PersonaPulse reverse-engineers the sender's personality profile, emotional leverage tactics, and hidden motives — then drafts four strategic response variants calibrated to bypass resistance and protect your position."}
                     </p>
 
                     {/* Professional inline composer — placed BEFORE ads */}
@@ -394,12 +400,12 @@ export function PersonaWorkspace() {
                               className="h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
                               onClick={() => document.getElementById("file-upload")?.click()}
                               disabled={isUploading}
-                              aria-label={t("attach_file")}
+                              aria-label={isRtl ? "إرفاق ملف محادثة نصي (.txt أو .md)" : "Attach a plain-text conversation file (.txt or .md)"}
                             >
                               {isUploading ? (
-                                <Loader2 className="w-4 h-4 me-1.5 animate-spin" />
+                                <Loader2 className="w-4 h-4 me-1.5 animate-spin" aria-hidden="true" />
                               ) : (
-                                <Paperclip className="w-4 h-4 me-1.5" />
+                                <Paperclip className="w-4 h-4 me-1.5" aria-hidden="true" />
                               )}
                               <span className="hidden sm:inline">{hydrated ? t("attach_file") : "Attach"}</span>
                             </Button>
@@ -408,9 +414,9 @@ export function PersonaWorkspace() {
                               size="sm"
                               className="h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
                               onClick={() => document.getElementById("screenshot-upload")?.click()}
-                              aria-label={t("attach_screenshot")}
+                              aria-label={isRtl ? "رفع لقطة شاشة للمحادثة لاستخراج النص تلقائياً" : "Upload a conversation screenshot to extract text via OCR"}
                             >
-                              <ImageIcon className="w-4 h-4 me-1.5" />
+                              <ImageIcon className="w-4 h-4 me-1.5" aria-hidden="true" />
                               <span className="hidden sm:inline">{hydrated ? t("attach_screenshot") : "Screenshot"}</span>
                             </Button>
                           </div>
