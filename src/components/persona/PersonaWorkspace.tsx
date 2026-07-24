@@ -241,9 +241,9 @@ export function PersonaWorkspace() {
               onClick={() => navigate({ to: "/history" })}
               className="h-9 rounded-xl text-xs text-foreground bg-foreground/5 hover:bg-foreground/10"
               suppressHydrationWarning
-              aria-label={t("view_history")}
+              aria-label={hydrated ? `${t("view_history")} — ${historyCount} ${isRtl ? "عملية مسح محفوظة" : "saved scans"}` : "Open saved forensic scan history"}
             >
-              <HistoryIcon className="w-4 h-4 me-1.5" />
+              <HistoryIcon className="w-4 h-4 me-1.5" aria-hidden="true" />
               <span suppressHydrationWarning>
                 {hydrated ? t("view_history") : "History"}
               </span>
@@ -260,9 +260,9 @@ export function PersonaWorkspace() {
               className="h-9 w-9 rounded-xl text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
               onClick={toggleLanguage}
               suppressHydrationWarning
-              aria-label="Language"
+              aria-label={isRtl ? "Switch interface language to English" : "تبديل لغة الواجهة إلى العربية"}
             >
-              <Languages className="w-4 h-4" />
+              <Languages className="w-4 h-4" aria-hidden="true" />
             </Button>
           </div>
         </header>
