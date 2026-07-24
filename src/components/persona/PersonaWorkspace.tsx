@@ -394,12 +394,12 @@ export function PersonaWorkspace() {
                               className="h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
                               onClick={() => document.getElementById("file-upload")?.click()}
                               disabled={isUploading}
-                              aria-label={t("attach_file")}
+                              aria-label={isRtl ? "إرفاق ملف محادثة نصي (.txt أو .md)" : "Attach a plain-text conversation file (.txt or .md)"}
                             >
                               {isUploading ? (
-                                <Loader2 className="w-4 h-4 me-1.5 animate-spin" />
+                                <Loader2 className="w-4 h-4 me-1.5 animate-spin" aria-hidden="true" />
                               ) : (
-                                <Paperclip className="w-4 h-4 me-1.5" />
+                                <Paperclip className="w-4 h-4 me-1.5" aria-hidden="true" />
                               )}
                               <span className="hidden sm:inline">{hydrated ? t("attach_file") : "Attach"}</span>
                             </Button>
@@ -408,9 +408,9 @@ export function PersonaWorkspace() {
                               size="sm"
                               className="h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
                               onClick={() => document.getElementById("screenshot-upload")?.click()}
-                              aria-label={t("attach_screenshot")}
+                              aria-label={isRtl ? "رفع لقطة شاشة للمحادثة لاستخراج النص تلقائياً" : "Upload a conversation screenshot to extract text via OCR"}
                             >
-                              <ImageIcon className="w-4 h-4 me-1.5" />
+                              <ImageIcon className="w-4 h-4 me-1.5" aria-hidden="true" />
                               <span className="hidden sm:inline">{hydrated ? t("attach_screenshot") : "Screenshot"}</span>
                             </Button>
                           </div>
