@@ -35,6 +35,7 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "author", content: "PersonaPulse AI" },
       { name: "robots", content: "index, follow" },
+      { name: "google-site-verification", content: "Ok7o3EuqTnJBdKlrFfICAC9TdZsox4tjQYH43l019Y0" },
       { property: "og:site_name", content: "PersonaPulse AI" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
