@@ -219,7 +219,22 @@ const resources = {
       loader_step_1: "نحلل المشاعر المخفية بين السطور…",
       loader_step_2: "نكشف أنماط التلاعب العاطفي…",
       loader_step_3: "نهندس لك الرد المثالي…",
+
+      // البطل الاحترافي
+      hero_badge_status: "مباشر",
+      hero_badge_meta: "استوديو الرد بالذكاء الاصطناعي",
+      step_1_title: "ألصق",
+      step_1_desc: "أي رسالة، محادثة، أو لقطة شاشة",
+      step_2_title: "اختر النبرة",
+      step_2_desc: "حدّد النغمة التي تناسب الموقف",
+      step_3_title: "أرسل",
+      step_3_desc: "أربعة ردود جاهزة خلال ثوانٍ",
+      trust_private: "خصوصية تامة بالتصميم",
+      trust_instant: "ردود في أقل من ١٠ ثوانٍ",
+      trust_multilingual: "عربي · إنجليزي بطلاقة",
+      composer_hint: "اضغط ⌘ / Ctrl + Enter للتشغيل",
     },
+
   },
 };
 
