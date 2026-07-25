@@ -116,8 +116,9 @@ const resources = {
       trust_instant: "Replies in under 10s",
       trust_multilingual: "Arabic · English native",
       composer_hint: "Tip: press ⌘ / Ctrl + Enter to run",
-
+    },
   },
+
   ar: {
     translation: {
       app_name: "نبض الشخصية",
