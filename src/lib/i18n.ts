@@ -102,8 +102,23 @@ const resources = {
       loader_step_1: "Scanning emotional subtext…",
       loader_step_2: "Detecting manipulation patterns…",
       loader_step_3: "Architecting the perfect response…",
+
+      // Premium hero
+      hero_badge_status: "LIVE",
+      hero_badge_meta: "AI · Reply Studio",
+      step_1_title: "Paste",
+      step_1_desc: "Any message, chat, or screenshot",
+      step_2_title: "Tune",
+      step_2_desc: "Pick the tone that fits the moment",
+      step_3_title: "Send",
+      step_3_desc: "Four ready-to-send replies in seconds",
+      trust_private: "Private by design",
+      trust_instant: "Replies in under 10s",
+      trust_multilingual: "Arabic · English native",
+      composer_hint: "Tip: press ⌘ / Ctrl + Enter to run",
     },
   },
+
   ar: {
     translation: {
       app_name: "نبض الشخصية",
@@ -204,7 +219,22 @@ const resources = {
       loader_step_1: "نحلل المشاعر المخفية بين السطور…",
       loader_step_2: "نكشف أنماط التلاعب العاطفي…",
       loader_step_3: "نهندس لك الرد المثالي…",
+
+      // البطل الاحترافي
+      hero_badge_status: "مباشر",
+      hero_badge_meta: "استوديو الرد بالذكاء الاصطناعي",
+      step_1_title: "ألصق",
+      step_1_desc: "أي رسالة، محادثة، أو لقطة شاشة",
+      step_2_title: "اختر النبرة",
+      step_2_desc: "حدّد النغمة التي تناسب الموقف",
+      step_3_title: "أرسل",
+      step_3_desc: "أربعة ردود جاهزة خلال ثوانٍ",
+      trust_private: "خصوصية تامة بالتصميم",
+      trust_instant: "ردود في أقل من ١٠ ثوانٍ",
+      trust_multilingual: "عربي · إنجليزي بطلاقة",
+      composer_hint: "اضغط ⌘ / Ctrl + Enter للتشغيل",
     },
+
   },
 };
 
