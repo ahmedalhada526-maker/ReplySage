@@ -5,14 +5,15 @@ const resources = {
   en: {
     translation: {
       app_name: "PersonaPulse",
-      tagline: "The Unfair Advantage",
-      hero_eyebrow: "Behavioral psychology, weaponized",
-      hero_title_1: "Master the",
-      hero_title_span: "Subtext",
-      hero_title_2: "of human interaction",
-      hero_subheading: "Forensic linguistic analysis for real conversations",
+      tagline: "Reply like a pro, every time",
+      hero_eyebrow: "AI reply coach · Craft the perfect response",
+      hero_title_1: "Never wonder",
+      hero_title_span: "what to reply",
+      hero_title_2: "again",
+      hero_subheading: "AI-crafted replies for any message, chat, or conversation",
       hero_description:
-        "Paste a message, chat thread, or screenshot and PersonaPulse reverse-engineers the sender's personality profile, emotional leverage tactics, and hidden motives — then drafts four strategic response variants calibrated to bypass resistance and protect your position.",
+        "Paste any message you received — a text, a chat thread, or a screenshot — and PersonaPulse writes the perfect reply for you in seconds. Choose your tone (romantic, bold, cold, smart, or firm), get four ready-to-send response variants, and understand exactly why each one works before you hit send.",
+
 
       input_placeholder: "Paste the message or conversation snippet here…",
       run_analysis: "Run Analysis",
@@ -106,14 +107,15 @@ const resources = {
   ar: {
     translation: {
       app_name: "نبض الشخصية",
-      tagline: "الميزة غير العادلة",
-      hero_eyebrow: "علم النفس السلوكي، كسلاح",
-      hero_title_1: "أتقن",
-      hero_title_span: "ما وراء الكلمات",
-      hero_title_2: "في كل تفاعل بشري",
-      hero_subheading: "تحليل لغوي جنائي للمحادثات الحقيقية",
+      tagline: "رد باحترافية… في كل مرة",
+      hero_eyebrow: "مساعد ردود بالذكاء الاصطناعي · صياغة الرد المثالي",
+      hero_title_1: "ما تحتار",
+      hero_title_span: "شو ترد",
+      hero_title_2: "بعد اليوم",
+      hero_subheading: "ردود جاهزة بالذكاء الاصطناعي على أي رسالة أو محادثة",
       hero_description:
-        "ألصق رسالة أو محادثة أو لقطة شاشة، ويقوم PersonaPulse بتشريح شخصية المُرسِل، وكشف أساليب الضغط العاطفي، وفضح دوافعه الخفية — ثم يصيغ لك أربعة ردود استراتيجية معايَرة لتجاوز المقاومة وحماية موقفك.",
+        "ألصق أي رسالة وصلتك — نص، محادثة، أو حتى لقطة شاشة — و PersonaPulse يصيغ لك الرد المثالي خلال ثوانٍ. اختر نبرتك (رومانسي، جريء، بارد، ذكي، أو حازم)، واحصل على أربع صيغ ردود جاهزة للإرسال، مع شرح واضح ليش كل رد ينجح قبل ما ترسله.",
+
 
       input_placeholder: "ألصق الرسالة أو جزءاً من المحادثة هنا…",
       run_analysis: "ابدأ التحليل",

@@ -287,7 +287,7 @@ export function PersonaWorkspace() {
                         className="text-[10px] font-mono uppercase tracking-[0.25em] text-muted-foreground"
                         suppressHydrationWarning
                       >
-                        {hydrated ? t("hero_eyebrow") : "Behavioral psychology, weaponized"}
+                        {hydrated ? t("hero_eyebrow") : "AI reply coach · Craft the perfect response"}
                       </span>
                     </div>
 
@@ -299,18 +299,18 @@ export function PersonaWorkspace() {
                       className="text-5xl md:text-7xl font-bold tracking-tight max-w-3xl leading-[1.05]"
                       suppressHydrationWarning
                     >
-                      {hydrated ? t("hero_title_1") : "Master the"}{" "}
+                      {hydrated ? t("hero_title_1") : "Never wonder"}{" "}
                       <span className="text-gradient-primary italic font-serif">
-                        {hydrated ? t("hero_title_span") : "Subtext"}
+                        {hydrated ? t("hero_title_span") : "what to reply"}
                       </span>{" "}
-                      {hydrated ? t("hero_title_2") : "of human interaction"}
+                      {hydrated ? t("hero_title_2") : "again"}
                     </h2>
 
                     <p
                       className="text-foreground/80 max-w-xl text-lg md:text-xl mt-6 font-medium"
                       suppressHydrationWarning
                     >
-                      {hydrated ? t("hero_subheading") : "Forensic linguistic analysis for real conversations"}
+                      {hydrated ? t("hero_subheading") : "AI-crafted replies for any message, chat, or conversation"}
                     </p>
                     <p
                       className="text-muted-foreground max-w-2xl text-base md:text-lg mt-4 leading-relaxed"
@@ -318,8 +318,9 @@ export function PersonaWorkspace() {
                     >
                       {hydrated
                         ? t("hero_description")
-                        : "Paste a message, chat thread, or screenshot and PersonaPulse reverse-engineers the sender's personality profile, emotional leverage tactics, and hidden motives — then drafts four strategic response variants calibrated to bypass resistance and protect your position."}
+                        : "Paste any message you received — a text, a chat thread, or a screenshot — and PersonaPulse writes the perfect reply for you in seconds. Choose your tone, get four ready-to-send response variants, and understand exactly why each one works before you hit send."}
                     </p>
+
 
                     {/* Professional inline composer — placed BEFORE ads */}
                     <motion.div

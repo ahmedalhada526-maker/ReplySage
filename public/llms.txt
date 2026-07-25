@@ -1,14 +1,15 @@
 # PersonaPulse AI
 
-> Forensic AI for behavioral psychology — decode hidden intentions, personality traits, and manipulation tactics in conversations, then architect strategic responses.
+> AI reply coach that crafts the perfect response to any message, chat, or screenshot — choose your tone and get four ready-to-send replies with clear reasoning.
 
-PersonaPulse AI analyzes chat excerpts and messages to surface subtext, detect manipulation, score psychological patterns, and generate response strategies tailored to a target recipient.
+PersonaPulse AI helps you decide what to reply. Paste a message you received, pick the tone you want (romantic, bold, cold, smart, or firm), and get four AI-crafted response variants along with a short read of the sender's intent so you know why each reply works before you send it.
 
 ## Pages
 
-- [Home](/): Paste a conversation to run a forensic analysis and get strategic response options.
-- [History & Privacy](/history): Your saved analyses and how we handle your data.
+- [Home](/): Paste a message and get AI-crafted reply options in your chosen tone.
+- [Tactics guide](/tactics-guide): Learn common manipulation tactics and how to reply to them.
+- [History & Privacy](/history): Your saved replies and how we handle your data.
 
 ## Optional
 
-- [Privacy](/privacy): Data handling summary (redirects to History & Privacy).
+- [Privacy](/privacy): Data handling summary.
