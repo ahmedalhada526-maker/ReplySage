@@ -281,18 +281,29 @@ export function PersonaWorkspace() {
                     transition={{ duration: 0.5 }}
                     className="flex flex-col items-center text-center pt-8"
                   >
-                    <div className="mb-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse-slow" />
-                      <span
-                        className="text-[10px] font-mono uppercase tracking-[0.25em] text-muted-foreground"
-                        suppressHydrationWarning
-                      >
-                        {hydrated ? t("hero_eyebrow") : "AI reply coach · Craft the perfect response"}
+                    <div
+                      className="mb-8 inline-flex items-center gap-3 pl-1 pr-3 py-1 rounded-full glass-panel"
+                      suppressHydrationWarning
+                    >
+                      <span className="inline-flex items-center gap-1.5 pl-2 pr-2.5 py-0.5 rounded-full bg-primary/15 border border-primary/25">
+                        <span className="relative flex h-1.5 w-1.5">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
+                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary" />
+                        </span>
+                        <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-primary">
+                          {hydrated ? t("hero_badge_status") : "LIVE"}
+                        </span>
+                      </span>
+                      <span className="text-[10px] font-mono uppercase tracking-[0.28em] text-muted-foreground">
+                        {hydrated ? t("hero_badge_meta") : "AI · Reply Studio"}
                       </span>
                     </div>
 
-                    <div className="w-20 h-20 rounded-3xl bg-primary/10 flex items-center justify-center border border-primary/20 glow-primary mb-8">
-                      <Brain className="w-10 h-10 text-primary" />
+                    <div className="relative mb-8">
+                      <div className="absolute inset-0 -m-3 rounded-[2rem] bg-primary/10 blur-2xl" aria-hidden />
+                      <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center border border-primary/25 glow-primary">
+                        <Brain className="w-10 h-10 text-primary" />
+                      </div>
                     </div>
 
                     <h2
@@ -306,6 +317,8 @@ export function PersonaWorkspace() {
                       {hydrated ? t("hero_title_2") : "again"}
                     </h2>
 
+                    <div className="mt-6 h-px w-16 bg-gradient-to-r from-transparent via-primary/50 to-transparent" aria-hidden />
+
                     <p
                       className="text-foreground/80 max-w-xl text-lg md:text-xl mt-6 font-medium"
                       suppressHydrationWarning
@@ -318,8 +331,32 @@ export function PersonaWorkspace() {
                     >
                       {hydrated
                         ? t("hero_description")
-                        : "Paste any message you received — a text, a chat thread, or a screenshot — and PersonaPulse writes the perfect reply for you in seconds. Choose your tone, get four ready-to-send response variants, and understand exactly why each one works before you hit send."}
+                        : "Paste any message you received — a text, a chat thread, or a screenshot — and PersonaPulse writes the perfect reply for you in seconds."}
                     </p>
+
+                    {/* Editorial 3-step ribbon */}
+                    <div
+                      className="mt-10 w-full max-w-3xl grid grid-cols-3 gap-px rounded-2xl overflow-hidden border border-foreground/10 bg-foreground/5"
+                      suppressHydrationWarning
+                    >
+                      {[1, 2, 3].map((n) => (
+                        <div
+                          key={n}
+                          className="flex flex-col items-start gap-1 p-4 bg-background/40 text-start"
+                        >
+                          <span className="text-[10px] font-mono text-primary/80 tracking-[0.3em]">
+                            {`0${n}`}
+                          </span>
+                          <span className="text-sm font-bold text-foreground">
+                            {hydrated ? t(`step_${n}_title`) : ""}
+                          </span>
+                          <span className="text-xs text-muted-foreground leading-snug">
+                            {hydrated ? t(`step_${n}_desc`) : ""}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
 
 
                     {/* Professional inline composer — placed BEFORE ads */}
