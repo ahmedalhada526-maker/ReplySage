@@ -478,7 +478,17 @@ export function PersonaWorkspace() {
                           </Button>
                         </div>
                       </div>
+
+                      {/* Trust proof strip */}
+                      <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[11px] font-mono uppercase tracking-[0.25em] text-muted-foreground/70">
+                        <span>{hydrated ? t("trust_private") : ""}</span>
+                        <span className="w-1 h-1 rounded-full bg-foreground/20" aria-hidden />
+                        <span>{hydrated ? t("trust_instant") : ""}</span>
+                        <span className="w-1 h-1 rounded-full bg-foreground/20" aria-hidden />
+                        <span>{hydrated ? t("trust_multilingual") : ""}</span>
+                      </div>
                     </motion.div>
+
 
                     {hydrated && isAnalyzing && (
                       <div className="mt-10 w-full">
