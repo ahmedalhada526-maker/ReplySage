@@ -68,7 +68,8 @@ export const Route = createRootRoute({
           name: "PersonaPulse AI",
           url: "https://person-plus-ai.lovable.app",
           description:
-            "Forensic AI for behavioral psychology. Decode hidden intentions, spot manipulation, and craft strategic responses.",
+            "AI reply coach. Paste any message and get four perfectly crafted replies in the tone you choose — romantic, bold, cold, smart, or firm.",
+
         }),
       },
       {
