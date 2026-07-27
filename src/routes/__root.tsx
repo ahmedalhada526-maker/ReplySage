@@ -68,7 +68,9 @@ export const Route = createRootRoute({
           name: "PersonaPulse AI",
           url: "https://person-plus-ai.lovable.app",
           description:
-            "AI reply coach. Paste any message and get four perfectly crafted replies in the tone you choose — romantic, bold, cold, smart, or firm.",
+            "Your personal AI reply coach. Paste any message, chat, or screenshot and receive four ready-to-send replies tuned to the exact tone you need — romantic, bold, cold, smart, or firm — with clear reasoning before you send.",
+
+
 
         }),
       },
