@@ -4,19 +4,25 @@ import { PersonaWorkspace } from "@/components/persona/PersonaWorkspace";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PersonaPulse AI — Craft the Perfect Reply to Any Message" },
+      { title: "PersonaPulse AI — Your Personal AI Reply Coach" },
       {
         name: "description",
         content:
-          "AI reply coach that writes the perfect response to any message, chat, or screenshot. Choose your tone, get 4 ready-to-send replies, and know exactly why each one works.",
+          "Never wonder what to reply again. Paste any message, chat, or screenshot and get 4 AI-crafted replies in your chosen tone — romantic, bold, cold, smart, or firm — in under 10 seconds.",
       },
-      { property: "og:title", content: "PersonaPulse AI — Never Wonder What to Reply Again" },
+      { property: "og:title", content: "PersonaPulse AI — Craft the Perfect Reply, Every Time" },
       {
         property: "og:description",
         content:
-          "Paste any message. Get 4 AI-crafted replies tuned to your tone — romantic, bold, cold, smart, or firm — with clear reasoning before you send.",
+          "The AI reply studio for modern conversations. Choose your tone, get 4 ready-to-send responses with clear reasoning, and know exactly why each one lands before you hit send.",
       },
       { property: "og:url", content: "https://person-plus-ai.lovable.app/" },
+      { name: "twitter:title", content: "PersonaPulse AI — Craft the Perfect Reply, Every Time" },
+      {
+        name: "twitter:description",
+        content:
+          "Paste any message. Get 4 AI-crafted replies tuned to your tone in seconds. Arabic · English native.",
+      },
     ],
     links: [
       { rel: "canonical", href: "https://person-plus-ai.lovable.app/" },
