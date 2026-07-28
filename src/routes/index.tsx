@@ -4,20 +4,21 @@ import { PersonaWorkspace } from "@/components/persona/PersonaWorkspace";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PersonaPulse AI — Your Personal AI Reply Coach" },
+      { title: "AI Reply Generator — Smart Response Writer for Any Message | PersonaPulse AI" },
       {
         name: "description",
         content:
-          "Never wonder what to reply again. Paste any message, chat, or screenshot and get 4 AI-crafted replies in your chosen tone — romantic, bold, cold, smart, or firm — in under 10 seconds.",
+          "Free AI reply generator: paste any message, chat, or screenshot and get 4 smart, ready-to-send responses in seconds. Choose your tone — romantic, bold, cold, smart, or firm. Arabic & English.",
       },
-      { property: "og:title", content: "PersonaPulse AI — Craft the Perfect Reply, Every Time" },
+      { name: "keywords", content: "AI reply generator, smart reply, response writer, message reply AI, chat reply generator, WhatsApp reply AI, صياغة الردود بالذكاء الاصطناعي, مولد ردود ذكية, مساعد ردود واتساب" },
+      { property: "og:title", content: "AI Reply Generator — Smart Response Writer for Any Message" },
       {
         property: "og:description",
         content:
-          "The AI reply studio for modern conversations. Choose your tone, get 4 ready-to-send responses with clear reasoning, and know exactly why each one lands before you hit send.",
+          "Paste any message and get 4 AI-crafted replies in your chosen tone in under 10 seconds. The smart response writer trusted for chats, DMs, and email.",
       },
       { property: "og:url", content: "https://person-plus-ai.lovable.app/" },
-      { name: "twitter:title", content: "PersonaPulse AI — Craft the Perfect Reply, Every Time" },
+      { name: "twitter:title", content: "AI Reply Generator — Smart Response Writer for Any Message" },
       {
         name: "twitter:description",
         content:
