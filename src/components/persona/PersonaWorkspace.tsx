@@ -209,7 +209,7 @@ export function PersonaWorkspace() {
                 className="font-bold tracking-tight text-sm leading-none"
                 suppressHydrationWarning
               >
-                PersonaPulse AI — Decode subtext, manipulation & intent
+                PersonaPulse AI — Your AI Reply Coach to Decode Intent & Craft Responses
               </h1>
               <p className="text-[9px] font-mono uppercase tracking-[0.2em] text-muted-foreground mt-1">
                 v1.0 Forensics
@@ -226,6 +226,7 @@ export function PersonaWorkspace() {
                 setInput("");
                 setCaseId("");
               }}
+              aria-label={hydrated ? t("new_analysis") : "New analysis"}
               className="hidden sm:inline-flex h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
               suppressHydrationWarning
             >
