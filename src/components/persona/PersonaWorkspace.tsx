@@ -628,11 +628,23 @@ export function PersonaWorkspace() {
           )}
         </main>
 
-        <footer className="border-t border-foreground/5 py-4 px-6 text-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-          <Link to="/history" className="hover:text-foreground transition-colors">
-            {hydrated ? t("privacy_policy") : "Privacy Policy"}
-          </Link>
+        <footer className="border-t border-foreground/5 py-5 px-6 text-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+          <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            <Link to="/ai-reply-generator" className="hover:text-foreground transition-colors">
+              AI Reply Generator
+            </Link>
+            <Link to="/how-to-reply" className="hover:text-foreground transition-colors">
+              How to Reply
+            </Link>
+            <Link to="/tactics-guide" className="hover:text-foreground transition-colors">
+              Tactics Guide
+            </Link>
+            <Link to="/history" className="hover:text-foreground transition-colors">
+              {hydrated ? t("privacy_policy") : "Privacy Policy"}
+            </Link>
+          </nav>
         </footer>
+
       </div>
 
     </TooltipProvider>

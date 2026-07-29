@@ -6,14 +6,24 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://person-plus-ai.lovable.app/history</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <loc>https://person-plus-ai.lovable.app/ai-reply-generator</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://person-plus-ai.lovable.app/how-to-reply</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://person-plus-ai.lovable.app/tactics-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://person-plus-ai.lovable.app/history</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://person-plus-ai.lovable.app/privacy</loc>

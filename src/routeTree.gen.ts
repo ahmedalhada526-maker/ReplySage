@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TacticsGuideRouteImport } from './routes/tactics-guide'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as HowToReplyRouteImport } from './routes/how-to-reply'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as AiReplyGeneratorRouteImport } from './routes/ai-reply-generator'
 import { Route as IndexRouteImport } from './routes/index'
@@ -29,6 +30,11 @@ const SettingsRoute = SettingsRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HowToReplyRoute = HowToReplyRouteImport.update({
+  id: '/how-to-reply',
+  path: '/how-to-reply',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HistoryRoute = HistoryRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/ai-reply-generator': typeof AiReplyGeneratorRoute
   '/history': typeof HistoryRoute
+  '/how-to-reply': typeof HowToReplyRoute
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
   '/tactics-guide': typeof TacticsGuideRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ai-reply-generator': typeof AiReplyGeneratorRoute
   '/history': typeof HistoryRoute
+  '/how-to-reply': typeof HowToReplyRoute
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
   '/tactics-guide': typeof TacticsGuideRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/ai-reply-generator': typeof AiReplyGeneratorRoute
   '/history': typeof HistoryRoute
+  '/how-to-reply': typeof HowToReplyRoute
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
   '/tactics-guide': typeof TacticsGuideRoute
@@ -78,6 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/ai-reply-generator'
     | '/history'
+    | '/how-to-reply'
     | '/privacy'
     | '/settings'
     | '/tactics-guide'
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/ai-reply-generator'
     | '/history'
+    | '/how-to-reply'
     | '/privacy'
     | '/settings'
     | '/tactics-guide'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/ai-reply-generator'
     | '/history'
+    | '/how-to-reply'
     | '/privacy'
     | '/settings'
     | '/tactics-guide'
@@ -103,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AiReplyGeneratorRoute: typeof AiReplyGeneratorRoute
   HistoryRoute: typeof HistoryRoute
+  HowToReplyRoute: typeof HowToReplyRoute
   PrivacyRoute: typeof PrivacyRoute
   SettingsRoute: typeof SettingsRoute
   TacticsGuideRoute: typeof TacticsGuideRoute
@@ -129,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-to-reply': {
+      id: '/how-to-reply'
+      path: '/how-to-reply'
+      fullPath: '/how-to-reply'
+      preLoaderRoute: typeof HowToReplyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/history': {
@@ -159,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AiReplyGeneratorRoute: AiReplyGeneratorRoute,
   HistoryRoute: HistoryRoute,
+  HowToReplyRoute: HowToReplyRoute,
   PrivacyRoute: PrivacyRoute,
   SettingsRoute: SettingsRoute,
   TacticsGuideRoute: TacticsGuideRoute,
@@ -166,12 +187,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
