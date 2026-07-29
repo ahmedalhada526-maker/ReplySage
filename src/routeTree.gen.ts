@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TacticsGuideRouteImport } from './routes/tactics-guide'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as HowToReplyRouteImport } from './routes/how-to-reply'
 import { Route as HistoryRouteImport } from './routes/history'
+import { Route as AiReplyGeneratorRouteImport } from './routes/ai-reply-generator'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TacticsGuideRoute = TacticsGuideRouteImport.update({
@@ -30,9 +32,19 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HowToReplyRoute = HowToReplyRouteImport.update({
+  id: '/how-to-reply',
+  path: '/how-to-reply',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HistoryRoute = HistoryRouteImport.update({
   id: '/history',
   path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiReplyGeneratorRoute = AiReplyGeneratorRouteImport.update({
+  id: '/ai-reply-generator',
+  path: '/ai-reply-generator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,14 +55,18 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ai-reply-generator': typeof AiReplyGeneratorRoute
   '/history': typeof HistoryRoute
+  '/how-to-reply': typeof HowToReplyRoute
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
   '/tactics-guide': typeof TacticsGuideRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ai-reply-generator': typeof AiReplyGeneratorRoute
   '/history': typeof HistoryRoute
+  '/how-to-reply': typeof HowToReplyRoute
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
   '/tactics-guide': typeof TacticsGuideRoute
@@ -58,20 +74,38 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ai-reply-generator': typeof AiReplyGeneratorRoute
   '/history': typeof HistoryRoute
+  '/how-to-reply': typeof HowToReplyRoute
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
   '/tactics-guide': typeof TacticsGuideRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/history' | '/privacy' | '/settings' | '/tactics-guide'
+  fullPaths:
+    | '/'
+    | '/ai-reply-generator'
+    | '/history'
+    | '/how-to-reply'
+    | '/privacy'
+    | '/settings'
+    | '/tactics-guide'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/history' | '/privacy' | '/settings' | '/tactics-guide'
+  to:
+    | '/'
+    | '/ai-reply-generator'
+    | '/history'
+    | '/how-to-reply'
+    | '/privacy'
+    | '/settings'
+    | '/tactics-guide'
   id:
     | '__root__'
     | '/'
+    | '/ai-reply-generator'
     | '/history'
+    | '/how-to-reply'
     | '/privacy'
     | '/settings'
     | '/tactics-guide'
@@ -79,7 +113,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AiReplyGeneratorRoute: typeof AiReplyGeneratorRoute
   HistoryRoute: typeof HistoryRoute
+  HowToReplyRoute: typeof HowToReplyRoute
   PrivacyRoute: typeof PrivacyRoute
   SettingsRoute: typeof SettingsRoute
   TacticsGuideRoute: typeof TacticsGuideRoute
@@ -108,11 +144,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/how-to-reply': {
+      id: '/how-to-reply'
+      path: '/how-to-reply'
+      fullPath: '/how-to-reply'
+      preLoaderRoute: typeof HowToReplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/history': {
       id: '/history'
       path: '/history'
       fullPath: '/history'
       preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-reply-generator': {
+      id: '/ai-reply-generator'
+      path: '/ai-reply-generator'
+      fullPath: '/ai-reply-generator'
+      preLoaderRoute: typeof AiReplyGeneratorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -127,7 +177,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AiReplyGeneratorRoute: AiReplyGeneratorRoute,
   HistoryRoute: HistoryRoute,
+  HowToReplyRoute: HowToReplyRoute,
   PrivacyRoute: PrivacyRoute,
   SettingsRoute: SettingsRoute,
   TacticsGuideRoute: TacticsGuideRoute,

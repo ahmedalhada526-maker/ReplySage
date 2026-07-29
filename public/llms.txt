@@ -7,6 +7,8 @@ PersonaPulse AI helps you decide what to reply. Paste a message you received, pi
 ## Pages
 
 - [Home](/): Paste a message and get AI-crafted reply options in your chosen tone.
+- [AI Reply Generator](/ai-reply-generator): How the reply generator works, use cases, and FAQ.
+- [How to Reply](/how-to-reply): Twelve real situations with the read behind them and example wording.
 - [Tactics guide](/tactics-guide): Learn common manipulation tactics and how to reply to them.
 - [History & Privacy](/history): Your saved replies and how we handle your data.
 
