@@ -13,6 +13,7 @@ import { Route as TacticsGuideRouteImport } from './routes/tactics-guide'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as HistoryRouteImport } from './routes/history'
+import { Route as AiReplyGeneratorRouteImport } from './routes/ai-reply-generator'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TacticsGuideRoute = TacticsGuideRouteImport.update({
@@ -35,6 +36,11 @@ const HistoryRoute = HistoryRouteImport.update({
   path: '/history',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AiReplyGeneratorRoute = AiReplyGeneratorRouteImport.update({
+  id: '/ai-reply-generator',
+  path: '/ai-reply-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +49,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ai-reply-generator': typeof AiReplyGeneratorRoute
   '/history': typeof HistoryRoute
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ai-reply-generator': typeof AiReplyGeneratorRoute
   '/history': typeof HistoryRoute
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ai-reply-generator': typeof AiReplyGeneratorRoute
   '/history': typeof HistoryRoute
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
@@ -65,12 +74,25 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/history' | '/privacy' | '/settings' | '/tactics-guide'
+  fullPaths:
+    | '/'
+    | '/ai-reply-generator'
+    | '/history'
+    | '/privacy'
+    | '/settings'
+    | '/tactics-guide'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/history' | '/privacy' | '/settings' | '/tactics-guide'
+  to:
+    | '/'
+    | '/ai-reply-generator'
+    | '/history'
+    | '/privacy'
+    | '/settings'
+    | '/tactics-guide'
   id:
     | '__root__'
     | '/'
+    | '/ai-reply-generator'
     | '/history'
     | '/privacy'
     | '/settings'
@@ -79,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AiReplyGeneratorRoute: typeof AiReplyGeneratorRoute
   HistoryRoute: typeof HistoryRoute
   PrivacyRoute: typeof PrivacyRoute
   SettingsRoute: typeof SettingsRoute
@@ -115,6 +138,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ai-reply-generator': {
+      id: '/ai-reply-generator'
+      path: '/ai-reply-generator'
+      fullPath: '/ai-reply-generator'
+      preLoaderRoute: typeof AiReplyGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -127,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AiReplyGeneratorRoute: AiReplyGeneratorRoute,
   HistoryRoute: HistoryRoute,
   PrivacyRoute: PrivacyRoute,
   SettingsRoute: SettingsRoute,
@@ -135,3 +166,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
