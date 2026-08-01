@@ -91,8 +91,11 @@ export const Route = createRootRoute({
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isEnglish = pathname === "/en" || pathname.startsWith("/en/");
   return (
-    <html lang="en">
+    <html lang={isEnglish ? "en" : "ar"} dir={isEnglish ? "ltr" : "rtl"}>
+
       <head>
         <HeadContent />
       </head>
