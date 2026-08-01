@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouterState } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { bootAds } from "@/lib/ads/init-ads";
 import { BannerAdSlot } from "@/components/ads/BannerAdSlot";
@@ -91,8 +91,11 @@ export const Route = createRootRoute({
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isEnglish = pathname === "/en" || pathname.startsWith("/en/");
   return (
-    <html lang="en">
+    <html lang={isEnglish ? "en" : "ar"} dir={isEnglish ? "ltr" : "rtl"}>
+
       <head>
         <HeadContent />
       </head>

@@ -251,4 +251,18 @@ if (!i18n.isInitialized) {
   });
 }
 
+/**
+ * Returns an i18n instance pinned to a locale. Used by localized routes
+ * (e.g. /en) so SSR and hydration render the same language deterministically.
+ */
+const instanceCache = new Map<string, typeof i18n>();
+export function getI18nForLang(lang: "ar" | "en") {
+  if (lang === "ar") return i18n;
+  const cached = instanceCache.get(lang);
+  if (cached) return cached;
+  const cloned = i18n.cloneInstance({ lng: lang, fallbackLng: lang });
+  instanceCache.set(lang, cloned);
+  return cloned;
+}
+
 export default i18n;
