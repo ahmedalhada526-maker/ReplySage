@@ -14,6 +14,7 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as HowToReplyRouteImport } from './routes/how-to-reply'
 import { Route as HistoryRouteImport } from './routes/history'
+import { Route as EnRouteImport } from './routes/en'
 import { Route as AiReplyGeneratorRouteImport } from './routes/ai-reply-generator'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -42,6 +43,11 @@ const HistoryRoute = HistoryRouteImport.update({
   path: '/history',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnRoute = EnRouteImport.update({
+  id: '/en',
+  path: '/en',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AiReplyGeneratorRoute = AiReplyGeneratorRouteImport.update({
   id: '/ai-reply-generator',
   path: '/ai-reply-generator',
@@ -56,6 +62,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/ai-reply-generator': typeof AiReplyGeneratorRoute
+  '/en': typeof EnRoute
   '/history': typeof HistoryRoute
   '/how-to-reply': typeof HowToReplyRoute
   '/privacy': typeof PrivacyRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ai-reply-generator': typeof AiReplyGeneratorRoute
+  '/en': typeof EnRoute
   '/history': typeof HistoryRoute
   '/how-to-reply': typeof HowToReplyRoute
   '/privacy': typeof PrivacyRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/ai-reply-generator': typeof AiReplyGeneratorRoute
+  '/en': typeof EnRoute
   '/history': typeof HistoryRoute
   '/how-to-reply': typeof HowToReplyRoute
   '/privacy': typeof PrivacyRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/ai-reply-generator'
+    | '/en'
     | '/history'
     | '/how-to-reply'
     | '/privacy'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/ai-reply-generator'
+    | '/en'
     | '/history'
     | '/how-to-reply'
     | '/privacy'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/ai-reply-generator'
+    | '/en'
     | '/history'
     | '/how-to-reply'
     | '/privacy'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AiReplyGeneratorRoute: typeof AiReplyGeneratorRoute
+  EnRoute: typeof EnRoute
   HistoryRoute: typeof HistoryRoute
   HowToReplyRoute: typeof HowToReplyRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en': {
+      id: '/en'
+      path: '/en'
+      fullPath: '/en'
+      preLoaderRoute: typeof EnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ai-reply-generator': {
       id: '/ai-reply-generator'
       path: '/ai-reply-generator'
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AiReplyGeneratorRoute: AiReplyGeneratorRoute,
+  EnRoute: EnRoute,
   HistoryRoute: HistoryRoute,
   HowToReplyRoute: HowToReplyRoute,
   PrivacyRoute: PrivacyRoute,
@@ -187,12 +208,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
