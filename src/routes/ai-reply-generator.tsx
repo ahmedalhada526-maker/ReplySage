@@ -70,7 +70,23 @@ export const Route = createFileRoute("/ai-reply-generator")({
               name: "What is an AI reply generator?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "An AI reply generator reads a message you received and writes response options for you. PersonaPulse AI goes further: it reads the sender's intent and subtext first, then produces four replies in the tone you choose, each with a short explanation of why it works.",
+                text: "An AI reply generator reads a message you received and writes ready-to-send response options for you. PersonaPulse AI goes further than a standard response generator: it analyzes the sender's intent, subtext, and the emotional pressure behind the message first, then produces four replies in the tone you choose — romantic, bold, cold, smart, or firm — each with a one-line explanation of why it works. The result is a reply that sounds like a person who understood the room, not a generic template.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "What is the difference between an AI reply generator and a response generator?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "The two terms overlap, but a response generator usually focuses on a single context — most often a professional response generator for email or LinkedIn — while an AI reply generator is built for the full range of conversations you actually have: texts, DMs, WhatsApp, dating chats, and work email. PersonaPulse AI functions as both. You can use it as a WhatsApp reply generator, an email reply generator, or a smart reply generator for loaded messages where the subtext matters as much as the words.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "How does the smart reply generator decide which tone to use?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "You pick the tone — romantic, bold, cold, smart, or firm — and the reply generator adjusts the language accordingly. The smart tone keeps things concise and emotionally neutral, which is ideal for work email and LinkedIn. The firm tone holds the line on guilt trips and passive aggression without escalating. The bold and cold tones give you range in dating and personal conversations. You can also add context about the other person so the AI reply generator sharpens the output to fit the relationship.",
               },
             },
             {
@@ -78,7 +94,15 @@ export const Route = createFileRoute("/ai-reply-generator")({
               name: "Is the AI reply generator free?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes. You get free daily replies with no account required. Heavier usage is available through the in-app upgrade.",
+                text: "Yes. You get free daily replies with no account required — paste a message, choose a tone, and generate responses in under ten seconds. Heavier usage is available through the in-app upgrade. There is no signup wall and no credit card to start using the response generator.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Can I use it as a WhatsApp reply generator or an email reply generator?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes. PersonaPulse AI works as a WhatsApp reply generator, an email reply generator, and a smart reply generator for any messaging app. Paste a single text or a full chat thread, and the AI reply generator produces four variants you can copy and send. The input accepts plain text, a conversation history, or a screenshot — the built-in reader extracts the text for you.",
               },
             },
             {
@@ -86,23 +110,39 @@ export const Route = createFileRoute("/ai-reply-generator")({
               name: "Can it generate replies in Arabic?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes. PersonaPulse AI writes natively in both Arabic and English, matching the dialect and register of the original conversation instead of translating word for word.",
+                text: "Yes. PersonaPulse AI writes natively in both Arabic and English. Instead of translating word for word, the response generator matches the dialect and register of the original conversation — so a Gulf Arabic chat gets a Gulf Arabic reply, and a formal English email gets a formal English response. This is what makes the AI reply generator useful across bilingual conversations where a translated reply would sound unnatural.",
               },
             },
             {
               "@type": "Question",
-              name: "Can I use it for work emails and LinkedIn messages?",
+              name: "Can I use it for work emails, LinkedIn, and professional responses?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes. Choose the smart or firm tone for professional contexts — the generator keeps the response concise, neutral and free of the phrasing that escalates a thread.",
+                text: "Yes. Choose the smart or firm tone for professional contexts. The professional response generator keeps the reply concise, neutral, and free of the phrasing that escalates a thread. It works for email replies, LinkedIn messages, client follow-ups, and any situation where the honest first draft is the one you should never send. You get four variants, so you can compare a warmer and a firmer version before you commit.",
               },
             },
             {
               "@type": "Question",
-              name: "Are my messages stored?",
+              name: "How is this different from a regular AI chatbot?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Your conversation history stays on your own device in local storage. Messages are sent to the AI model only to produce your replies.",
+                text: "A regular AI chatbot answers the question you typed. A reply generator answers the conversation you are actually in. PersonaPulse AI starts by reading intent — what the sender wants, what they left unsaid, and how much pressure the message is applying — and only then drafts language. That ordering is why the output sounds like a person who understood the room. You also get four variants rather than one, which makes the tradeoff between a warm, a decisive, and a withdrawn version explicit before you send.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "How many reply options do I get per message?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "You get four reply variants per message, each in the tone you selected and each with a one-line explanation of why it works. Picking between a warm, a decisive, and a withdrawn version of the same answer is usually faster than editing a single draft into shape, and it lets you see the tradeoff before you commit.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Are my messages stored or shared?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Your conversation history stays on your own device in local storage. Messages are sent to the AI model only to produce your replies, and nothing is shared with third parties. You can clear your history at any time from the settings page.",
               },
             },
           ],
@@ -156,23 +196,43 @@ const steps = [
 const faqs = [
   {
     q: "What is an AI reply generator?",
-    a: "It reads a message you received and writes response options for you. PersonaPulse AI reads the sender's intent and subtext first, then produces four replies in the tone you choose — each with a short explanation of why it works.",
+    a: "An AI reply generator reads a message you received and writes ready-to-send response options for you. PersonaPulse AI goes further than a standard response generator: it analyzes the sender's intent, subtext, and the emotional pressure behind the message first, then produces four replies in the tone you choose — romantic, bold, cold, smart, or firm — each with a one-line explanation of why it works. The result is a reply that sounds like a person who understood the room, not a generic template.",
   },
   {
-    q: "Is it free?",
-    a: "Yes. Free daily replies, no account required. Heavier usage is available through the in-app upgrade.",
+    q: "What is the difference between an AI reply generator and a response generator?",
+    a: "The two terms overlap, but a response generator usually focuses on a single context — most often a professional response generator for email or LinkedIn — while an AI reply generator is built for the full range of conversations you actually have: texts, DMs, WhatsApp, dating chats, and work email. PersonaPulse AI functions as both. You can use it as a WhatsApp reply generator, an email reply generator, or a smart reply generator for loaded messages where the subtext matters as much as the words.",
+  },
+  {
+    q: "How does the smart reply generator decide which tone to use?",
+    a: "You pick the tone — romantic, bold, cold, smart, or firm — and the reply generator adjusts the language accordingly. The smart tone keeps things concise and emotionally neutral, which is ideal for work email and LinkedIn. The firm tone holds the line on guilt trips and passive aggression without escalating. The bold and cold tones give you range in dating and personal conversations. You can also add context about the other person so the AI reply generator sharpens the output to fit the relationship.",
+  },
+  {
+    q: "Is the AI reply generator free?",
+    a: "Yes. You get free daily replies with no account required — paste a message, choose a tone, and generate responses in under ten seconds. Heavier usage is available through the in-app upgrade. There is no signup wall and no credit card to start using the response generator.",
+  },
+  {
+    q: "Can I use it as a WhatsApp reply generator or an email reply generator?",
+    a: "Yes. PersonaPulse AI works as a WhatsApp reply generator, an email reply generator, and a smart reply generator for any messaging app. Paste a single text or a full chat thread, and the AI reply generator produces four variants you can copy and send. The input accepts plain text, a conversation history, or a screenshot — the built-in reader extracts the text for you.",
   },
   {
     q: "Does it work in Arabic?",
-    a: "Yes — natively. Replies match the dialect and register of the original conversation instead of reading like a translation.",
+    a: "Yes — natively, in both Arabic and English. Instead of translating word for word, the response generator matches the dialect and register of the original conversation, so a Gulf Arabic chat gets a Gulf Arabic reply and a formal English email gets a formal English response. That is what makes the AI reply generator useful across bilingual conversations where a translated reply would sound unnatural.",
   },
   {
-    q: "Can I use it for work emails?",
-    a: "Yes. The smart and firm tones keep responses concise, neutral, and free of phrasing that escalates a thread.",
+    q: "Can I use it for work emails, LinkedIn, and professional responses?",
+    a: "Yes. Choose the smart or firm tone for professional contexts. The professional response generator keeps the reply concise, neutral, and free of the phrasing that escalates a thread. It works for email replies, LinkedIn messages, client follow-ups, and any situation where the honest first draft is the one you should never send. You get four variants, so you can compare a warmer and a firmer version before you commit.",
   },
   {
-    q: "Are my messages stored?",
-    a: "Your history stays on your own device in local storage. Messages reach the AI model only to produce your replies.",
+    q: "How is this different from a regular AI chatbot?",
+    a: "A regular AI chatbot answers the question you typed. A reply generator answers the conversation you are actually in. PersonaPulse AI starts by reading intent — what the sender wants, what they left unsaid, and how much pressure the message is applying — and only then drafts language. That ordering is why the output sounds like a person who understood the room. You also get four variants rather than one, which makes the tradeoff between a warm, a decisive, and a withdrawn version explicit before you send.",
+  },
+  {
+    q: "How many reply options do I get per message?",
+    a: "Four. Each variant comes in the tone you selected and includes a one-line explanation of why it works. Picking between a warm, a decisive, and a withdrawn version of the same answer is usually faster than editing a single draft into shape — and it lets you see the tradeoff before you commit.",
+  },
+  {
+    q: "Are my messages stored or shared?",
+    a: "Your conversation history stays on your own device in local storage. Messages are sent to the AI model only to produce your replies, and nothing is shared with third parties. You can clear your history at any time from the settings page.",
   },
 ];
 
