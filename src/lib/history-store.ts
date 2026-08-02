@@ -8,7 +8,7 @@ export interface HistoryItem {
   createdAt: number;
 }
 
-const KEY = "personapulse_history_v1";
+const KEY = "replygenie_history_v1";
 const MAX = 30;
 
 export function loadHistory(): HistoryItem[] {
@@ -43,4 +43,4 @@ export function clearHistory() {
   localStorage.removeItem(KEY);
 }
 
-export const PENDING_LOAD_KEY = "personapulse_pending_load";
+export const PENDING_LOAD_KEY = "replygenie_pending_load";

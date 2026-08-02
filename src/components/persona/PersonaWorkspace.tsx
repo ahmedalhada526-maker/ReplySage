@@ -157,7 +157,7 @@ export function PersonaWorkspace() {
     setIsExporting(true);
     const tid = toast.loading(t("exporting_story"));
     try {
-      await exportElementAsStory(storyRef.current, `personapulse-${caseId || "story"}.png`);
+      await exportElementAsStory(storyRef.current, `replygenie-${caseId || "story"}.png`);
       toast.success(t("story_exported"), { id: tid });
     } catch (e) {
       console.error(e);
@@ -209,7 +209,7 @@ export function PersonaWorkspace() {
                 className="font-bold tracking-tight text-sm leading-none"
                 suppressHydrationWarning
               >
-                PersonaPulse AI — Your AI Reply Coach to Decode Intent & Craft Responses
+                ReplyGenie — Your AI Reply Coach to Decode Intent & Craft Responses
               </h1>
               <p className="text-[9px] font-mono uppercase tracking-[0.2em] text-muted-foreground mt-1">
                 v1.0 Forensics
@@ -332,7 +332,7 @@ export function PersonaWorkspace() {
                     >
                       {hydrated
                         ? t("hero_description")
-                        : "Paste any message you received — a text, a chat thread, or a screenshot — and PersonaPulse writes the perfect reply for you in seconds."}
+                        : "Paste any message you received — a text, a chat thread, or a screenshot — and ReplyGenie writes the perfect reply for you in seconds."}
                     </p>
 
                     {/* Editorial 3-step ribbon */}

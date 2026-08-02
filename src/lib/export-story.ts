@@ -6,7 +6,7 @@ import { toPng } from "html-to-image";
  */
 export async function exportElementAsStory(
   el: HTMLElement,
-  filename = "personapulse-story.png",
+  filename = "replygenie-story.png",
 ): Promise<void> {
   const dataUrl = await toPng(el, {
     cacheBust: true,

@@ -6,7 +6,7 @@ const SITE = "https://person-plus-ai.lovable.app";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "مولّد الردود الذكية بالذكاء الاصطناعي | PersonaPulse AI" },
+      { title: "مولّد الردود الذكية بالذكاء الاصطناعي | ReplyGenie" },
       {
         name: "description",
         content:
@@ -19,14 +19,14 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:locale", content: "ar_AR" },
       { property: "og:locale:alternate", content: "en_US" },
-      { property: "og:title", content: "مولّد الردود الذكية بالذكاء الاصطناعي | PersonaPulse AI" },
+      { property: "og:title", content: "مولّد الردود الذكية بالذكاء الاصطناعي | ReplyGenie" },
       {
         property: "og:description",
         content:
           "ألصق أي رسالة واحصل على ٤ ردود مصاغة بالذكاء الاصطناعي بالنبرة التي تختارها خلال أقل من ١٠ ثوانٍ — للمحادثات والرسائل والبريد.",
       },
       { property: "og:url", content: `${SITE}/` },
-      { name: "twitter:title", content: "مولّد الردود الذكية بالذكاء الاصطناعي | PersonaPulse AI" },
+      { name: "twitter:title", content: "مولّد الردود الذكية بالذكاء الاصطناعي | ReplyGenie" },
       {
         name: "twitter:description",
         content: "ألصق أي رسالة واحصل على ٤ ردود ذكية بالنبرة المناسبة خلال ثوانٍ. عربي · إنجليزي.",

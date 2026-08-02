@@ -50,7 +50,7 @@ export const StoryCard = forwardRef<HTMLDivElement, StoryCardProps>(
           </div>
           <div>
             <div style={{ fontSize: 44, fontWeight: 900, lineHeight: 1 }}>
-              PersonaPulse AI
+              ReplyGenie
             </div>
             <div
               style={{
@@ -169,7 +169,7 @@ export const StoryCard = forwardRef<HTMLDivElement, StoryCardProps>(
             </span>
           </div>
           <span style={{ fontSize: 26, fontWeight: 800, color: "#5cb6ff" }}>
-            personapulse.ai
+            replygenie.ai
           </span>
         </div>
       </div>
