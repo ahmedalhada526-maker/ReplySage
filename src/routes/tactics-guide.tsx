@@ -6,13 +6,13 @@ const URL = "https://person-plus-ai.lovable.app/tactics-guide";
 export const Route = createFileRoute("/tactics-guide")({
   head: () => ({
     meta: [
-      { title: "Manipulation Tactics Guide — PersonaPulse AI" },
+      { title: "Manipulation Tactics Guide | PersonaPulse AI" },
       {
         name: "description",
         content:
           "A practical guide to identifying manipulation tactics in conversations — and how AI decodes hidden intent in real messages.",
       },
-      { property: "og:title", content: "Manipulation Tactics Guide — PersonaPulse AI" },
+      { property: "og:title", content: "Manipulation Tactics Guide | PersonaPulse AI" },
       {
         property: "og:description",
         content:
