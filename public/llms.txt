@@ -1,8 +1,8 @@
-# ReplyGenie
+# ReplySage
 
 > AI reply coach that crafts the perfect response to any message, chat, or screenshot — choose your tone and get four ready-to-send replies with clear reasoning.
 
-ReplyGenie helps you decide what to reply. Paste a message you received, pick the tone you want (romantic, bold, cold, smart, or firm), and get four AI-crafted response variants along with a short read of the sender's intent so you know why each reply works before you send it.
+ReplySage helps you decide what to reply. Paste a message you received, pick the tone you want (romantic, bold, cold, smart, or firm), and get four AI-crafted response variants along with a short read of the sender's intent so you know why each reply works before you send it.
 
 ## Pages
 
