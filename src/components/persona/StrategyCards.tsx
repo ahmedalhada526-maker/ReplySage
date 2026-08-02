@@ -1,7 +1,18 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Check, Copy, Flame, Heart, Shield, Zap, RefreshCw, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import {
+  Check,
+  Copy,
+  Flame,
+  Heart,
+  Shield,
+  Zap,
+  RefreshCw,
+  ChevronLeft,
+  ChevronRight,
+  Loader2,
+} from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useTranslation } from "react-i18next";
 import { useServerFn } from "@tanstack/react-start";
@@ -37,17 +48,20 @@ function ToneClasses(tone: "primary" | "accent" | "neutral" | "danger") {
     case "primary":
       return {
         chip: "bg-primary/10 text-primary border-primary/25",
-        active: "data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-[var(--shadow-glow-primary)]",
+        active:
+          "data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-[var(--shadow-glow-primary)]",
       };
     case "accent":
       return {
         chip: "bg-accent/10 text-accent border-accent/25",
-        active: "data-[state=active]:bg-accent data-[state=active]:text-accent-foreground data-[state=active]:shadow-[var(--shadow-glow-accent)]",
+        active:
+          "data-[state=active]:bg-accent data-[state=active]:text-accent-foreground data-[state=active]:shadow-[var(--shadow-glow-accent)]",
       };
     case "danger":
       return {
         chip: "bg-destructive/10 text-destructive border-destructive/30",
-        active: "data-[state=active]:bg-destructive data-[state=active]:text-destructive-foreground",
+        active:
+          "data-[state=active]:bg-destructive data-[state=active]:text-destructive-foreground",
       };
     default:
       return {
@@ -123,7 +137,9 @@ export function StrategyCards({ strategies, sourceText, recipientPersona }: Stra
         <div className="glass-panel p-8 rounded-3xl relative overflow-hidden group premium-shadow">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${cls.chip}`}>
+              <div
+                className={`w-10 h-10 rounded-xl flex items-center justify-center border ${cls.chip}`}
+              >
                 <Icon className="w-5 h-5" />
               </div>
               <h4 className="text-xl font-bold tracking-tight">{title}</h4>

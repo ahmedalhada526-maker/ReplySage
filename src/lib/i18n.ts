@@ -14,8 +14,6 @@ const resources = {
       hero_description:
         "Paste any message you received — a text, a chat thread, or a screenshot — and ReplySage writes the perfect reply for you in seconds. Choose your tone (romantic, bold, cold, smart, or firm), get four ready-to-send response variants, and understand exactly why each one works before you hit send.",
 
-
-
       input_placeholder: "Paste the message or conversation snippet here…",
       run_analysis: "Run Analysis",
       analyzing: "Analyzing pulse…",
@@ -81,7 +79,8 @@ const resources = {
       composer_title: "Composer",
       attach_screenshot: "Upload screenshot",
       ocr_processing: "Reading screenshot…",
-      ocr_failed: "Could not read text from this image — try a clearer screenshot or paste the text directly.",
+      ocr_failed:
+        "Could not read text from this image — try a clearer screenshot or paste the text directly.",
       recipient_intel_label: "Extra intel about the other side",
       recipient_intel_placeholder: "Personality traits, past issues, relationship context…",
       response_style_label: "Desired response style",
@@ -132,8 +131,6 @@ const resources = {
       hero_description:
         "ألصق أي رسالة وصلتك — نص، محادثة، أو حتى لقطة شاشة — و ReplySage يصيغ لك الرد المثالي خلال ثوانٍ. اختر نبرتك (رومانسي، جريء، بارد، ذكي، أو حازم)، واحصل على أربع صيغ ردود جاهزة للإرسال، مع شرح واضح ليش كل رد ينجح قبل ما ترسله.",
 
-
-
       input_placeholder: "ألصق الرسالة أو جزءاً من المحادثة هنا…",
       run_analysis: "ابدأ التحليل",
       analyzing: "جارٍ تحليل النبض…",
@@ -173,8 +170,7 @@ const resources = {
       upgrade_pro: "الترقية إلى برو",
       pro_only: "للمشتركين فقط",
       unlock_pro_insights: "افتح التحليلات الاحترافية",
-      upgrade_message:
-        "قم بالترقية إلى برو لفتح التحليل النفسي العميق ومسح جنائي غير محدود.",
+      upgrade_message: "قم بالترقية إلى برو لفتح التحليل النفسي العميق ومسح جنائي غير محدود.",
       upgrade_unlimited: "عمليات مسح جنائي غير محدودة",
       upgrade_advanced: "تحليلات نفسية متقدمة",
       upgrade_clean: "مساحة عمل نظيفة ومركّزة",
@@ -236,7 +232,6 @@ const resources = {
       trust_multilingual: "عربي · إنجليزي بطلاقة",
       composer_hint: "اضغط ⌘ / Ctrl + Enter للتشغيل",
     },
-
   },
 };
 

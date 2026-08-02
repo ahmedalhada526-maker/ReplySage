@@ -43,6 +43,7 @@ npx cap open android
 ```
 
 ### للـ iOS:
+
 ```bash
 npx cap add ios
 npx cap sync ios
@@ -51,21 +52,22 @@ npx cap open ios
 
 ## معرفات Unity (مُهيّأة في الكود)
 
-| العنصر | القيمة |
-|---|---|
-| Unity Project ID | `e64c9f9f-eb1e-44a0-b94a-2994061da3f7` |
-| Game ID — Android | `6100246` |
-| Game ID — iOS | `6100247` |
+| العنصر            | القيمة                                 |
+| ----------------- | -------------------------------------- |
+| Unity Project ID  | `e64c9f9f-eb1e-44a0-b94a-2994061da3f7` |
+| Game ID — Android | `6100246`                              |
+| Game ID — iOS     | `6100247`                              |
 
-| النوع | Android | iOS | الموضع |
-|---|---|---|---|
-| Banner | `Banner_Android` | `Banner_iOS` | شريط ثابت أسفل كل شاشة |
+| النوع        | Android                | iOS                | الموضع                  |
+| ------------ | ---------------------- | ------------------ | ----------------------- |
+| Banner       | `Banner_Android`       | `Banner_iOS`       | شريط ثابت أسفل كل شاشة  |
 | Interstitial | `Interstitial_Android` | `Interstitial_iOS` | كل 3 مسوحات + إعلان فتح |
-| Rewarded | `Rewarded_Android` | `Rewarded_iOS` | فك قفل الاستراتيجيات |
+| Rewarded     | `Rewarded_Android`     | `Rewarded_iOS`     | فك قفل الاستراتيجيات    |
 
 ## وضع الاختبار
 
 في `src/lib/ads/init-ads.ts`:
+
 ```ts
 const TEST_MODE = false; // اجعلها true أثناء التطوير لتجنّب مخالفة سياسة Unity
 ```
@@ -76,12 +78,15 @@ const TEST_MODE = false; // اجعلها true أثناء التطوير لتجن
 `chrome://inspect` → اختر التطبيق → Console.
 
 ابحث عن سطر:
+
 ```
 [AdService] initializing Unity Ads { gameId: "6100246", platform: "android", testMode: false }
 ```
 
 إذا رأيت بدلاً من ذلك:
+
 ```
 [AdService] not native — ads disabled (web/WebView without plugin)
 ```
+
 فهذا يعني أن إضافة Capacitor Unity Ads غير مُثبّتة في الـ APK — راجع الخطوات أعلاه.

@@ -231,9 +231,7 @@ export function PersonaWorkspace() {
               suppressHydrationWarning
             >
               <Plus className="w-4 h-4 me-1.5" />
-              <span suppressHydrationWarning>
-                {hydrated ? t("new_analysis") : "New analysis"}
-              </span>
+              <span suppressHydrationWarning>{hydrated ? t("new_analysis") : "New analysis"}</span>
             </Button>
 
             <Button
@@ -242,12 +240,14 @@ export function PersonaWorkspace() {
               onClick={() => navigate({ to: "/history" })}
               className="h-9 rounded-xl text-xs text-foreground bg-foreground/5 hover:bg-foreground/10"
               suppressHydrationWarning
-              aria-label={hydrated ? `${t("view_history")} — ${historyCount} ${isRtl ? "عملية مسح محفوظة" : "saved scans"}` : "Open saved forensic scan history"}
+              aria-label={
+                hydrated
+                  ? `${t("view_history")} — ${historyCount} ${isRtl ? "عملية مسح محفوظة" : "saved scans"}`
+                  : "Open saved forensic scan history"
+              }
             >
               <HistoryIcon className="w-4 h-4 me-1.5" aria-hidden="true" />
-              <span suppressHydrationWarning>
-                {hydrated ? t("view_history") : "History"}
-              </span>
+              <span suppressHydrationWarning>{hydrated ? t("view_history") : "History"}</span>
               {hydrated && historyCount > 0 && (
                 <span className="ms-2 inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-primary/20 text-primary text-[10px] font-mono">
                   {historyCount}
@@ -261,7 +261,9 @@ export function PersonaWorkspace() {
               className="h-9 w-9 rounded-xl text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
               onClick={toggleLanguage}
               suppressHydrationWarning
-              aria-label={isRtl ? "Switch interface language to English" : "تبديل لغة الواجهة إلى العربية"}
+              aria-label={
+                isRtl ? "Switch interface language to English" : "تبديل لغة الواجهة إلى العربية"
+              }
             >
               <Languages className="w-4 h-4" aria-hidden="true" />
             </Button>
@@ -301,7 +303,10 @@ export function PersonaWorkspace() {
                     </div>
 
                     <div className="relative mb-8">
-                      <div className="absolute inset-0 -m-3 rounded-[2rem] bg-primary/10 blur-2xl" aria-hidden />
+                      <div
+                        className="absolute inset-0 -m-3 rounded-[2rem] bg-primary/10 blur-2xl"
+                        aria-hidden
+                      />
                       <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center border border-primary/25 glow-primary">
                         <Brain className="w-10 h-10 text-primary" />
                       </div>
@@ -318,13 +323,18 @@ export function PersonaWorkspace() {
                       {hydrated ? t("hero_title_2") : "again"}
                     </h2>
 
-                    <div className="mt-6 h-px w-16 bg-gradient-to-r from-transparent via-primary/50 to-transparent" aria-hidden />
+                    <div
+                      className="mt-6 h-px w-16 bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+                      aria-hidden
+                    />
 
                     <p
                       className="text-foreground/80 max-w-xl text-lg md:text-xl mt-6 font-medium"
                       suppressHydrationWarning
                     >
-                      {hydrated ? t("hero_subheading") : "AI-crafted replies for any message, chat, or conversation"}
+                      {hydrated
+                        ? t("hero_subheading")
+                        : "AI-crafted replies for any message, chat, or conversation"}
                     </p>
                     <p
                       className="text-muted-foreground max-w-2xl text-base md:text-lg mt-4 leading-relaxed"
@@ -357,8 +367,6 @@ export function PersonaWorkspace() {
                         </div>
                       ))}
                     </div>
-
-
 
                     {/* Professional inline composer — placed BEFORE ads */}
                     <motion.div
@@ -411,10 +419,7 @@ export function PersonaWorkspace() {
 
                         {/* Style picker */}
                         <div className="px-5 pt-3 pb-4 border-t border-foreground/5 bg-foreground/[0.02]">
-                          <ResponseStylePicker
-                            value={responseStyle}
-                            onChange={setResponseStyle}
-                          />
+                          <ResponseStylePicker value={responseStyle} onChange={setResponseStyle} />
                         </div>
 
                         <div className="flex items-center justify-between gap-3 px-4 py-3 border-t border-foreground/5 bg-foreground/[0.02]">
@@ -439,24 +444,39 @@ export function PersonaWorkspace() {
                               className="h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
                               onClick={() => document.getElementById("file-upload")?.click()}
                               disabled={isUploading}
-                              aria-label={isRtl ? "إرفاق ملف محادثة نصي (.txt أو .md)" : "Attach a plain-text conversation file (.txt or .md)"}
+                              aria-label={
+                                isRtl
+                                  ? "إرفاق ملف محادثة نصي (.txt أو .md)"
+                                  : "Attach a plain-text conversation file (.txt or .md)"
+                              }
                             >
                               {isUploading ? (
-                                <Loader2 className="w-4 h-4 me-1.5 animate-spin" aria-hidden="true" />
+                                <Loader2
+                                  className="w-4 h-4 me-1.5 animate-spin"
+                                  aria-hidden="true"
+                                />
                               ) : (
                                 <Paperclip className="w-4 h-4 me-1.5" aria-hidden="true" />
                               )}
-                              <span className="hidden sm:inline">{hydrated ? t("attach_file") : "Attach"}</span>
+                              <span className="hidden sm:inline">
+                                {hydrated ? t("attach_file") : "Attach"}
+                              </span>
                             </Button>
                             <Button
                               variant="ghost"
                               size="sm"
                               className="h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground bg-foreground/5 hover:bg-foreground/10"
                               onClick={() => document.getElementById("screenshot-upload")?.click()}
-                              aria-label={isRtl ? "رفع لقطة شاشة للمحادثة لاستخراج النص تلقائياً" : "Upload a conversation screenshot to extract text via OCR"}
+                              aria-label={
+                                isRtl
+                                  ? "رفع لقطة شاشة للمحادثة لاستخراج النص تلقائياً"
+                                  : "Upload a conversation screenshot to extract text via OCR"
+                              }
                             >
                               <ImageIcon className="w-4 h-4 me-1.5" aria-hidden="true" />
-                              <span className="hidden sm:inline">{hydrated ? t("attach_screenshot") : "Screenshot"}</span>
+                              <span className="hidden sm:inline">
+                                {hydrated ? t("attach_screenshot") : "Screenshot"}
+                              </span>
                             </Button>
                           </div>
                           <Button
@@ -489,7 +509,6 @@ export function PersonaWorkspace() {
                         <span>{hydrated ? t("trust_multilingual") : ""}</span>
                       </div>
                     </motion.div>
-
 
                     {hydrated && isAnalyzing && (
                       <div className="mt-10 w-full">
@@ -644,9 +663,7 @@ export function PersonaWorkspace() {
             </Link>
           </nav>
         </footer>
-
       </div>
-
     </TooltipProvider>
   );
 }

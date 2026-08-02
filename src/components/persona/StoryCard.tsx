@@ -49,9 +49,7 @@ export const StoryCard = forwardRef<HTMLDivElement, StoryCardProps>(
             <Brain size={48} color="#5cb6ff" />
           </div>
           <div>
-            <div style={{ fontSize: 44, fontWeight: 900, lineHeight: 1 }}>
-              ReplySage
-            </div>
+            <div style={{ fontSize: 44, fontWeight: 900, lineHeight: 1 }}>ReplySage</div>
             <div
               style={{
                 fontSize: 22,
@@ -118,9 +116,7 @@ export const StoryCard = forwardRef<HTMLDivElement, StoryCardProps>(
               >
                 {isAr ? "مؤشر التلاعب" : "Manipulation"}
               </div>
-              <div
-                style={{ fontSize: 96, fontWeight: 900, color: "#ff6b6b", lineHeight: 1 }}
-              >
+              <div style={{ fontSize: 96, fontWeight: 900, color: "#ff6b6b", lineHeight: 1 }}>
                 {manipulationScore}
                 <span style={{ fontSize: 36, color: "#9aa0b4" }}>/100</span>
               </div>
@@ -146,9 +142,7 @@ export const StoryCard = forwardRef<HTMLDivElement, StoryCardProps>(
               >
                 {isAr ? "الدافع الرئيسي" : "Top Motive"}
               </div>
-              <div style={{ fontSize: 32, fontWeight: 700, lineHeight: 1.3 }}>
-                {topMotive}
-              </div>
+              <div style={{ fontSize: 32, fontWeight: 700, lineHeight: 1.3 }}>{topMotive}</div>
             </div>
           </div>
         </div>
@@ -168,9 +162,7 @@ export const StoryCard = forwardRef<HTMLDivElement, StoryCardProps>(
               {isAr ? "حلّل محادثاتك بنفسك" : "Decode any conversation"}
             </span>
           </div>
-          <span style={{ fontSize: 26, fontWeight: 800, color: "#5cb6ff" }}>
-            replysage.ai
-          </span>
+          <span style={{ fontSize: 26, fontWeight: 800, color: "#5cb6ff" }}>replysage.ai</span>
         </div>
       </div>
     );
