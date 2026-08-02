@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 
 const URL = "https://person-plus-ai.lovable.app/how-to-reply";
 
-const TITLE = "How to Reply to Any Message — 12 Situations and What to Send";
+const TITLE = "How to Reply to Any Message: 12 Examples";
 const DESCRIPTION =
   "What to reply when someone is cold, guilt-tripping, ghosting, or pushing back at work. Twelve real situations with a reply framework and example wording you can send.";
 

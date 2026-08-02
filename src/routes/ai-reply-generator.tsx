@@ -3,7 +3,7 @@ import { ArrowRight, Sparkles, Clock, Languages, ShieldCheck, MessageSquareText,
 
 const URL = "https://person-plus-ai.lovable.app/ai-reply-generator";
 
-const TITLE = "AI Reply Generator — Write the Perfect Response in Seconds";
+const TITLE = "AI Reply Generator — Smart Reply Writer";
 const DESCRIPTION =
   "Free AI reply generator for texts, DMs, WhatsApp and email. Paste any message, choose a tone, and get four ready-to-send responses with reasoning. Arabic & English.";
 

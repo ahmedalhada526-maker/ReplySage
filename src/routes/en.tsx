@@ -8,7 +8,7 @@ const SITE = "https://person-plus-ai.lovable.app";
 export const Route = createFileRoute("/en")({
   head: () => ({
     meta: [
-      { title: "AI Reply Generator — Smart Response Writer for Any Message | PersonaPulse AI" },
+      { title: "AI Reply Generator & Response Writer | PersonaPulse AI" },
       {
         name: "description",
         content:
@@ -21,14 +21,14 @@ export const Route = createFileRoute("/en")({
       },
       { property: "og:locale", content: "en_US" },
       { property: "og:locale:alternate", content: "ar_AR" },
-      { property: "og:title", content: "AI Reply Generator — Smart Response Writer for Any Message" },
+      { property: "og:title", content: "AI Reply Generator & Response Writer | PersonaPulse AI" },
       {
         property: "og:description",
         content:
           "Paste any message and get 4 AI-crafted replies in your chosen tone in under 10 seconds. The smart response writer trusted for chats, DMs, and email.",
       },
       { property: "og:url", content: `${SITE}/en` },
-      { name: "twitter:title", content: "AI Reply Generator — Smart Response Writer for Any Message" },
+      { name: "twitter:title", content: "AI Reply Generator & Response Writer | PersonaPulse AI" },
       {
         name: "twitter:description",
         content: "Paste any message. Get 4 AI-crafted replies tuned to your tone in seconds.",
