@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
-      app_name: "ReplyGenie",
+      app_name: "ReplySage",
       tagline: "Reply like a pro, every time",
       hero_eyebrow: "AI reply coach · Craft the perfect response",
       hero_title_1: "Never wonder",
@@ -12,7 +12,8 @@ const resources = {
       hero_title_2: "again",
       hero_subheading: "AI-crafted replies for any message, chat, or conversation",
       hero_description:
-        "Paste any message you received — a text, a chat thread, or a screenshot — and ReplyGenie writes the perfect reply for you in seconds. Choose your tone (romantic, bold, cold, smart, or firm), get four ready-to-send response variants, and understand exactly why each one works before you hit send.",
+        "Paste any message you received — a text, a chat thread, or a screenshot — and ReplySage writes the perfect reply for you in seconds. Choose your tone (romantic, bold, cold, smart, or firm), get four ready-to-send response variants, and understand exactly why each one works before you hit send.",
+
 
 
       input_placeholder: "Paste the message or conversation snippet here…",
@@ -129,7 +130,8 @@ const resources = {
       hero_title_2: "بعد اليوم",
       hero_subheading: "ردود جاهزة بالذكاء الاصطناعي على أي رسالة أو محادثة",
       hero_description:
-        "ألصق أي رسالة وصلتك — نص، محادثة، أو حتى لقطة شاشة — و ReplyGenie يصيغ لك الرد المثالي خلال ثوانٍ. اختر نبرتك (رومانسي، جريء، بارد، ذكي، أو حازم)، واحصل على أربع صيغ ردود جاهزة للإرسال، مع شرح واضح ليش كل رد ينجح قبل ما ترسله.",
+        "ألصق أي رسالة وصلتك — نص، محادثة، أو حتى لقطة شاشة — و ReplySage يصيغ لك الرد المثالي خلال ثوانٍ. اختر نبرتك (رومانسي، جريء، بارد، ذكي، أو حازم)، واحصل على أربع صيغ ردود جاهزة للإرسال، مع شرح واضح ليش كل رد ينجح قبل ما ترسله.",
+
 
 
       input_placeholder: "ألصق الرسالة أو جزءاً من المحادثة هنا…",

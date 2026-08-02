@@ -1,14 +1,14 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
 /**
- * Capacitor configuration for PersonaPulse AI.
+ * Capacitor configuration for ReplySage.
  *
  * App ID matches the Unity Ads dashboard registration so that
  * `capacitor-unity-ads` can resolve the correct Game ID at runtime.
  */
 const config: CapacitorConfig = {
   appId: "app.persona.pulse",
-  appName: "PersonaPulse",
+  appName: "ReplySage",
   webDir: "dist",
   bundledWebRuntime: false,
   server: {
