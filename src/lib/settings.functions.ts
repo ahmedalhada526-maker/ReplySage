@@ -57,9 +57,7 @@ export const testGeminiKey = createServerFn({ method: "POST" }).handler(
           },
           body: JSON.stringify({
             model: "gemini-2.5-flash",
-            messages: [
-              { role: "user", content: "Reply with exactly the word: pong" },
-            ],
+            messages: [{ role: "user", content: "Reply with exactly the word: pong" }],
             max_tokens: 10,
           }),
         },
@@ -102,4 +100,3 @@ export const testGeminiKey = createServerFn({ method: "POST" }).handler(
     }
   },
 );
-

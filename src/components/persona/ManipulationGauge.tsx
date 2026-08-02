@@ -21,15 +21,9 @@ export function ManipulationGauge({ score }: Props) {
   const circ = 2 * Math.PI * radius;
   const offset = circ - (animated / 100) * circ;
 
-  const color =
-    safe >= 75
-      ? "var(--destructive)"
-      : safe >= 45
-        ? "var(--gold)"
-        : "var(--primary)";
+  const color = safe >= 75 ? "var(--destructive)" : safe >= 45 ? "var(--gold)" : "var(--primary)";
 
-  const level =
-    safe >= 75 ? "عالي جدًا" : safe >= 45 ? "متوسط" : "منخفض";
+  const level = safe >= 75 ? "عالي جدًا" : safe >= 45 ? "متوسط" : "منخفض";
 
   return (
     <motion.div

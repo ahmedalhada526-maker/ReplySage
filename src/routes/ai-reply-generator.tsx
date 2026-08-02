@@ -1,5 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles, Clock, Languages, ShieldCheck, MessageSquareText, Wand2 } from "lucide-react";
+import {
+  ArrowRight,
+  Sparkles,
+  Clock,
+  Languages,
+  ShieldCheck,
+  MessageSquareText,
+  Wand2,
+} from "lucide-react";
 
 const URL = "https://person-plus-ai.lovable.app/ai-reply-generator";
 
@@ -53,9 +61,21 @@ export const Route = createFileRoute("/ai-reply-generator")({
           "@type": "HowTo",
           name: "How to generate a reply with AI",
           step: [
-            { "@type": "HowToStep", name: "Paste", text: "Paste the message, chat thread, or screenshot you received." },
-            { "@type": "HowToStep", name: "Tune", text: "Pick the tone that fits: romantic, bold, cold, smart, or firm." },
-            { "@type": "HowToStep", name: "Send", text: "Review four ready-to-send replies with reasoning and copy the best one." },
+            {
+              "@type": "HowToStep",
+              name: "Paste",
+              text: "Paste the message, chat thread, or screenshot you received.",
+            },
+            {
+              "@type": "HowToStep",
+              name: "Tune",
+              text: "Pick the tone that fits: romantic, bold, cold, smart, or firm.",
+            },
+            {
+              "@type": "HowToStep",
+              name: "Send",
+              text: "Review four ready-to-send replies with reasoning and copy the best one.",
+            },
           ],
         }),
       },
@@ -154,7 +174,12 @@ export const Route = createFileRoute("/ai-reply-generator")({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://person-plus-ai.lovable.app/" },
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: "https://person-plus-ai.lovable.app/",
+            },
             { "@type": "ListItem", position: 2, name: "AI Reply Generator", item: URL },
           ],
         }),
@@ -188,9 +213,21 @@ const useCases = [
 ];
 
 const steps = [
-  { n: "01", title: "Paste the message", body: "Text, a full chat thread, or a screenshot — the reader pulls the text out for you." },
-  { n: "02", title: "Choose your tone", body: "Romantic, bold, cold, smart, or firm. Add context about the other person for sharper output." },
-  { n: "03", title: "Send with confidence", body: "Four reply variants, each with a one-line read of why it lands. Copy and go." },
+  {
+    n: "01",
+    title: "Paste the message",
+    body: "Text, a full chat thread, or a screenshot — the reader pulls the text out for you.",
+  },
+  {
+    n: "02",
+    title: "Choose your tone",
+    body: "Romantic, bold, cold, smart, or firm. Add context about the other person for sharper output.",
+  },
+  {
+    n: "03",
+    title: "Send with confidence",
+    body: "Four reply variants, each with a one-line read of why it lands. Copy and go.",
+  },
 ];
 
 const faqs = [
@@ -240,7 +277,10 @@ function AiReplyGeneratorPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
-        <nav aria-label="Breadcrumb" className="mb-10 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+        <nav
+          aria-label="Breadcrumb"
+          className="mb-10 text-[11px] uppercase tracking-[0.25em] text-muted-foreground"
+        >
           <Link to="/" className="hover:text-foreground transition-colors">
             Home
           </Link>
@@ -258,8 +298,9 @@ function AiReplyGeneratorPage() {
           </h1>
           <p className="mt-6 text-base sm:text-lg leading-relaxed text-muted-foreground">
             Paste any message, chat thread, or screenshot. ReplySage reads what the sender actually
-            means, then writes four ready-to-send replies in the tone you pick — romantic, bold, cold,
-            smart, or firm — with a one-line reason behind each. Arabic and English, under ten seconds.
+            means, then writes four ready-to-send replies in the tone you pick — romantic, bold,
+            cold, smart, or firm — with a one-line reason behind each. Arabic and English, under ten
+            seconds.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -318,9 +359,9 @@ function AiReplyGeneratorPage() {
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
             A general-purpose chatbot answers the question you typed. A reply generator answers the
             conversation you are actually in. ReplySage starts by reading intent — what the sender
-            wants, what they left unsaid, and how much pressure the message is applying — and only then
-            drafts language. That ordering is why the output sounds like a person who understood the
-            room, not a template.
+            wants, what they left unsaid, and how much pressure the message is applying — and only
+            then drafts language. That ordering is why the output sounds like a person who
+            understood the room, not a template.
           </p>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
             You also get four variants rather than one. Picking between a warm, a decisive, and a

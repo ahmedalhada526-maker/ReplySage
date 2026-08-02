@@ -1,8 +1,16 @@
 import { useEffect } from "react";
-import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouterState } from "@tanstack/react-router";
+import {
+  Outlet,
+  Link,
+  createRootRoute,
+  HeadContent,
+  Scripts,
+  useRouterState,
+} from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { bootAds } from "@/lib/ads/init-ads";
 import { BannerAdSlot } from "@/components/ads/BannerAdSlot";
+import { Analytics } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
 
@@ -54,7 +62,10 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap",
+      },
       { rel: "icon", type: "image/png", sizes: "512x512", href: "/favicon.png" },
       { rel: "icon", type: "image/png", sizes: "64x64", href: "/favicon-64.png" },
       { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
@@ -69,9 +80,6 @@ export const Route = createRootRoute({
           url: "https://person-plus-ai.lovable.app",
           description:
             "Your personal AI reply coach. Paste any message, chat, or screenshot and receive four ready-to-send replies tuned to the exact tone you need — romantic, bold, cold, smart, or firm — with clear reasoning before you send.",
-
-
-
         }),
       },
       {
@@ -95,7 +103,6 @@ function RootShell({ children }: { children: React.ReactNode }) {
   const isEnglish = pathname === "/en" || pathname.startsWith("/en/");
   return (
     <html lang={isEnglish ? "en" : "ar"} dir={isEnglish ? "ltr" : "rtl"}>
-
       <head>
         <HeadContent />
       </head>
@@ -117,6 +124,7 @@ function RootComponent() {
       <Outlet />
       <BannerAdSlot />
       <Toaster richColors position="top-center" theme="dark" />
+      <Analytics />
     </>
   );
 }

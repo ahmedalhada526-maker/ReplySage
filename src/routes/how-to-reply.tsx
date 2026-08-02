@@ -44,7 +44,12 @@ export const Route = createFileRoute("/how-to-reply")({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://person-plus-ai.lovable.app/" },
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: "https://person-plus-ai.lovable.app/",
+            },
             { "@type": "ListItem", position: 2, name: "How to Reply", item: URL },
           ],
         }),
@@ -64,17 +69,20 @@ const groups: Array<{
       {
         situation: "One-word answers after a warm conversation",
         read: "Withdrawal is usually a request for reassurance or an exit being tested — rarely a neutral event.",
-        reply: "“Feels like the energy shifted. I'd rather hear it straight than guess — what's going on?”",
+        reply:
+          "“Feels like the energy shifted. I'd rather hear it straight than guess — what's going on?”",
       },
       {
         situation: "They stopped replying for days, then wrote as if nothing happened",
         read: "Ignoring the gap sets the precedent that gaps cost nothing.",
-        reply: "“Good to hear from you. Honestly, the silence was loud — I need consistency more than explanations.”",
+        reply:
+          "“Good to hear from you. Honestly, the silence was loud — I need consistency more than explanations.”",
       },
       {
         situation: "Polite but formal after a disagreement",
         read: "Formality is distance in costume. Naming it beats matching it.",
-        reply: "“We're being very polite with each other. I'd rather clear the actual thing — can we?”",
+        reply:
+          "“We're being very polite with each other. I'd rather clear the actual thing — can we?”",
       },
     ],
   },
@@ -84,12 +92,14 @@ const groups: Array<{
       {
         situation: "Guilt-tripping — “after everything I did for you”",
         read: "The ledger is being used as leverage. Acknowledge the fact, decline the debt.",
-        reply: "“I appreciate what you've done, and it doesn't obligate me to agree here. Those are separate things.”",
+        reply:
+          "“I appreciate what you've done, and it doesn't obligate me to agree here. Those are separate things.”",
       },
       {
         situation: "“You're overreacting”",
         read: "Your response is being made the subject so the original issue disappears.",
-        reply: "“My reaction is mine to judge. The thing I raised is still on the table — let's stay on it.”",
+        reply:
+          "“My reaction is mine to judge. The thing I raised is still on the table — let's stay on it.”",
       },
       {
         situation: "An apology that blames you inside it",
@@ -109,7 +119,8 @@ const groups: Array<{
       {
         situation: "They're clearly interested but not committing",
         read: "Ambiguity is comfortable for whoever benefits from it. Make it cost something.",
-        reply: "“I like where this is going, and I don't do maybes well. Tell me what you actually want.”",
+        reply:
+          "“I like where this is going, and I don't do maybes well. Tell me what you actually want.”",
       },
       {
         situation: "A flirty message you want to match without overplaying it",
@@ -129,12 +140,14 @@ const groups: Array<{
       {
         situation: "A passive-aggressive email with the whole team copied",
         read: "The audience is the point. Reply factually, move the conflict off the thread.",
-        reply: "“Thanks for flagging. Here's the status as of today: [facts]. Happy to pick up the rest one-on-one.”",
+        reply:
+          "“Thanks for flagging. Here's the status as of today: [facts]. Happy to pick up the rest one-on-one.”",
       },
       {
         situation: "Scope creep framed as a small favour",
         read: "Say yes to the person, no to the unpriced work.",
-        reply: "“Happy to take it on. It shifts [X] by a week — want me to reprioritise, or queue it after?”",
+        reply:
+          "“Happy to take it on. It shifts [X] by a week — want me to reprioritise, or queue it after?”",
       },
     ],
   },
@@ -144,7 +157,10 @@ function HowToReplyPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
-        <nav aria-label="Breadcrumb" className="mb-10 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+        <nav
+          aria-label="Breadcrumb"
+          className="mb-10 text-[11px] uppercase tracking-[0.25em] text-muted-foreground"
+        >
           <Link to="/" className="hover:text-foreground transition-colors">
             Home
           </Link>
@@ -157,9 +173,9 @@ function HowToReplyPage() {
             How to reply to any message — 12 situations and what to send
           </h1>
           <p className="mt-6 text-base sm:text-lg leading-relaxed text-muted-foreground">
-            Most bad replies come from answering the words instead of the intent. Each situation below
-            gives you the read first — what the sender is actually doing — and then wording you can adapt.
-            Use them as patterns, not scripts.
+            Most bad replies come from answering the words instead of the intent. Each situation
+            below gives you the read first — what the sender is actually doing — and then wording
+            you can adapt. Use them as patterns, not scripts.
           </p>
         </header>
 
@@ -193,15 +209,21 @@ function HowToReplyPage() {
           </h2>
           <ul className="mt-6 space-y-3 text-sm leading-relaxed text-muted-foreground">
             <li>
-              <span className="font-semibold text-foreground/80">Answer the intent, not the sentence.</span>{" "}
+              <span className="font-semibold text-foreground/80">
+                Answer the intent, not the sentence.
+              </span>{" "}
               The literal question is often not the request being made.
             </li>
             <li>
-              <span className="font-semibold text-foreground/80">Shorter reads as more certain.</span>{" "}
+              <span className="font-semibold text-foreground/80">
+                Shorter reads as more certain.
+              </span>{" "}
               Length signals negotiation; brevity signals a decision.
             </li>
             <li>
-              <span className="font-semibold text-foreground/80">Never justify a boundary twice.</span>{" "}
+              <span className="font-semibold text-foreground/80">
+                Never justify a boundary twice.
+              </span>{" "}
               Repeating a reason invites the reason to be argued with.
             </li>
             <li>

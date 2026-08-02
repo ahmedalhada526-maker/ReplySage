@@ -8,11 +8,36 @@ const STYLES: Array<{
   labelKey: string;
   tone: string;
 }> = [
-  { key: "romantic", icon: Heart, labelKey: "style_romantic", tone: "from-pink-500/20 to-rose-500/10 border-pink-500/30 text-pink-300" },
-  { key: "bold", icon: Flame, labelKey: "style_bold", tone: "from-orange-500/20 to-red-500/10 border-orange-500/30 text-orange-300" },
-  { key: "cold", icon: Snowflake, labelKey: "style_cold", tone: "from-sky-500/20 to-cyan-500/10 border-sky-500/30 text-sky-300" },
-  { key: "smart", icon: Brain, labelKey: "style_smart", tone: "from-violet-500/20 to-purple-500/10 border-violet-500/30 text-violet-300" },
-  { key: "defensive", icon: Shield, labelKey: "style_defensive", tone: "from-emerald-500/20 to-teal-500/10 border-emerald-500/30 text-emerald-300" },
+  {
+    key: "romantic",
+    icon: Heart,
+    labelKey: "style_romantic",
+    tone: "from-pink-500/20 to-rose-500/10 border-pink-500/30 text-pink-300",
+  },
+  {
+    key: "bold",
+    icon: Flame,
+    labelKey: "style_bold",
+    tone: "from-orange-500/20 to-red-500/10 border-orange-500/30 text-orange-300",
+  },
+  {
+    key: "cold",
+    icon: Snowflake,
+    labelKey: "style_cold",
+    tone: "from-sky-500/20 to-cyan-500/10 border-sky-500/30 text-sky-300",
+  },
+  {
+    key: "smart",
+    icon: Brain,
+    labelKey: "style_smart",
+    tone: "from-violet-500/20 to-purple-500/10 border-violet-500/30 text-violet-300",
+  },
+  {
+    key: "defensive",
+    icon: Shield,
+    labelKey: "style_defensive",
+    tone: "from-emerald-500/20 to-teal-500/10 border-emerald-500/30 text-emerald-300",
+  },
 ];
 
 interface Props {

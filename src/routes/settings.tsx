@@ -26,8 +26,7 @@ export const Route = createFileRoute("/settings")({
       { property: "og:title", content: "Settings — ReplySage" },
       {
         property: "og:description",
-        content:
-          "Manage your Gemini API key and AI provider configuration for ReplySage.",
+        content: "Manage your Gemini API key and AI provider configuration for ReplySage.",
       },
       { property: "og:url", content: "https://person-plus-ai.lovable.app/settings" },
     ],
@@ -78,7 +77,12 @@ function SettingsPage() {
       if (r.ok) {
         setTestResult({ ok: true, reply: r.reply ?? "", latencyMs: r.latencyMs, status: r.status });
       } else {
-        setTestResult({ ok: false, error: r.error ?? "Unknown error", latencyMs: r.latencyMs, status: r.status });
+        setTestResult({
+          ok: false,
+          error: r.error ?? "Unknown error",
+          latencyMs: r.latencyMs,
+          status: r.status,
+        });
       }
     } catch (e) {
       setTestResult({ ok: false, error: e instanceof Error ? e.message : "Request failed" });
@@ -90,7 +94,10 @@ function SettingsPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto w-full max-w-2xl px-4 py-10 sm:py-16">
-        <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
           <ArrowLeft className="h-4 w-4" />
           Back to app
         </Link>
@@ -98,7 +105,8 @@ function SettingsPage() {
         <header className="mt-6">
           <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Manage which AI provider powers your analyses. Keys live in server-side environment variables only — they are never exposed to the browser.
+            Manage which AI provider powers your analyses. Keys live in server-side environment
+            variables only — they are never exposed to the browser.
           </p>
         </header>
 
@@ -143,8 +151,10 @@ function SettingsPage() {
                 <p className="flex items-start gap-2">
                   <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                   <span>
-                    To <strong>add or rotate</strong> your <code className="rounded bg-muted px-1.5 py-0.5 text-xs">GEMINI_API_KEY</code>, ask the assistant in chat:
-                    “update my Gemini API key”. Keys are stored as encrypted server-side secrets and never sent to the browser bundle.
+                    To <strong>add or rotate</strong> your{" "}
+                    <code className="rounded bg-muted px-1.5 py-0.5 text-xs">GEMINI_API_KEY</code>,
+                    ask the assistant in chat: “update my Gemini API key”. Keys are stored as
+                    encrypted server-side secrets and never sent to the browser bundle.
                   </span>
                 </p>
               </div>
@@ -178,7 +188,8 @@ function SettingsPage() {
 
                 {!status.geminiConfigured && (
                   <p className="mt-3 text-xs text-muted-foreground">
-                    Add <code className="rounded bg-muted px-1.5 py-0.5">GEMINI_API_KEY</code> first to enable this test.
+                    Add <code className="rounded bg-muted px-1.5 py-0.5">GEMINI_API_KEY</code> first
+                    to enable this test.
                   </p>
                 )}
 
@@ -223,7 +234,8 @@ function SettingsPage() {
             </li>
             <li className="flex items-start gap-2">
               <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-              If <code className="rounded bg-muted px-1.5 py-0.5 text-xs">GEMINI_API_KEY</code> is removed, the app falls back to Lovable AI automatically.
+              If <code className="rounded bg-muted px-1.5 py-0.5 text-xs">GEMINI_API_KEY</code> is
+              removed, the app falls back to Lovable AI automatically.
             </li>
           </ul>
 
@@ -270,9 +282,7 @@ function ProviderRow({
         <span
           className={
             "shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium " +
-            (configured
-              ? "bg-emerald-500/15 text-emerald-500"
-              : "bg-muted text-muted-foreground")
+            (configured ? "bg-emerald-500/15 text-emerald-500" : "bg-muted text-muted-foreground")
           }
         >
           {configured ? "Configured" : "Not set"}

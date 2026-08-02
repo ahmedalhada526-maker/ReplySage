@@ -78,21 +78,21 @@ const tactics = [
   {
     icon: Brain,
     name: "Gaslighting",
-    signals: "\"That never happened.\" · \"You're imagining things.\" · \"You're too sensitive.\"",
+    signals: '"That never happened." · "You\'re imagining things." · "You\'re too sensitive."',
     decode:
       "Denies your reality to make you doubt your own memory and perception. Watch for confident denials of documented events.",
   },
   {
     icon: AlertTriangle,
     name: "Guilt-tripping",
-    signals: "\"After everything I've done for you...\" · \"I guess I'm just a bad person then.\"",
+    signals: '"After everything I\'ve done for you..." · "I guess I\'m just a bad person then."',
     decode:
       "Weaponizes obligation and shame to force compliance. Requests are framed as debts you owe.",
   },
   {
     icon: Sparkles,
     name: "Love bombing",
-    signals: "Overwhelming affection early. Rapid escalation. \"I've never felt this with anyone.\"",
+    signals: 'Overwhelming affection early. Rapid escalation. "I\'ve never felt this with anyone."',
     decode:
       "Manufactures intense intimacy to bypass your judgment. Intensity replaces consistency.",
   },
@@ -124,32 +124,32 @@ function TacticsGuidePage() {
     <div className="min-h-screen bg-background text-foreground">
       <article className="mx-auto max-w-3xl px-6 py-16 md:py-24">
         <nav className="mb-10 text-sm text-muted-foreground">
-          <Link to="/" className="hover:text-foreground">Home</Link>
+          <Link to="/" className="hover:text-foreground">
+            Home
+          </Link>
           <span className="mx-2">/</span>
           <span className="text-foreground">Tactics Guide</span>
         </nav>
 
         <header className="mb-12">
-          <p className="mb-3 text-xs uppercase tracking-[0.2em] text-primary/80">
-            Field Guide
-          </p>
+          <p className="mb-3 text-xs uppercase tracking-[0.2em] text-primary/80">Field Guide</p>
           <h1 className="text-4xl font-bold leading-tight md:text-5xl">
             Manipulation Tactics: How to Identify Dark Psychology in Everyday Conversation
           </h1>
           <p className="mt-6 text-lg text-muted-foreground">
             Manipulation rarely announces itself. It hides inside familiar phrases —
-            reasonable-sounding messages engineered to shift blame, extract compliance,
-            or destabilize your reality. This guide breaks down the six most common
-            linguistic manipulation tactics and how to spot them before they land.
+            reasonable-sounding messages engineered to shift blame, extract compliance, or
+            destabilize your reality. This guide breaks down the six most common linguistic
+            manipulation tactics and how to spot them before they land.
           </p>
         </header>
 
         <section className="mb-12 space-y-4">
           <h2 className="text-2xl font-semibold">Why linguistic patterns matter</h2>
           <p className="text-muted-foreground">
-            Manipulation is a language game. The tactics below aren't personality flaws —
-            they're repeatable rhetorical moves. Once you recognize the structure, the
-            emotional charge loses power and the intent becomes visible.
+            Manipulation is a language game. The tactics below aren't personality flaws — they're
+            repeatable rhetorical moves. Once you recognize the structure, the emotional charge
+            loses power and the intent becomes visible.
           </p>
         </section>
 
@@ -182,23 +182,20 @@ function TacticsGuidePage() {
           <h2 className="text-2xl font-semibold">How to identify manipulation in real time</h2>
           <ol className="list-decimal space-y-3 pl-6 text-muted-foreground">
             <li>
-              <span className="text-foreground">Track responsibility.</span> Who is being
-              positioned as the cause of the conflict? Manipulative messages quietly
-              re-assign blame.
+              <span className="text-foreground">Track responsibility.</span> Who is being positioned
+              as the cause of the conflict? Manipulative messages quietly re-assign blame.
             </li>
             <li>
-              <span className="text-foreground">Notice absolutes.</span> "Always,"
-              "never," "everyone thinks" — absolute language collapses nuance and forces
-              a defensive stance.
+              <span className="text-foreground">Notice absolutes.</span> "Always," "never,"
+              "everyone thinks" — absolute language collapses nuance and forces a defensive stance.
             </li>
             <li>
-              <span className="text-foreground">Check your body.</span> Sudden fog,
-              guilt, or urgency to explain yourself often means a tactic has landed.
+              <span className="text-foreground">Check your body.</span> Sudden fog, guilt, or
+              urgency to explain yourself often means a tactic has landed.
             </li>
             <li>
-              <span className="text-foreground">Re-read without emotion.</span> If the
-              same sentence read by a stranger would sound unreasonable, trust that
-              read.
+              <span className="text-foreground">Re-read without emotion.</span> If the same sentence
+              read by a stranger would sound unreasonable, trust that read.
             </li>
           </ol>
         </section>
@@ -206,11 +203,10 @@ function TacticsGuidePage() {
         <section className="mb-12 space-y-4">
           <h2 className="text-2xl font-semibold">How ReplySage decodes it</h2>
           <p className="text-muted-foreground">
-            ReplySage runs forensic linguistic analysis on the exact message you
-            received. It surfaces the underlying tactic, quantifies a manipulation
-            index, extracts the sender's likely motives, and drafts a strategic
-            response tuned to your relationship and goal — so you answer from clarity,
-            not reflex.
+            ReplySage runs forensic linguistic analysis on the exact message you received. It
+            surfaces the underlying tactic, quantifies a manipulation index, extracts the sender's
+            likely motives, and drafts a strategic response tuned to your relationship and goal — so
+            you answer from clarity, not reflex.
           </p>
           <div className="mt-6">
             <Link
@@ -228,23 +224,22 @@ function TacticsGuidePage() {
           <div>
             <h3 className="font-semibold">What are the most common manipulation tactics?</h3>
             <p className="mt-1 text-muted-foreground">
-              Gaslighting, guilt-tripping, love bombing, DARVO, silent treatment,
-              triangulation, and moving the goalposts.
+              Gaslighting, guilt-tripping, love bombing, DARVO, silent treatment, triangulation, and
+              moving the goalposts.
             </p>
           </div>
           <div>
             <h3 className="font-semibold">How can I identify manipulation in a text message?</h3>
             <p className="mt-1 text-muted-foreground">
-              Look for shifted responsibility, absolute language, invalidation of your
-              feelings, and reframed events. AI-assisted analysis surfaces those
-              patterns objectively.
+              Look for shifted responsibility, absolute language, invalidation of your feelings, and
+              reframed events. AI-assisted analysis surfaces those patterns objectively.
             </p>
           </div>
           <div>
             <h3 className="font-semibold">Is dark psychology the same as manipulation?</h3>
             <p className="mt-1 text-muted-foreground">
-              Dark psychology is the broader study of coercive persuasion; manipulation
-              tactics are its concrete linguistic tools.
+              Dark psychology is the broader study of coercive persuasion; manipulation tactics are
+              its concrete linguistic tools.
             </p>
           </div>
         </section>

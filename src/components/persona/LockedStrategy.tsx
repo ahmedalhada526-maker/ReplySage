@@ -55,9 +55,7 @@ export function LockedStrategy({ unlocked, onUnlock, children }: Props) {
             <div className="mx-auto w-14 h-14 rounded-2xl gradient-gold flex items-center justify-center mb-4 glow-gold">
               <Lock className="w-7 h-7 text-[color:var(--gold-foreground)]" />
             </div>
-            <h3 className="text-lg md:text-xl font-bold mb-1.5">
-              {t("strategy_locked_title")}
-            </h3>
+            <h3 className="text-lg md:text-xl font-bold mb-1.5">{t("strategy_locked_title")}</h3>
             <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
               {t("strategy_locked_desc")}
             </p>

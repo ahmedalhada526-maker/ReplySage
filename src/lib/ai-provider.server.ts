@@ -78,9 +78,7 @@ async function callLovable(payload: ChatPayload): Promise<Response> {
  * If the user's Gemini key fails with a recoverable error (quota, auth,
  * upstream), automatically retries through the Lovable AI Gateway.
  */
-export async function callAIChat(
-  payload: ChatPayload,
-): Promise<Response> {
+export async function callAIChat(payload: ChatPayload): Promise<Response> {
   const geminiKey = process.env.GEMINI_API_KEY;
 
   if (geminiKey) {
@@ -118,10 +116,7 @@ export async function callAIChat(
         lastRes = res;
         break;
       } catch (err) {
-        console.warn(
-          `Gemini direct threw (attempt ${attempt}/${maxAttempts}):`,
-          err,
-        );
+        console.warn(`Gemini direct threw (attempt ${attempt}/${maxAttempts}):`, err);
         if (attempt < maxAttempts) {
           await new Promise((r) => setTimeout(r, 400 * attempt));
           continue;

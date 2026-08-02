@@ -99,10 +99,8 @@ function bridge(): UnityAdsBridge | null {
   if (cap) {
     // Adapter — capacitor-unity-ads exposes slightly different method names.
     return {
-      initialize: (gameId, testMode) =>
-        cap.initialize?.({ gameId, testMode }) ?? Promise.resolve(),
-      loadBanner: (placementId) =>
-        cap.loadBanner?.({ placementId }) ?? Promise.resolve(),
+      initialize: (gameId, testMode) => cap.initialize?.({ gameId, testMode }) ?? Promise.resolve(),
+      loadBanner: (placementId) => cap.loadBanner?.({ placementId }) ?? Promise.resolve(),
       showBanner: (placementId, position) =>
         cap.showBanner?.({ placementId, position }) ?? Promise.resolve(),
       hideBanner: () => cap.hideBanner?.() ?? Promise.resolve(),
@@ -110,11 +108,14 @@ function bridge(): UnityAdsBridge | null {
         cap.loadInterstitial?.({ placementId }) ?? Promise.resolve(),
       showInterstitial: (placementId) =>
         cap.showInterstitial?.({ placementId }) ?? Promise.resolve(),
-      loadRewarded: (placementId) =>
-        cap.loadRewarded?.({ placementId }) ?? Promise.resolve(),
+      loadRewarded: (placementId) => cap.loadRewarded?.({ placementId }) ?? Promise.resolve(),
       showRewarded: async (placementId) => {
-        const r = await (cap.showRewarded?.({ placementId }) ?? Promise.resolve({ completed: true }));
-        return { completed: Boolean(r?.completed ?? r?.finished ?? r?.state === "COMPLETED"), reason: r?.reason };
+        const r = await (cap.showRewarded?.({ placementId }) ??
+          Promise.resolve({ completed: true }));
+        return {
+          completed: Boolean(r?.completed ?? r?.finished ?? r?.state === "COMPLETED"),
+          reason: r?.reason,
+        };
       },
     };
   }
@@ -218,9 +219,7 @@ export async function showRewarded(): Promise<RewardedResult> {
 
 let bannerVisible = false;
 
-export async function showBanner(
-  position: "top" | "bottom" = "bottom",
-): Promise<boolean> {
+export async function showBanner(position: "top" | "bottom" = "bottom"): Promise<boolean> {
   const b = bridge();
   if (!b) return false;
   if (bannerVisible) return true;
