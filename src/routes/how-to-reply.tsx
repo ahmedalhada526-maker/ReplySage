@@ -10,7 +10,7 @@ const DESCRIPTION =
 export const Route = createFileRoute("/how-to-reply")({
   head: () => ({
     meta: [
-      { title: `${TITLE} | ReplyGenie` },
+      { title: `${TITLE} | ReplySage` },
       { name: "description", content: DESCRIPTION },
       {
         name: "keywords",
@@ -33,8 +33,8 @@ export const Route = createFileRoute("/how-to-reply")({
           "@type": "Article",
           headline: TITLE,
           description: DESCRIPTION,
-          author: { "@type": "Organization", name: "ReplyGenie" },
-          publisher: { "@type": "Organization", name: "ReplyGenie" },
+          author: { "@type": "Organization", name: "ReplySage" },
+          publisher: { "@type": "Organization", name: "ReplySage" },
           mainEntityOfPage: URL,
         }),
       },
