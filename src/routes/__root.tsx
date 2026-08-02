@@ -11,6 +11,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { bootAds } from "@/lib/ads/init-ads";
 import { BannerAdSlot } from "@/components/ads/BannerAdSlot";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import appCss from "../styles.css?url";
 
@@ -125,6 +126,7 @@ function RootComponent() {
       <BannerAdSlot />
       <Toaster richColors position="top-center" theme="dark" />
       <Analytics />
+      <SpeedInsights />
     </>
   );
 }
