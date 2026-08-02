@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # -----------------------------------------------------------------------------
-# PersonaPulse — Capacitor + Unity Ads bootstrap
+# ReplySage — Capacitor + Unity Ads bootstrap
 #
 # Run ONCE on your local machine after pulling the project from GitHub:
 #   chmod +x scripts/setup-capacitor.sh

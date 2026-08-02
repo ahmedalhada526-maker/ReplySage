@@ -15,13 +15,13 @@ import "@/lib/i18n";
 export const Route = createFileRoute("/history")({
   head: () => ({
     meta: [
-      { title: "History & Privacy — ReplyGenie" },
+      { title: "History & Privacy — ReplySage" },
       {
         name: "description",
         content:
-          "Your conversation history with ReplyGenie and our full privacy policy in one place.",
+          "Your conversation history with ReplySage and our full privacy policy in one place.",
       },
-      { property: "og:title", content: "History & Privacy — ReplyGenie" },
+      { property: "og:title", content: "History & Privacy — ReplySage" },
       {
         property: "og:description",
         content: "Browse your saved analyses and review how we handle your data.",
@@ -189,7 +189,7 @@ function PrivacyEnglish() {
     <>
       <Section title="1. Introduction">
         <p>
-          ReplyGenie ("we", "our", "the service") provides AI-powered behavioral
+          ReplySage ("we", "our", "the service") provides AI-powered behavioral
           analysis of conversations you submit. This policy explains what we collect,
           how we use it, and the third parties involved.
         </p>
@@ -284,7 +284,7 @@ function PrivacyArabic() {
     <>
       <Section title="١. مقدمة">
         <p>
-          يقدم ReplyGenie ("نحن"، "الخدمة") تحليلاً سلوكياً مدعوماً بالذكاء
+          يقدم ReplySage ("نحن"، "الخدمة") تحليلاً سلوكياً مدعوماً بالذكاء
           الاصطناعي للمحادثات التي تُدخلها. توضح هذه السياسة ما الذي نجمعه، وكيف
           نستخدمه، والأطراف الثالثة المعنية.
         </p>
