@@ -33,10 +33,10 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "author", content: "PersonaPulse AI" },
+      { name: "author", content: "ReplyGenie" },
       { name: "robots", content: "index, follow" },
       { name: "google-site-verification", content: "Ok7o3EuqTnJBdKlrFfICAC9TdZsox4tjQYH43l019Y0" },
-      { property: "og:site_name", content: "PersonaPulse AI" },
+      { property: "og:site_name", content: "ReplyGenie" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       {
@@ -65,7 +65,7 @@ export const Route = createRootRoute({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "PersonaPulse AI",
+          name: "ReplyGenie",
           url: "https://person-plus-ai.lovable.app",
           description:
             "Your personal AI reply coach. Paste any message, chat, or screenshot and receive four ready-to-send replies tuned to the exact tone you need — romantic, bold, cold, smart, or firm — with clear reasoning before you send.",
@@ -79,7 +79,7 @@ export const Route = createRootRoute({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "PersonaPulse AI",
+          name: "ReplyGenie",
           url: "https://person-plus-ai.lovable.app",
         }),
       },

@@ -10,7 +10,7 @@ const DESCRIPTION =
 export const Route = createFileRoute("/ai-reply-generator")({
   head: () => ({
     meta: [
-      { title: `${TITLE} | PersonaPulse AI` },
+      { title: `${TITLE} | ReplyGenie` },
       { name: "description", content: DESCRIPTION },
       {
         name: "keywords",
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/ai-reply-generator")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
-          name: "PersonaPulse AI Reply Generator",
+          name: "ReplyGenie Reply Generator",
           applicationCategory: "CommunicationApplication",
           operatingSystem: "Web, Android, iOS",
           url: URL,
@@ -70,7 +70,7 @@ export const Route = createFileRoute("/ai-reply-generator")({
               name: "What is an AI reply generator?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "An AI reply generator reads a message you received and writes ready-to-send response options for you. PersonaPulse AI goes further than a standard response generator: it analyzes the sender's intent, subtext, and the emotional pressure behind the message first, then produces four replies in the tone you choose — romantic, bold, cold, smart, or firm — each with a one-line explanation of why it works. The result is a reply that sounds like a person who understood the room, not a generic template.",
+                text: "An AI reply generator reads a message you received and writes ready-to-send response options for you. ReplyGenie goes further than a standard response generator: it analyzes the sender's intent, subtext, and the emotional pressure behind the message first, then produces four replies in the tone you choose — romantic, bold, cold, smart, or firm — each with a one-line explanation of why it works. The result is a reply that sounds like a person who understood the room, not a generic template.",
               },
             },
             {
@@ -78,7 +78,7 @@ export const Route = createFileRoute("/ai-reply-generator")({
               name: "What is the difference between an AI reply generator and a response generator?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "The two terms overlap, but a response generator usually focuses on a single context — most often a professional response generator for email or LinkedIn — while an AI reply generator is built for the full range of conversations you actually have: texts, DMs, WhatsApp, dating chats, and work email. PersonaPulse AI functions as both. You can use it as a WhatsApp reply generator, an email reply generator, or a smart reply generator for loaded messages where the subtext matters as much as the words.",
+                text: "The two terms overlap, but a response generator usually focuses on a single context — most often a professional response generator for email or LinkedIn — while an AI reply generator is built for the full range of conversations you actually have: texts, DMs, WhatsApp, dating chats, and work email. ReplyGenie functions as both. You can use it as a WhatsApp reply generator, an email reply generator, or a smart reply generator for loaded messages where the subtext matters as much as the words.",
               },
             },
             {
@@ -102,7 +102,7 @@ export const Route = createFileRoute("/ai-reply-generator")({
               name: "Can I use it as a WhatsApp reply generator or an email reply generator?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes. PersonaPulse AI works as a WhatsApp reply generator, an email reply generator, and a smart reply generator for any messaging app. Paste a single text or a full chat thread, and the AI reply generator produces four variants you can copy and send. The input accepts plain text, a conversation history, or a screenshot — the built-in reader extracts the text for you.",
+                text: "Yes. ReplyGenie works as a WhatsApp reply generator, an email reply generator, and a smart reply generator for any messaging app. Paste a single text or a full chat thread, and the AI reply generator produces four variants you can copy and send. The input accepts plain text, a conversation history, or a screenshot — the built-in reader extracts the text for you.",
               },
             },
             {
@@ -110,7 +110,7 @@ export const Route = createFileRoute("/ai-reply-generator")({
               name: "Can it generate replies in Arabic?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes. PersonaPulse AI writes natively in both Arabic and English. Instead of translating word for word, the response generator matches the dialect and register of the original conversation — so a Gulf Arabic chat gets a Gulf Arabic reply, and a formal English email gets a formal English response. This is what makes the AI reply generator useful across bilingual conversations where a translated reply would sound unnatural.",
+                text: "Yes. ReplyGenie writes natively in both Arabic and English. Instead of translating word for word, the response generator matches the dialect and register of the original conversation — so a Gulf Arabic chat gets a Gulf Arabic reply, and a formal English email gets a formal English response. This is what makes the AI reply generator useful across bilingual conversations where a translated reply would sound unnatural.",
               },
             },
             {
@@ -126,7 +126,7 @@ export const Route = createFileRoute("/ai-reply-generator")({
               name: "How is this different from a regular AI chatbot?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "A regular AI chatbot answers the question you typed. A reply generator answers the conversation you are actually in. PersonaPulse AI starts by reading intent — what the sender wants, what they left unsaid, and how much pressure the message is applying — and only then drafts language. That ordering is why the output sounds like a person who understood the room. You also get four variants rather than one, which makes the tradeoff between a warm, a decisive, and a withdrawn version explicit before you send.",
+                text: "A regular AI chatbot answers the question you typed. A reply generator answers the conversation you are actually in. ReplyGenie starts by reading intent — what the sender wants, what they left unsaid, and how much pressure the message is applying — and only then drafts language. That ordering is why the output sounds like a person who understood the room. You also get four variants rather than one, which makes the tradeoff between a warm, a decisive, and a withdrawn version explicit before you send.",
               },
             },
             {
@@ -196,11 +196,11 @@ const steps = [
 const faqs = [
   {
     q: "What is an AI reply generator?",
-    a: "An AI reply generator reads a message you received and writes ready-to-send response options for you. PersonaPulse AI goes further than a standard response generator: it analyzes the sender's intent, subtext, and the emotional pressure behind the message first, then produces four replies in the tone you choose — romantic, bold, cold, smart, or firm — each with a one-line explanation of why it works. The result is a reply that sounds like a person who understood the room, not a generic template.",
+    a: "An AI reply generator reads a message you received and writes ready-to-send response options for you. ReplyGenie goes further than a standard response generator: it analyzes the sender's intent, subtext, and the emotional pressure behind the message first, then produces four replies in the tone you choose — romantic, bold, cold, smart, or firm — each with a one-line explanation of why it works. The result is a reply that sounds like a person who understood the room, not a generic template.",
   },
   {
     q: "What is the difference between an AI reply generator and a response generator?",
-    a: "The two terms overlap, but a response generator usually focuses on a single context — most often a professional response generator for email or LinkedIn — while an AI reply generator is built for the full range of conversations you actually have: texts, DMs, WhatsApp, dating chats, and work email. PersonaPulse AI functions as both. You can use it as a WhatsApp reply generator, an email reply generator, or a smart reply generator for loaded messages where the subtext matters as much as the words.",
+    a: "The two terms overlap, but a response generator usually focuses on a single context — most often a professional response generator for email or LinkedIn — while an AI reply generator is built for the full range of conversations you actually have: texts, DMs, WhatsApp, dating chats, and work email. ReplyGenie functions as both. You can use it as a WhatsApp reply generator, an email reply generator, or a smart reply generator for loaded messages where the subtext matters as much as the words.",
   },
   {
     q: "How does the smart reply generator decide which tone to use?",
@@ -212,7 +212,7 @@ const faqs = [
   },
   {
     q: "Can I use it as a WhatsApp reply generator or an email reply generator?",
-    a: "Yes. PersonaPulse AI works as a WhatsApp reply generator, an email reply generator, and a smart reply generator for any messaging app. Paste a single text or a full chat thread, and the AI reply generator produces four variants you can copy and send. The input accepts plain text, a conversation history, or a screenshot — the built-in reader extracts the text for you.",
+    a: "Yes. ReplyGenie works as a WhatsApp reply generator, an email reply generator, and a smart reply generator for any messaging app. Paste a single text or a full chat thread, and the AI reply generator produces four variants you can copy and send. The input accepts plain text, a conversation history, or a screenshot — the built-in reader extracts the text for you.",
   },
   {
     q: "Does it work in Arabic?",
@@ -224,7 +224,7 @@ const faqs = [
   },
   {
     q: "How is this different from a regular AI chatbot?",
-    a: "A regular AI chatbot answers the question you typed. A reply generator answers the conversation you are actually in. PersonaPulse AI starts by reading intent — what the sender wants, what they left unsaid, and how much pressure the message is applying — and only then drafts language. That ordering is why the output sounds like a person who understood the room. You also get four variants rather than one, which makes the tradeoff between a warm, a decisive, and a withdrawn version explicit before you send.",
+    a: "A regular AI chatbot answers the question you typed. A reply generator answers the conversation you are actually in. ReplyGenie starts by reading intent — what the sender wants, what they left unsaid, and how much pressure the message is applying — and only then drafts language. That ordering is why the output sounds like a person who understood the room. You also get four variants rather than one, which makes the tradeoff between a warm, a decisive, and a withdrawn version explicit before you send.",
   },
   {
     q: "How many reply options do I get per message?",
@@ -257,7 +257,7 @@ function AiReplyGeneratorPage() {
             AI Reply Generator — write the perfect response in seconds
           </h1>
           <p className="mt-6 text-base sm:text-lg leading-relaxed text-muted-foreground">
-            Paste any message, chat thread, or screenshot. PersonaPulse AI reads what the sender actually
+            Paste any message, chat thread, or screenshot. ReplyGenie reads what the sender actually
             means, then writes four ready-to-send replies in the tone you pick — romantic, bold, cold,
             smart, or firm — with a one-line reason behind each. Arabic and English, under ten seconds.
           </p>
@@ -317,7 +317,7 @@ function AiReplyGeneratorPage() {
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
             A general-purpose chatbot answers the question you typed. A reply generator answers the
-            conversation you are actually in. PersonaPulse AI starts by reading intent — what the sender
+            conversation you are actually in. ReplyGenie starts by reading intent — what the sender
             wants, what they left unsaid, and how much pressure the message is applying — and only then
             drafts language. That ordering is why the output sounds like a person who understood the
             room, not a template.

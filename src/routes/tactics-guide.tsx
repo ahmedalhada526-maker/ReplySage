@@ -6,13 +6,13 @@ const URL = "https://person-plus-ai.lovable.app/tactics-guide";
 export const Route = createFileRoute("/tactics-guide")({
   head: () => ({
     meta: [
-      { title: "Manipulation Tactics Guide | PersonaPulse AI" },
+      { title: "Manipulation Tactics Guide | ReplyGenie" },
       {
         name: "description",
         content:
           "A practical guide to identifying manipulation tactics in conversations — and how AI decodes hidden intent in real messages.",
       },
-      { property: "og:title", content: "Manipulation Tactics Guide | PersonaPulse AI" },
+      { property: "og:title", content: "Manipulation Tactics Guide | ReplyGenie" },
       {
         property: "og:description",
         content:
@@ -31,8 +31,8 @@ export const Route = createFileRoute("/tactics-guide")({
           headline: "Manipulation Tactics Guide — How to Identify & Decode Dark Psychology",
           description:
             "A practical guide to identifying manipulation tactics — gaslighting, guilt-tripping, love bombing, DARVO — and how AI can decode hidden intent in real conversations.",
-          author: { "@type": "Organization", name: "PersonaPulse AI" },
-          publisher: { "@type": "Organization", name: "PersonaPulse AI" },
+          author: { "@type": "Organization", name: "ReplyGenie" },
+          publisher: { "@type": "Organization", name: "ReplyGenie" },
           mainEntityOfPage: URL,
         }),
       },
@@ -204,9 +204,9 @@ function TacticsGuidePage() {
         </section>
 
         <section className="mb-12 space-y-4">
-          <h2 className="text-2xl font-semibold">How PersonaPulse decodes it</h2>
+          <h2 className="text-2xl font-semibold">How ReplyGenie decodes it</h2>
           <p className="text-muted-foreground">
-            PersonaPulse runs forensic linguistic analysis on the exact message you
+            ReplyGenie runs forensic linguistic analysis on the exact message you
             received. It surfaces the underlying tactic, quantifies a manipulation
             index, extracts the sender's likely motives, and drafts a strategic
             response tuned to your relationship and goal — so you answer from clarity,

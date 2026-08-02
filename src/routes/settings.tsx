@@ -16,18 +16,18 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/settings")({
   head: () => ({
     meta: [
-      { title: "Settings — PersonaPulse AI" },
+      { title: "Settings — ReplyGenie" },
       {
         name: "description",
         content:
-          "Configure your PersonaPulse AI provider, manage the Gemini API key, and check server-side AI status and connection health.",
+          "Configure your ReplyGenie provider, manage the Gemini API key, and check server-side AI status and connection health.",
       },
       { name: "robots", content: "noindex, nofollow" },
-      { property: "og:title", content: "Settings — PersonaPulse AI" },
+      { property: "og:title", content: "Settings — ReplyGenie" },
       {
         property: "og:description",
         content:
-          "Manage your Gemini API key and AI provider configuration for PersonaPulse AI.",
+          "Manage your Gemini API key and AI provider configuration for ReplyGenie.",
       },
       { property: "og:url", content: "https://person-plus-ai.lovable.app/settings" },
     ],
