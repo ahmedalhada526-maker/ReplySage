@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
-const URL = "https://person-plus-ai.lovable.app/how-to-reply";
+const URL = "https://replysage.lovable.app/how-to-reply";
 
 const TITLE = "How to Reply to Any Message: 12 Examples";
 const DESCRIPTION =
@@ -48,7 +48,7 @@ export const Route = createFileRoute("/how-to-reply")({
               "@type": "ListItem",
               position: 1,
               name: "Home",
-              item: "https://person-plus-ai.lovable.app/",
+              item: "https://replysage.lovable.app/",
             },
             { "@type": "ListItem", position: 2, name: "How to Reply", item: URL },
           ],
