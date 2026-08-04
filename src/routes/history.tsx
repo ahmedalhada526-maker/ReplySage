@@ -21,10 +21,10 @@ export const Route = createFileRoute("/history")({
         property: "og:description",
         content: "Browse your saved analyses and review how we handle your data.",
       },
-      { property: "og:url", content: "https://person-plus-ai.lovable.app/history" },
+      { property: "og:url", content: "https://replysage.lovable.app/history" },
       { name: "robots", content: "noindex, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://person-plus-ai.lovable.app/history" }],
+    links: [{ rel: "canonical", href: "https://replysage.lovable.app/history" }],
   }),
   component: HistoryPage,
 });

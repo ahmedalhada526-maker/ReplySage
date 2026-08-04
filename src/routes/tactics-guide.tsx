@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Brain, Shield, Eye, Zap, AlertTriangle, Sparkles } from "lucide-react";
 
-const URL = "https://person-plus-ai.lovable.app/tactics-guide";
+const URL = "https://replysage.lovable.app/tactics-guide";
 
 export const Route = createFileRoute("/tactics-guide")({
   head: () => ({

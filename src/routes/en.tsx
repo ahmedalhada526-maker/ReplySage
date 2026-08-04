@@ -3,7 +3,7 @@ import { I18nextProvider } from "react-i18next";
 import { PersonaWorkspace } from "@/components/persona/PersonaWorkspace";
 import { getI18nForLang } from "@/lib/i18n";
 
-const SITE = "https://person-plus-ai.lovable.app";
+const SITE = "https://replysage.lovable.app";
 
 export const Route = createFileRoute("/en")({
   head: () => ({

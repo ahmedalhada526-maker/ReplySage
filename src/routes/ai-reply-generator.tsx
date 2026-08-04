@@ -9,7 +9,7 @@ import {
   Wand2,
 } from "lucide-react";
 
-const URL = "https://person-plus-ai.lovable.app/ai-reply-generator";
+const URL = "https://replysage.lovable.app/ai-reply-generator";
 
 const TITLE = "AI Reply Generator — Smart Reply Writer";
 const DESCRIPTION =
@@ -178,7 +178,7 @@ export const Route = createFileRoute("/ai-reply-generator")({
               "@type": "ListItem",
               position: 1,
               name: "Home",
-              item: "https://person-plus-ai.lovable.app/",
+              item: "https://replysage.lovable.app/",
             },
             { "@type": "ListItem", position: 2, name: "AI Reply Generator", item: URL },
           ],

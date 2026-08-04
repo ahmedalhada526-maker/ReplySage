@@ -78,7 +78,7 @@ export const Route = createRootRoute({
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: "ReplySage",
-          url: "https://person-plus-ai.lovable.app",
+          url: "https://replysage.lovable.app",
           description:
             "Your personal AI reply coach. Paste any message, chat, or screenshot and receive four ready-to-send replies tuned to the exact tone you need — romantic, bold, cold, smart, or firm — with clear reasoning before you send.",
         }),
@@ -89,7 +89,7 @@ export const Route = createRootRoute({
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "ReplySage",
-          url: "https://person-plus-ai.lovable.app",
+          url: "https://replysage.lovable.app",
         }),
       },
     ],

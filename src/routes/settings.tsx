@@ -28,9 +28,9 @@ export const Route = createFileRoute("/settings")({
         property: "og:description",
         content: "Manage your Gemini API key and AI provider configuration for ReplySage.",
       },
-      { property: "og:url", content: "https://person-plus-ai.lovable.app/settings" },
+      { property: "og:url", content: "https://replysage.lovable.app/settings" },
     ],
-    links: [{ rel: "canonical", href: "https://person-plus-ai.lovable.app/settings" }],
+    links: [{ rel: "canonical", href: "https://replysage.lovable.app/settings" }],
   }),
   component: SettingsPage,
 });

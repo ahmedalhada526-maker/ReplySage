@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PersonaWorkspace } from "@/components/persona/PersonaWorkspace";
 
-const SITE = "https://person-plus-ai.lovable.app";
+const SITE = "https://replysage.lovable.app";
 
 export const Route = createFileRoute("/")({
   head: () => ({
