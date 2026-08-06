@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # -----------------------------------------------------------------------------
-# ReplySage — Capacitor + Unity Ads bootstrap
+# ReplySage — Capacitor + Start.io Ads bootstrap
 #
 # Run ONCE on your local machine after pulling the project from GitHub:
 #   chmod +x scripts/setup-capacitor.sh
@@ -16,10 +16,10 @@ set -euo pipefail
 echo "▶ Installing project dependencies…"
 npm install
 
-echo "▶ Installing Capacitor core + Unity Ads plugin…"
+echo "▶ Installing Capacitor core + Start.io plugin…"
 npm install @capacitor/core @capacitor/cli
 npm install @capacitor/android @capacitor/ios
-npm install capacitor-unity-ads
+npm install cordova-plugin-startapp
 
 echo "▶ Building web assets…"
 npm run build
@@ -46,5 +46,5 @@ cat <<EOF
 
 To verify ads are wired up, watch logcat (Android Studio) or Xcode console
 for the line:
-  [AdService] initializing Unity Ads { gameId: "6100246", platform: "android", testMode: false }
+  [AdService] initializing Start.io { appId: "179628114", platform: "android", testMode: false }
 EOF

@@ -9,15 +9,15 @@ interface BannerAdSlotProps {
   /**
    * Display variant.
    * - "fixed-bottom" (default): fixed at the bottom of the viewport — mirrors
-   *   how the real Unity banner will sit in the native build.
+   *   how the real Start.io banner will sit in the native build.
    * - "inline": legacy inline placeholder, kept for special pages if needed.
    */
   variant?: "fixed-bottom" | "inline";
 }
 
 /**
- * Web-only visual placeholder for the Unity Ads banner.
- * In native (Capacitor + Unity Ads), the real banner is rendered by the SDK
+ * Web-only visual placeholder for the Start.io banner.
+ * In native (Capacitor + Start.io), the real banner is rendered by the SDK
  * via AdService.showBanner() — this component renders nothing in that case.
  */
 export function BannerAdSlot({
@@ -32,7 +32,7 @@ export function BannerAdSlot({
   }, []);
 
   if (hide) return null;
-  // Native: real Unity banner is overlaid by the SDK — render nothing.
+  // Native: real Start.io banner is overlaid by the SDK — render nothing.
   if (native) return null;
 
   if (variant === "fixed-bottom") {
@@ -47,7 +47,7 @@ export function BannerAdSlot({
           <div className="flex items-center gap-2 text-muted-foreground/50">
             <Megaphone className="w-3.5 h-3.5" />
             <span className="text-[9px] font-mono uppercase tracking-[0.25em]">
-              Ad space · Unity Banner
+              Ad space · Start.io Banner
             </span>
           </div>
         </div>
@@ -69,7 +69,7 @@ export function BannerAdSlot({
         <div className="flex items-center gap-2 text-muted-foreground/40">
           <Megaphone className="w-4 h-4" />
           <span className="text-[10px] font-mono uppercase tracking-[0.25em]">
-            Ad space · Unity Banner
+            Ad space · Start.io Banner
           </span>
         </div>
       </div>

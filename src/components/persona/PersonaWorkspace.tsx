@@ -124,7 +124,7 @@ export function PersonaWorkspace() {
       });
       setInput("");
 
-      // Unity interstitial — only every Nth scan (default: every 3rd).
+      // Start.io interstitial — only every Nth scan (default: every 3rd).
       void maybeShowInterstitialAfterScan();
     } catch (e) {
       console.error(e);

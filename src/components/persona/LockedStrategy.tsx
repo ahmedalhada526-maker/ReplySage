@@ -13,7 +13,7 @@ interface Props {
 
 /**
  * Wraps the strategy content. While locked: heavy blur + gold CTA overlay.
- * On click: triggers Unity Rewarded video; on completion -> unlocks.
+ * On click: triggers Start.io rewarded video; on completion -> unlocks.
  */
 export function LockedStrategy({ unlocked, onUnlock, children }: Props) {
   const { t } = useTranslation();
