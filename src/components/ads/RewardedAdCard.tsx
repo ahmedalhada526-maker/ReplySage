@@ -18,9 +18,9 @@ interface RewardedAdCardProps {
 }
 
 /**
- * Premium card-style placement for Unity Ads "Rewarded Video".
+ * Premium card-style placement for Start.io "Rewarded Video".
  * Pure presentation in web — calls AdService.showRewarded() on click,
- * which is a no-op in web and a real Unity rewarded video in native build.
+ * which is a no-op in web and a real Start.io rewarded video in native build.
  */
 export function RewardedAdCard({
   title,

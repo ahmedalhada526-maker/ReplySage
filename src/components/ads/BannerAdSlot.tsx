@@ -16,8 +16,8 @@ interface BannerAdSlotProps {
 }
 
 /**
- * Web-only visual placeholder for the Unity Ads banner.
- * In native (Capacitor + Unity Ads), the real banner is rendered by the SDK
+ * Web-only visual placeholder for the Start.io banner.
+ * In native (Capacitor + Start.io), the real banner is rendered by the SDK
  * via AdService.showBanner() — this component renders nothing in that case.
  */
 export function BannerAdSlot({
@@ -47,7 +47,7 @@ export function BannerAdSlot({
           <div className="flex items-center gap-2 text-muted-foreground/50">
             <Megaphone className="w-3.5 h-3.5" />
             <span className="text-[9px] font-mono uppercase tracking-[0.25em]">
-              Ad space · Unity Banner
+              Ad space · Start.io Banner
             </span>
           </div>
         </div>
@@ -69,7 +69,7 @@ export function BannerAdSlot({
         <div className="flex items-center gap-2 text-muted-foreground/40">
           <Megaphone className="w-4 h-4" />
           <span className="text-[10px] font-mono uppercase tracking-[0.25em]">
-            Ad space · Unity Banner
+            Ad space · Start.io Banner
           </span>
         </div>
       </div>
