@@ -1,12 +1,12 @@
 /**
- * AdService — Unified ad abstraction layer for Unity Ads.
+ * AdService — Unified ad abstraction layer for **Start.io (StartApp)**.
  *
- * Supports two integration modes (auto-detected at runtime):
- *  1. Capacitor + `capacitor-unity-ads` plugin (preferred, ES module API).
- *  2. Legacy `window.UnityAds` JS bridge (custom WebView wrappers).
+ * Supported native bridges (auto-detected at runtime):
+ *  1. Capacitor plugin `StartApp` / `StartAppAds` (window.Capacitor.Plugins.*)
+ *  2. Cordova plugin `cordova-plugin-startapp` (global `window.StartApp`)
  *
- * On the plain web (no native shell): silent no-ops, rewarded simulates
- * completion so the UI flow can still be tested.
+ * On the plain web (no native shell): silent no-ops. Rewarded simulates
+ * completion so the unlock flow stays testable in the browser preview.
  */
 
 export type AdPlacement = "banner" | "interstitial" | "rewarded";
@@ -17,20 +17,20 @@ export interface RewardedResult {
   reason?: string;
 }
 
-interface UnityAdsBridge {
-  initialize: (gameId: string, testMode: boolean) => Promise<void>;
-  loadBanner: (placementId: string) => Promise<void>;
-  showBanner: (placementId: string, position: "top" | "bottom") => Promise<void>;
+interface StartIoBridge {
+  initialize: (appId: string, testMode: boolean) => Promise<void>;
+  loadBanner: () => Promise<void>;
+  showBanner: (position: "top" | "bottom") => Promise<void>;
   hideBanner: () => Promise<void>;
-  loadInterstitial: (placementId: string) => Promise<void>;
-  showInterstitial: (placementId: string) => Promise<void>;
-  loadRewarded: (placementId: string) => Promise<void>;
-  showRewarded: (placementId: string) => Promise<RewardedResult>;
+  loadInterstitial: () => Promise<void>;
+  showInterstitial: () => Promise<void>;
+  loadRewarded: () => Promise<void>;
+  showRewarded: () => Promise<RewardedResult>;
 }
 
 declare global {
   interface Window {
-    UnityAds?: UnityAdsBridge;
+    StartApp?: Record<string, any>;
     Capacitor?: {
       isNativePlatform?: () => boolean;
       getPlatform?: () => string;
@@ -40,26 +40,17 @@ declare global {
 }
 
 // ---------------------------------------------------------------------------
-// Unity Ads configuration
+// Start.io configuration
 // ---------------------------------------------------------------------------
 
-export const UNITY_GAME_IDS = {
-  android: "6100246",
-  ios: "6100247",
-} as const;
+/**
+ * Start.io App ID (from the Start.io dashboard → App → App ID).
+ * The same publisher account is declared in `public/app-ads.txt`.
+ */
+export const STARTIO_APP_ID = "179628114";
 
-export const UNITY_PLACEMENTS = {
-  android: {
-    banner: "Banner_Android",
-    interstitial: "Interstitial_Android",
-    rewarded: "Rewarded_Android",
-  },
-  ios: {
-    banner: "Banner_iOS",
-    interstitial: "Interstitial_iOS",
-    rewarded: "Rewarded_iOS",
-  },
-} as const;
+/** Enable Start.io "return ads" (ad when the user comes back to the app). */
+export const STARTIO_RETURN_ADS = false;
 
 export const INTERSTITIAL_SCAN_INTERVAL = 3;
 export const APP_OPEN_DELAY_MS = 1500;
@@ -80,46 +71,65 @@ export function isCapacitorNative(): boolean {
   return Boolean(window.Capacitor?.isNativePlatform?.());
 }
 
-/** True when any usable ad bridge is present (Capacitor plugin OR legacy JS bridge). */
-export function isNative(): boolean {
-  if (typeof window === "undefined") return false;
-  if (window.UnityAds) return true;
-  if (isCapacitorNative() && window.Capacitor?.Plugins?.UnityAds) return true;
-  return false;
-}
-
-function placements() {
-  return UNITY_PLACEMENTS[getPlatform()];
-}
-
-/** Resolve the active bridge (Capacitor plugin preferred). */
-function bridge(): UnityAdsBridge | null {
+function nativePlugin(): Record<string, any> | null {
   if (typeof window === "undefined") return null;
-  const cap = window.Capacitor?.Plugins?.UnityAds as any;
-  if (cap) {
-    // Adapter — capacitor-unity-ads exposes slightly different method names.
-    return {
-      initialize: (gameId, testMode) => cap.initialize?.({ gameId, testMode }) ?? Promise.resolve(),
-      loadBanner: (placementId) => cap.loadBanner?.({ placementId }) ?? Promise.resolve(),
-      showBanner: (placementId, position) =>
-        cap.showBanner?.({ placementId, position }) ?? Promise.resolve(),
-      hideBanner: () => cap.hideBanner?.() ?? Promise.resolve(),
-      loadInterstitial: (placementId) =>
-        cap.loadInterstitial?.({ placementId }) ?? Promise.resolve(),
-      showInterstitial: (placementId) =>
-        cap.showInterstitial?.({ placementId }) ?? Promise.resolve(),
-      loadRewarded: (placementId) => cap.loadRewarded?.({ placementId }) ?? Promise.resolve(),
-      showRewarded: async (placementId) => {
-        const r = await (cap.showRewarded?.({ placementId }) ??
-          Promise.resolve({ completed: true }));
-        return {
-          completed: Boolean(r?.completed ?? r?.finished ?? r?.state === "COMPLETED"),
-          reason: r?.reason,
-        };
-      },
-    };
+  const plugins = window.Capacitor?.Plugins;
+  const cap = plugins?.StartApp ?? plugins?.StartAppAds ?? plugins?.StartIo;
+  if (cap) return cap;
+  if (window.StartApp) return window.StartApp;
+  return null;
+}
+
+/** True when a usable Start.io bridge is present. */
+export function isNative(): boolean {
+  return nativePlugin() !== null;
+}
+
+/** Call a plugin method under any of its known aliases. */
+function call(p: Record<string, any>, names: string[], arg?: any): Promise<any> {
+  for (const n of names) {
+    if (typeof p[n] === "function") {
+      try {
+        return Promise.resolve(arg === undefined ? p[n]() : p[n](arg));
+      } catch (e) {
+        return Promise.reject(e);
+      }
+    }
   }
-  return window.UnityAds ?? null;
+  return Promise.resolve(undefined);
+}
+
+function bridge(): StartIoBridge | null {
+  const p = nativePlugin();
+  if (!p) return null;
+
+  return {
+    initialize: (appId, testMode) =>
+      call(p, ["initialize", "init", "setAppId", "start"], {
+        appId,
+        accountId: appId,
+        testMode,
+        returnAds: STARTIO_RETURN_ADS,
+        enableReturnAds: STARTIO_RETURN_ADS,
+      }),
+    loadBanner: () => call(p, ["loadBanner", "prepareBanner"], {}),
+    showBanner: (position) =>
+      call(p, ["showBanner", "createBanner"], { position, size: "BANNER" }),
+    hideBanner: () => call(p, ["hideBanner", "removeBanner"], {}),
+    loadInterstitial: () =>
+      call(p, ["loadInterstitial", "preloadInterstitial", "cacheInterstitial"], {}),
+    showInterstitial: () => call(p, ["showInterstitial", "showAd"], {}),
+    loadRewarded: () =>
+      call(p, ["loadRewardedVideo", "loadRewarded", "preloadRewardedVideo", "cacheRewarded"], {}),
+    showRewarded: async () => {
+      const r = await call(p, ["showRewardedVideo", "showRewarded"], {});
+      // Cordova/Capacitor variants report completion differently.
+      const completed = Boolean(
+        r?.completed ?? r?.rewarded ?? r?.finished ?? r?.state === "COMPLETED" ?? true,
+      );
+      return { completed, reason: r?.reason };
+    },
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -130,18 +140,24 @@ let initPromise: Promise<void> | null = null;
 
 export function initAds(testMode = false): Promise<void> {
   if (!isNative()) {
-    console.info("[AdService] not native — ads disabled (web/WebView without plugin)");
+    console.info("[AdService] not native — Start.io disabled (web/WebView without plugin)");
     return Promise.resolve();
   }
   if (initPromise) return initPromise;
-  const gameId = UNITY_GAME_IDS[getPlatform()];
   const b = bridge();
   if (!b) return Promise.resolve();
-  console.info("[AdService] initializing Unity Ads", { gameId, platform: getPlatform(), testMode });
-  initPromise = b.initialize(gameId, testMode).catch((e) => {
-    console.warn("[AdService] Unity init failed", e);
-    initPromise = null;
+  console.info("[AdService] initializing Start.io", {
+    appId: STARTIO_APP_ID,
+    platform: getPlatform(),
+    testMode,
   });
+  initPromise = b
+    .initialize(STARTIO_APP_ID, testMode)
+    .then(() => undefined)
+    .catch((e) => {
+      console.warn("[AdService] Start.io init failed", e);
+      initPromise = null;
+    });
   return initPromise;
 }
 
@@ -158,9 +174,8 @@ export async function showInterstitial(): Promise<boolean> {
     return false;
   }
   try {
-    const id = placements().interstitial;
-    await b.loadInterstitial(id);
-    await b.showInterstitial(id);
+    await b.loadInterstitial();
+    await b.showInterstitial();
     return true;
   } catch (e) {
     console.warn("[AdService] interstitial failed", e);
@@ -194,7 +209,7 @@ export function scheduleAppOpenAd(delayMs: number = APP_OPEN_DELAY_MS): void {
 }
 
 // ---------------------------------------------------------------------------
-// Rewarded
+// Rewarded video
 // ---------------------------------------------------------------------------
 
 export async function showRewarded(): Promise<RewardedResult> {
@@ -204,9 +219,8 @@ export async function showRewarded(): Promise<RewardedResult> {
     return { completed: true, reason: "web_simulated" };
   }
   try {
-    const id = placements().rewarded;
-    await b.loadRewarded(id);
-    return await b.showRewarded(id);
+    await b.loadRewarded();
+    return await b.showRewarded();
   } catch (e) {
     console.warn("[AdService] rewarded failed", e);
     return { completed: false, reason: "error" };
@@ -224,9 +238,8 @@ export async function showBanner(position: "top" | "bottom" = "bottom"): Promise
   if (!b) return false;
   if (bannerVisible) return true;
   try {
-    const id = placements().banner;
-    await b.loadBanner(id);
-    await b.showBanner(id, position);
+    await b.loadBanner();
+    await b.showBanner(position);
     bannerVisible = true;
     return true;
   } catch (e) {
