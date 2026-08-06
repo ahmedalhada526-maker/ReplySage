@@ -1,8 +1,8 @@
 /**
  * One-shot ad bootstrap. Imported & invoked from the root component.
  * On web: every call is a silent no-op.
- * On native (Capacitor): initializes Unity Ads, shows the bottom banner,
- *   and schedules the App-Open ad.
+ * On native (Capacitor + Start.io plugin): initializes Start.io,
+ *   shows the bottom banner, and schedules the App-Open ad.
  */
 import { initAds, showBanner, scheduleAppOpenAd, isNative } from "./AdService";
 
