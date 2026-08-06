@@ -124,9 +124,8 @@ function bridge(): StartIoBridge | null {
     showRewarded: async () => {
       const r = await call(p, ["showRewardedVideo", "showRewarded"], {});
       // Cordova/Capacitor variants report completion differently.
-      const completed = Boolean(
-        r?.completed ?? r?.rewarded ?? r?.finished ?? r?.state === "COMPLETED" ?? true,
-      );
+      const raw = r?.completed ?? r?.rewarded ?? r?.finished;
+      const completed = raw === undefined ? r?.state === "COMPLETED" || r === undefined : Boolean(raw);
       return { completed, reason: r?.reason };
     },
   };
