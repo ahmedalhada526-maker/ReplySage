@@ -9,7 +9,7 @@ interface BannerAdSlotProps {
   /**
    * Display variant.
    * - "fixed-bottom" (default): fixed at the bottom of the viewport — mirrors
-   *   how the real Unity banner will sit in the native build.
+   *   how the real Start.io banner will sit in the native build.
    * - "inline": legacy inline placeholder, kept for special pages if needed.
    */
   variant?: "fixed-bottom" | "inline";
@@ -32,7 +32,7 @@ export function BannerAdSlot({
   }, []);
 
   if (hide) return null;
-  // Native: real Unity banner is overlaid by the SDK — render nothing.
+  // Native: real Start.io banner is overlaid by the SDK — render nothing.
   if (native) return null;
 
   if (variant === "fixed-bottom") {
