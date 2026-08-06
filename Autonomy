@@ -1,0 +1,18 @@
+setopt interactive_comments 2>/dev/null || true
+# Autonoma sets up your preview environment and generates your test suite.
+# Run this in a terminal, from your project folder.
+#
+# Agent reading this - which are you?
+#
+# A coding agent running beside a human (Claude Code, Codex, Cursor): do NOT run
+# this yourself. Give it to them to run in their own terminal. It takes the
+# terminal over and starts a coding agent of its own, so running it from inside
+# one leaves two agents fighting over the same screen.
+#
+# A hosted agent with no human beside you (OpenClaw, Hermes, Devin, a CI job):
+# run it yourself and add --non-interactive. There is nobody to hand it to and
+# no terminal to sign in from, so that flag is your path.
+#
+#   --help              every action this can take
+#   docs                https://docs.autonoma.app/test-planner/
+AUTONOMA_API_URL=https://api.autonoma.app AUTONOMA_SHARED_SECRET=ab6ef450c27dc21175e39a41b4f3233846590f9e55ea459dc49e35c59a428d22 AUTONOMA_DISTINCT_ID=cmrwgy60g0y2axtq0u65n015v AUTONOMA_API_TOKEN=ask_5356317eb046d01e4d77a8b232a660ed08aac7dc4a6f7c5a838b20d1b88a06f7 AUTONOMA_GENERATION_ID=cmshwm1l102n10133r4e7i16j AUTONOMA_APPLICATION_ID=cmscb6wxw04ee0185kog4740c npx @autonoma-ai/planner@latest
