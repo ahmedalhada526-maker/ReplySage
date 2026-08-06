@@ -3,8 +3,8 @@ import type { CapacitorConfig } from "@capacitor/cli";
 /**
  * Capacitor configuration for ReplySage.
  *
- * App ID matches the Unity Ads dashboard registration so that
- * `capacitor-unity-ads` can resolve the correct Game ID at runtime.
+ * Ads are served by Start.io (StartApp). The App ID below must match the
+ * app registered in the Start.io dashboard.
  */
 const config: CapacitorConfig = {
   appId: "app.persona.pulse",
@@ -24,11 +24,10 @@ const config: CapacitorConfig = {
     contentInset: "always",
   },
   plugins: {
-    UnityAds: {
-      // These IDs are read by capacitor-unity-ads at init time.
-      androidGameId: "6100246",
-      iosGameId: "6100247",
+    StartApp: {
+      appId: "179628114",
       testMode: false,
+      returnAds: false,
     },
     SplashScreen: {
       launchShowDuration: 1500,
@@ -37,5 +36,6 @@ const config: CapacitorConfig = {
     },
   },
 };
+
 
 export default config;
